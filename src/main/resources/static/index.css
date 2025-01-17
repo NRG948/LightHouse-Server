@@ -1,0 +1,57 @@
+body,
+h1 {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    margin: 0;
+}
+
+.button {
+    background-color: black;
+    border-color: gray;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+textarea {
+    background-color: black;
+    border-color: gray;
+    color: white;
+    padding: 1rem;
+    height: 5rem;
+    text-align: inherit;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+#content {
+    height: 50rem;
+    width: auto;
+}
+
+canvas{
+    background-color: white;
+    color: black;
+}
+
+/* Navigation Bar Stuff */
+
+.navButton {
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+}
+
+#logo {
+    margin-right: auto;
+    align-self: inherit;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    max-height: 5rem;
+}
