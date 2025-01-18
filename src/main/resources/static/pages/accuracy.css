@@ -1,0 +1,32 @@
+body,
+p {
+  background-color: black;
+  font-family: Arial;
+  color: white;
+  margin: 0;
+}
+
+#reload {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.box {
+  border: 1px solid;
+  padding: 20px;
+  width: 200px;
+  /* border-radius: 10px; */
+  vertical-align: top;
+  text-align: left;
+  line-height: 5px;
+}
+
+.flexible {
+  display: flex;
+  flex-direction: row;
+  max-height: 40px;
+  margin-bottom: 10px;
+}
