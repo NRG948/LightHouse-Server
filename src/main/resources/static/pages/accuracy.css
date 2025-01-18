@@ -14,19 +14,35 @@ p {
   cursor: pointer;
 }
 
-.box {
-  border: 1px solid;
-  padding: 20px;
-  width: 200px;
-  /* border-radius: 10px; */
-  vertical-align: top;
-  text-align: left;
-  line-height: 5px;
-}
+/* CSS for a match box */
 
-.flexible {
+.matchBox {
+  border: 0.15rem solid;
+  border-radius: 1rem;
   display: flex;
   flex-direction: row;
-  max-height: 40px;
-  margin-bottom: 10px;
+  align-content: stretch;
+  margin: 1rem;
+  height: 3rem;
+}
+
+.matchInfoEntry {
+  border: 0.08rem solid;
+  border-top: none;
+  border-bottom: none;
+  flex-grow: 1;
+  align-content: center;
+  text-align: center;
+}
+
+.match {
+  border-left: none;
+}
+
+.alliance {
+  flex-grow: 2;
+}
+
+.accuracy {
+  border-right: none;
 }
