@@ -17,19 +17,28 @@ p {
 /* CSS for a match box */
 
 .matchBox {
+  background-color: black;
+  color: white;
+  cursor: pointer;
   border: 0.15rem solid;
   border-radius: 1rem;
+  
   display: flex;
   flex-direction: row;
   align-content: stretch;
-  margin: 1rem;
+
+  width: 80%;
   height: 3rem;
+  margin: 1rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .matchInfoEntry {
   border: 0.08rem solid;
   border-top: none;
   border-bottom: none;
+  
   flex-grow: 1;
   align-content: center;
   text-align: center;

@@ -32,20 +32,39 @@
     -->
   </div>
 
-  <div class="matchBox">
-    <div class="matchInfoEntry match">
-      Match #1
-    </div>
-    <div class="matchInfoEntry alliance">
-      Red Alliance: 948, 9994, 2980
-    </div>
-    <div class="matchInfoEntry score">
-      Score: 948
-    </div>
-    <div class="matchInfoEntry accuracy">
-      98%
-    </div>
+  <div id="matchBoxContainer">
+    <button id="1" class="matchBox">
+      <div class="matchInfoEntry match">Match #1</div>
+      <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
+      <div class="matchInfoEntry score">Score: 948</div>
+      <div class="matchInfoEntry accuracy">948%</div>
+    </button>
+    <button id="2" class="matchBox">
+      <div class="matchInfoEntry match">Match #2</div>
+      <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
+      <div class="matchInfoEntry score">Score: 948</div>
+      <div class="matchInfoEntry accuracy">948%</div>
+    </button>
+    <button id="3" class="matchBox">
+      <div class="matchInfoEntry match">Match #3</div>
+      <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
+      <div class="matchInfoEntry score">Score: 948</div>
+      <div class="matchInfoEntry accuracy">948%</div>
+    </button>
   </div>
+
+  <script>
+    var matchBoxes = document.getElementsByClassName("matchBox");
+
+    for (let i = 0; i < matchBoxes.length; i++) {
+      matchBoxes[i].onclick = onMatchBoxPress;
+      console.log(matchBoxes[i]);
+    }
+
+    function onMatchBoxPress() {
+      console.log("you pressed matchbox #" + this.id)
+    }
+  </script>
 
 </body>
 
