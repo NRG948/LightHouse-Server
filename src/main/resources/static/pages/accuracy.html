@@ -32,6 +32,47 @@
     -->
   </div>
 
+  <div id="matchViewer">
+    <div class="team"></div>
+    <div class="team"></div>
+    <div class="team"></div>
+  </div>
+
+  <script>
+    var scouterEntry1 = {
+      "MatchNumber": 1,
+      "AllianceColor": "Red",
+      "TeamNumber": 948
+      // there will be more 
+    }
+
+    var scouterEntry2 = {
+      "MatchNumber": 1,
+      "AllianceColor": "Red",
+      "TeamNumber": 9994
+      // there will be more 
+    }
+    var scouterEntry3 = {
+      "MatchNumber": 1,
+      "AllianceColor": "Red",
+      "TeamNumber": 2980
+      // there will be more 
+    }
+
+    var match = [scouterEntry1, scouterEntry2, scouterEntry3]
+
+    var matchViewer = document.getElementById("matchViewer")
+
+    for (let i = 0; i < match.length; i++) {
+      console.log(match[i])
+      for (const [key, value] of Object.entries(match[i])) {
+        matchViewer.children[i].innerHTML += "<div>" + key + ": </div>" + "<input type=\"text\" value=\"" + value + "\">";
+        console.log(key + ": " + value);
+      }
+    }
+
+  </script>
+
   <div id="matchBoxContainer">
     <button id="1" class="matchBox">
       <div class="matchInfoEntry match">Match #1</div>
@@ -58,7 +99,6 @@
 
     for (let i = 0; i < matchBoxes.length; i++) {
       matchBoxes[i].onclick = onMatchBoxPress;
-      console.log(matchBoxes[i]);
     }
 
     function onMatchBoxPress() {
