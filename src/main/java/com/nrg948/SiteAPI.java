@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nrg948.data.AtlasDTO;
 import com.nrg948.data.AtlasDatabase;
 import com.nrg948.data.AtlasEntry;
+import com.nrg948.data.ChronosDTO;
 import com.nrg948.data.ChronosDatabase;
 import com.nrg948.data.ChronosEntry;
+import com.nrg948.data.DTOMapper;
+import com.nrg948.data.HPDTO;
 import com.nrg948.data.HPDatabase;
 import com.nrg948.data.HPEntry;
+import com.nrg948.data.PitDTO;
 import com.nrg948.data.PitDatabase;
 import com.nrg948.data.PitEntry;
 
@@ -31,74 +36,100 @@ public class SiteAPI {
 		
 	}
 	
-	@GetMapping("/api/atlas")
-	public List<AtlasEntry> getAtlas() {
+	/*
+	 * use these for database manager operations
+	 */
+	@GetMapping("/int/atlas")
+	public List<AtlasEntry> intAtlas() {
 		return atlas.findAll();
 	}
-	
-	@GetMapping("/api/chronos")
-	public List<ChronosEntry> getChronos() {
+	@GetMapping("/int/chronos")
+	public List<ChronosEntry> intChronos() {
 		return chronos.findAll();
 	}
-	
-	@GetMapping("/api/pit")
-	public List<PitEntry> getPit() {
+	@GetMapping("/int/pit")
+	public List<PitEntry> intPit() {
 		return pit.findAll();
 	}
-	
-	@GetMapping("/api/hp")
-	public List<HPEntry> getHP() {
+	@GetMapping("/int/hp")
+	public List<HPEntry> intHP() {
 		return hp.findAll();
 	}
 	
+	/*
+	 * use these for transferring on/off phones
+	 */
+	@GetMapping("/api/atlas")
+	public List<AtlasDTO> getAtlas() {
+		return atlas.findAll().stream().map(DTOMapper::fromEntry).toList();
+	}
+	@GetMapping("/api/chronos")
+	public List<ChronosDTO> getChronos() {
+		return chronos.findAll().stream().map(DTOMapper::fromEntry).toList();
+	}
+	@GetMapping("/api/pit")
+	public List<PitDTO> getPit() {
+		return pit.findAll().stream().map(DTOMapper::fromEntry).toList();
+	}
+	@GetMapping("/api/hp")
+	public List<HPDTO> getHP() {
+		return hp.findAll().stream().map(DTOMapper::fromEntry).toList();
+	}
+	
+	
+	
 	@PostMapping("/api/atlas")
-	public ResponseEntity<String> postAtlas(@RequestBody List<AtlasEntry> entries) {
-		for(AtlasEntry entry : entries) {
+	public ResponseEntity<String> postAtlas(@RequestBody List<AtlasDTO> entries) {
+		for(AtlasDTO entry : entries) {
 			Optional<AtlasEntry> pulled = atlas.findByScouterNameAndTeamNumberAndDriverStationAndMatchTypeAndMatchNumberAndReplay
 				(entry.getScouterName(), entry.getTeamNumber(), entry.getDriverStation(), entry.getMatchType(), entry.getMatchNumber(),entry.getReplay());
+			AtlasEntry toSave = DTOMapper.fromDTO(entry);
 			if(pulled.isPresent()) {
-				entry.setId(pulled.get().getId());
+				toSave.setId(pulled.get().getId());
 			}
-			atlas.save(entry);
+			atlas.save(toSave);
 		}
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/chronos")
-	public ResponseEntity<String> postChronos(@RequestBody List<ChronosEntry> entries) {
-		for(ChronosEntry entry : entries) {
+	public ResponseEntity<String> postChronos(@RequestBody List<ChronosDTO> entries) {
+		for(ChronosDTO entry : entries) {
 			Optional<ChronosEntry> pulled = chronos.findByScouterNameAndMatchTypeAndMatchNumberAndReplayAndDriverStationAndTeamNumber
 				(entry.getScouterName(), entry.getMatchType(), entry.getMatchNumber(), entry.getReplay(), entry.getDriverStation(), entry.getTeamNumber());
+			ChronosEntry toSave = DTOMapper.fromDTO(entry);
 			if(pulled.isPresent()) {
-				entry.setId(pulled.get().getId());
+				toSave.setId(pulled.get().getId());
 			}
-			chronos.save(entry);
+			chronos.save(toSave);
 		}
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/pit")
-	public ResponseEntity<String> postPit(@RequestBody List<PitEntry> entries) {
-		for(PitEntry entry : entries) {
+	public ResponseEntity<String> postPit(@RequestBody List<PitDTO> entries) {
+		for(PitDTO entry : entries) {
 			Optional<PitEntry> pulled = pit.findByTeamNameAndInterviewerNameAndIntervieweeName
 				(entry.getTeamName(), entry.getInterviewerName(), entry.getIntervieweeName());
+			PitEntry toSave = DTOMapper.fromDTO(entry);
 			if(pulled.isPresent()) {
-				entry.setId(pulled.get().getId());
+				toSave.setId(pulled.get().getId());
 			}
-			pit.save(entry);
+			pit.save(toSave);
 		}
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/hp")
-	public ResponseEntity<String> postHP(@RequestBody List<HPEntry> entries) {
-		for(HPEntry entry : entries) {
+	public ResponseEntity<String> postHP(@RequestBody List<HPDTO> entries) {
+		for(HPDTO entry : entries) {
 			Optional<HPEntry> pulled = hp.findByMatchTypeAndReplayAndMatchNumberAndScouterName
 				(entry.getMatchType(), entry.getReplay(), entry.getMatchNumber(), entry.getScouterName());
+			HPEntry toSave = DTOMapper.fromDTO(entry);
 			if(pulled.isPresent()) {
-				entry.setId(pulled.get().getId());
+				toSave.setId(pulled.get().getId());
 			}
-			hp.save(entry);
+			hp.save(toSave);
 		}
 		return ResponseEntity.ok("OK");
 	}
