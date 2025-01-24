@@ -67,6 +67,10 @@ input[type=text] {
   margin-left: auto;
 }
 
+.matchBox:hover {
+  opacity: 0.59;
+}
+
 .matchInfoEntry {
   border: 0.08rem solid;
   border-top: none;
@@ -87,4 +91,11 @@ input[type=text] {
 
 .accuracy {
   border-right: none;
+}
+
+#topBoxesContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
 }

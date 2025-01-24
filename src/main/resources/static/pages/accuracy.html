@@ -5,12 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="accuracy.css">
+  <title>Accuracy Page</title>
+
 </head>
 
 <body>
   <div>
     <button id="reload">
       reload data
+    </button>
+
+    <button onclick="confirmReset()">
+      reset boxes
     </button>
   </div>
 
@@ -73,6 +79,8 @@
 
   </script>
 
+  <div id="topBoxesContainer"></div>
+
   <div id="matchBoxContainer">
     <button id="1" class="matchBox">
       <div class="matchInfoEntry match">Match #1</div>
@@ -96,13 +104,42 @@
 
   <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
+    var topBoxesContainer = document.getElementById("topBoxesContainer");
 
     for (let i = 0; i < matchBoxes.length; i++) {
       matchBoxes[i].onclick = onMatchBoxPress;
     }
 
     function onMatchBoxPress() {
-      console.log("you pressed matchbox #" + this.id)
+      console.log("You pressed matchbox #" + this.id);
+
+      var topBox = document.createElement("div");
+      topBox.className = "topBox";
+      topBox.id = "topBox-" + this.id;
+
+      var existingBox = document.getElementById("topBox-" + this.id);
+      if (existingBox) {
+        console.log("Box already exists, ignoring click.");
+        return;
+      }
+
+      var matchInfo = this.getElementsByClassName("matchInfoEntry");
+      for (let i = 0; i < matchInfo.length; i++) {
+        let info = document.createElement("div");
+        info.innerText = matchInfo[i].innerText;
+        topBox.appendChild(info);
+      }
+
+      topBoxesContainer.appendChild(topBox);
+
+      this.style.display = "none";
+    }
+
+    function confirmReset() {
+      const userConfirmation = confirm("Are you sure you want to reset the boxes?");
+      if (userConfirmation) {
+        location.reload();
+      }
     }
   </script>
 
