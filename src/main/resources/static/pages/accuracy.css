@@ -71,6 +71,10 @@ input[type=text] {
   opacity: 0.59;
 }
 
+.clicked {
+  opacity: 0.59;
+}
+
 .matchInfoEntry {
   border: 0.08rem solid;
   border-top: none;

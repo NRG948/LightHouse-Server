@@ -105,6 +105,13 @@
   <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
     var topBoxesContainer = document.getElementById("topBoxesContainer");
+    const clickedBoxes = document.querySelectorAll(".matchBox");
+
+    clickedBoxes.forEach((matchBox) => {
+      matchBox.addEventListener("click", function () {
+        this.classList.add("clicked");
+      })
+    })
 
     for (let i = 0; i < matchBoxes.length; i++) {
       matchBoxes[i].onclick = onMatchBoxPress;
@@ -112,6 +119,9 @@
 
     function onMatchBoxPress() {
       console.log("You pressed matchbox #" + this.id);
+
+      const element = document.getElementById(this.id);
+      element
 
       var topBox = document.createElement("div");
       topBox.className = "topBox";
@@ -131,8 +141,6 @@
       }
 
       topBoxesContainer.appendChild(topBox);
-
-      this.style.display = "none";
     }
 
     function confirmReset() {
