@@ -53,13 +53,13 @@
     }
 
     var scouterEntry2 = {
-      "MatchNumber": 1,
+      "MatchNumber": 2,
       "AllianceColor": "Red",
       "TeamNumber": 9994
       // there will be more 
     }
     var scouterEntry3 = {
-      "MatchNumber": 1,
+      "MatchNumber": 3,
       "AllianceColor": "Red",
       "TeamNumber": 2980
       // there will be more 
@@ -105,43 +105,35 @@
   <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
     var topBoxesContainer = document.getElementById("topBoxesContainer");
-    const clickedBoxes = document.querySelectorAll(".matchBox");
 
-    clickedBoxes.forEach((matchBox) => {
+    Array.from(matchBoxes).forEach((matchBox) => {
       matchBox.addEventListener("click", function () {
-        this.classList.add("clicked");
-      })
-    })
+        if (this.classList.contains("clicked")) {
+          this.classList.remove("clicked");
 
-    for (let i = 0; i < matchBoxes.length; i++) {
-      matchBoxes[i].onclick = onMatchBoxPress;
-    }
+          var topBox = document.getElementById("topBox-" + this.id);
+          if (topBox) {
+            topBoxesContainer.removeChild(topBox);
+          }
+        }
+        else {
+          this.classList.add("clicked");
 
-    function onMatchBoxPress() {
-      console.log("You pressed matchbox #" + this.id);
+          var topBox = document.createElement("div");
+          topBox.className = "topBox";
+          topBox.id = "topBox-" + this.id;
 
-      const element = document.getElementById(this.id);
-      element
+          var matchInfo = this.getElementsByClassName("matchInfoEntry");
+          for (let i = 0; i < matchInfo.length; i++) {
+            let info = document.createElement("div");
+            info.innerText = matchInfo[i].innerText;
+            topBox.appendChild(info);
+          }
 
-      var topBox = document.createElement("div");
-      topBox.className = "topBox";
-      topBox.id = "topBox-" + this.id;
-
-      var existingBox = document.getElementById("topBox-" + this.id);
-      if (existingBox) {
-        console.log("Box already exists, ignoring click.");
-        return;
-      }
-
-      var matchInfo = this.getElementsByClassName("matchInfoEntry");
-      for (let i = 0; i < matchInfo.length; i++) {
-        let info = document.createElement("div");
-        info.innerText = matchInfo[i].innerText;
-        topBox.appendChild(info);
-      }
-
-      topBoxesContainer.appendChild(topBox);
-    }
+          topBoxesContainer.appendChild(topBox);
+        }
+      });
+    });
 
     function confirmReset() {
       const userConfirmation = confirm("Are you sure you want to reset the boxes?");
