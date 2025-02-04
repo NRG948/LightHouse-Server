@@ -104,3 +104,15 @@ input[type=text] {
   border-radius: 1rem;
   cursor: pointer;
 }
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  max-height: 5rem;
+}
+
+.navButton {
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+}
