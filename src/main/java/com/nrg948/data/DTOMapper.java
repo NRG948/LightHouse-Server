@@ -2,78 +2,111 @@ package com.nrg948.data;
 
 public class DTOMapper {
 	public static AtlasDTO fromEntry(AtlasEntry entry) {
-		if (entry == null) {
-			return null;
-		}
-		AtlasDTO dto = new AtlasDTO();
-		dto.setScouterName(entry.getScouterName());
-		dto.setTeamNumber(entry.getTeamNumber());
-		dto.setDriverStation(entry.getDriverStation());
-		dto.setMatchType(entry.getMatchType());
-		dto.setMatchNumber(entry.getMatchNumber());
-		dto.setReplay(entry.getReplay());
-		dto.setStartingPosition(entry.getStartingPosition());
-		dto.setPreload(entry.getPreload());
-		dto.setAutoQuantitative(entry.getAutoQuantitative());
-		dto.setCoralPickupsStation(entry.getCoralPickupsStation());
-		dto.setCoralPickupsGround(entry.getCoralPickupsGround());
-		dto.setCoralScoredL1(entry.getCoralScoredL1());
-		dto.setCoralScoredL2(entry.getCoralScoredL2());
-		dto.setCoralScoredL3(entry.getCoralScoredL3());
-		dto.setCoralScoredL4(entry.getCoralScoredL4());
-		dto.setAlgaeremoveL2(entry.getAlgaeremoveL2());
-		dto.setAlgaeremoveL3(entry.getAlgaeremoveL3());
-		dto.setAlgaescoreProcessor(entry.getAlgaescoreProcessor());
-		dto.setAlgaescoreNet(entry.getAlgaescoreNet());
-		dto.setAlgaemissProcessor(entry.getAlgaemissProcessor());
-		dto.setAlgaemissNet(entry.getAlgaemissNet());
-		dto.setEndLocation(entry.getEndLocation());
-		dto.setAttemptedClimb(entry.getAttemptedClimb());
-		dto.setClimbStartTime(entry.getClimbStartTime());
-		dto.setRobotDisabled(entry.getRobotDisabled());
-		dto.setRobotDisableReason(entry.getRobotDisableReason());
-		dto.setDataQuality(entry.getDataQuality());
-		dto.setComments(entry.getComments());
-		dto.setCrossedMidline(entry.getCrossedMidline());
-		return dto;
+	    if (entry == null) {
+	        return null;
+	    }
+
+	    AtlasDTO dto = new AtlasDTO();
+
+	    // Mapping scalar values
+	    dto.setScouterName(entry.getScouterName());
+	    dto.setTeamNumber(entry.getTeamNumber());
+	    dto.setDriverStation(entry.getDriverStation());
+	    dto.setMatchType(entry.getMatchType());
+	    dto.setMatchNumber(entry.getMatchNumber());
+	    dto.setReplay(entry.getReplay());
+	    dto.setStartingPosition(entry.getStartingPosition());
+	    dto.setPreload(entry.getPreload());
+
+	    // Mapping arrays
+	    dto.setAutoCoralScored(entry.getAutoCoralScored()); // Assuming AtlasEntry has a method getAutoCoralScored()
+	    dto.setAutoAlgaeRemoved(entry.getAutoAlgaeRemoved()); // Assuming AtlasEntry has a method getAutoAlgaeRemoved()
+
+	    // Mapping other numeric fields
+	    dto.setCoralPickupsStation(entry.getCoralPickupsStation());
+	    dto.setCoralPickupsGround(entry.getCoralPickupsGround());
+	    dto.setCoralScoredL1(entry.getCoralScoredL1());
+	    dto.setCoralScoredL2(entry.getCoralScoredL2());
+	    dto.setCoralScoredL3(entry.getCoralScoredL3());
+	    dto.setCoralScoredL4(entry.getCoralScoredL4());
+	    dto.setAlgaeremoveL2(entry.getAlgaeremoveL2());
+	    dto.setAlgaeremoveL3(entry.getAlgaeremoveL3());
+	    dto.setAlgaescoreProcessor(entry.getAlgaescoreProcessor());
+	    dto.setAlgaescoreNet(entry.getAlgaescoreNet());
+	    dto.setAlgaemissProcessor(entry.getAlgaemissProcessor());
+	    dto.setAlgaemissNet(entry.getAlgaemissNet());
+
+	    // Mapping other string fields
+	    dto.setEndLocation(entry.getEndLocation());
+	    dto.setAttemptedClimb(entry.getAttemptedClimb());
+	    dto.setClimbStartTime(entry.getClimbStartTime());
+	    dto.setRobotDisabled(entry.getRobotDisabled());
+	    dto.setRobotDisableReason(entry.getRobotDisableReason());
+	    dto.setDataQuality(entry.getDataQuality());
+	    dto.setComments(entry.getComments());
+	    dto.setCrossedMidline(entry.getCrossedMidline());
+	    dto.setAutoBargeCS(entry.getAutoBargeCS());
+	    dto.setAutoProcessorCS(entry.getAutoProcessorCS());
+	    dto.setLayout(entry.getLayout());
+	    dto.setExportName(entry.getExportName());
+	    dto.setTimestamp(entry.getTimestamp());
+
+	    return dto;
+	}
+	
+	public static AtlasEntry fromDTO(AtlasDTO dto) {
+	    if (dto == null) {
+	        return null;
+	    }
+
+	    AtlasEntry entry = new AtlasEntry();
+
+	    // Mapping scalar values
+	    entry.setScouterName(dto.getScouterName());
+	    entry.setTeamNumber(dto.getTeamNumber());
+	    entry.setDriverStation(dto.getDriverStation());
+	    entry.setMatchType(dto.getMatchType());
+	    entry.setMatchNumber(dto.getMatchNumber());
+	    entry.setReplay(dto.getReplay());
+	    entry.setStartingPosition(dto.getStartingPosition());
+	    entry.setPreload(dto.getPreload());
+
+	    // Mapping arrays
+	    entry.setAutoCoralScored(dto.getAutoCoralScored()); // Assuming AtlasDTO has getAutoCoralScored()
+	    entry.setAutoAlgaeRemoved(dto.getAutoAlgaeRemoved()); // Assuming AtlasDTO has getAutoAlgaeRemoved()
+
+	    // Mapping other numeric fields
+	    entry.setCoralPickupsStation(dto.getCoralPickupsStation());
+	    entry.setCoralPickupsGround(dto.getCoralPickupsGround());
+	    entry.setCoralScoredL1(dto.getCoralScoredL1());
+	    entry.setCoralScoredL2(dto.getCoralScoredL2());
+	    entry.setCoralScoredL3(dto.getCoralScoredL3());
+	    entry.setCoralScoredL4(dto.getCoralScoredL4());
+	    entry.setAlgaeremoveL2(dto.getAlgaeremoveL2());
+	    entry.setAlgaeremoveL3(dto.getAlgaeremoveL3());
+	    entry.setAlgaescoreProcessor(dto.getAlgaescoreProcessor());
+	    entry.setAlgaescoreNet(dto.getAlgaescoreNet());
+	    entry.setAlgaemissProcessor(dto.getAlgaemissProcessor());
+	    entry.setAlgaemissNet(dto.getAlgaemissNet());
+
+	    // Mapping other string fields
+	    entry.setEndLocation(dto.getEndLocation());
+	    entry.setAttemptedClimb(dto.getAttemptedClimb());
+	    entry.setClimbStartTime(dto.getClimbStartTime());
+	    entry.setRobotDisabled(dto.getRobotDisabled());
+	    entry.setRobotDisableReason(dto.getRobotDisableReason());
+	    entry.setDataQuality(dto.getDataQuality());
+	    entry.setComments(dto.getComments());
+	    entry.setCrossedMidline(dto.getCrossedMidline());
+	    entry.setAutoBargeCS(dto.getAutoBargeCS());
+	    entry.setAutoProcessorCS(dto.getAutoProcessorCS());
+	    entry.setLayout(dto.getLayout());
+	    entry.setExportName(dto.getExportName());
+	    entry.setTimestamp(dto.getTimestamp());
+
+	    return entry;
 	}
 
-	public static AtlasEntry fromDTO(AtlasDTO dto) {
-		if (dto == null) {
-			return null;
-		}
-		AtlasEntry entry = new AtlasEntry();
-		entry.setScouterName(dto.getScouterName());
-		entry.setTeamNumber(dto.getTeamNumber());
-		entry.setDriverStation(dto.getDriverStation());
-		entry.setMatchType(dto.getMatchType());
-		entry.setMatchNumber(dto.getMatchNumber());
-		entry.setReplay(dto.getReplay());
-		entry.setStartingPosition(dto.getStartingPosition());
-		entry.setPreload(dto.getPreload());
-		entry.setAutoQuantitative(dto.getAutoQuantitative());
-		entry.setCoralPickupsStation(dto.getCoralPickupsStation());
-		entry.setCoralPickupsGround(dto.getCoralPickupsGround());
-		entry.setCoralScoredL1(dto.getCoralScoredL1());
-		entry.setCoralScoredL2(dto.getCoralScoredL2());
-		entry.setCoralScoredL3(dto.getCoralScoredL3());
-		entry.setCoralScoredL4(dto.getCoralScoredL4());
-		entry.setAlgaeremoveL2(dto.getAlgaeremoveL2());
-		entry.setAlgaeremoveL3(dto.getAlgaeremoveL3());
-		entry.setAlgaescoreProcessor(dto.getAlgaescoreProcessor());
-		entry.setAlgaescoreNet(dto.getAlgaescoreNet());
-		entry.setAlgaemissProcessor(dto.getAlgaemissProcessor());
-		entry.setAlgaemissNet(dto.getAlgaemissNet());
-		entry.setEndLocation(dto.getEndLocation());
-		entry.setAttemptedClimb(dto.getAttemptedClimb());
-		entry.setClimbStartTime(dto.getClimbStartTime());
-		entry.setRobotDisabled(dto.getRobotDisabled());
-		entry.setRobotDisableReason(dto.getRobotDisableReason());
-		entry.setDataQuality(dto.getDataQuality());
-		entry.setComments(dto.getComments());
-		entry.setCrossedMidline(dto.getCrossedMidline());
-		return entry;
-	}
 	
 	public static ChronosDTO fromEntry(ChronosEntry entry) {
 		if(entry == null) return null;

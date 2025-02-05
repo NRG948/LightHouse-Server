@@ -76,61 +76,52 @@ public class SiteAPI {
 		return hp.findAll().stream().map(DTOMapper::fromEntry).toList();
 	}
 	
-	
-	
 	@PostMapping("/api/atlas")
-	public ResponseEntity<String> postAtlas(@RequestBody List<AtlasDTO> entries) {
-		for(AtlasDTO entry : entries) {
-			Optional<AtlasEntry> pulled = atlas.findByScouterNameAndTeamNumberAndDriverStationAndMatchTypeAndMatchNumberAndReplay
-				(entry.getScouterName(), entry.getTeamNumber(), entry.getDriverStation(), entry.getMatchType(), entry.getMatchNumber(),entry.getReplay());
-			AtlasEntry toSave = DTOMapper.fromDTO(entry);
-			if(pulled.isPresent()) {
-				toSave.setId(pulled.get().getId());
-			}
-			atlas.save(toSave);
+	public ResponseEntity<String> postAtlas(@RequestBody AtlasDTO entry) {
+		Optional<AtlasEntry> pulled = atlas.findByScouterNameAndTeamNumberAndDriverStationAndMatchTypeAndMatchNumberAndReplay
+			(entry.getScouterName(), entry.getTeamNumber(), entry.getDriverStation(), entry.getMatchType(), entry.getMatchNumber(),entry.getReplay());
+		AtlasEntry toSave = DTOMapper.fromDTO(entry);
+		if(pulled.isPresent()) {
+			toSave.setId(pulled.get().getId());
 		}
+		atlas.save(toSave);
+		
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/chronos")
-	public ResponseEntity<String> postChronos(@RequestBody List<ChronosDTO> entries) {
-		for(ChronosDTO entry : entries) {
-			Optional<ChronosEntry> pulled = chronos.findByScouterNameAndMatchTypeAndMatchNumberAndReplayAndDriverStationAndTeamNumber
-				(entry.getScouterName(), entry.getMatchType(), entry.getMatchNumber(), entry.getReplay(), entry.getDriverStation(), entry.getTeamNumber());
-			ChronosEntry toSave = DTOMapper.fromDTO(entry);
-			if(pulled.isPresent()) {
-				toSave.setId(pulled.get().getId());
-			}
-			chronos.save(toSave);
+	public ResponseEntity<String> postChronos(@RequestBody ChronosDTO entry) {
+		Optional<ChronosEntry> pulled = chronos.findByScouterNameAndMatchTypeAndMatchNumberAndReplayAndDriverStationAndTeamNumber
+			(entry.getScouterName(), entry.getMatchType(), entry.getMatchNumber(), entry.getReplay(), entry.getDriverStation(), entry.getTeamNumber());
+		ChronosEntry toSave = DTOMapper.fromDTO(entry);
+		if(pulled.isPresent()) {
+			toSave.setId(pulled.get().getId());
 		}
+		chronos.save(toSave);
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/pit")
-	public ResponseEntity<String> postPit(@RequestBody List<PitDTO> entries) {
-		for(PitDTO entry : entries) {
-			Optional<PitEntry> pulled = pit.findByTeamNameAndInterviewerNameAndIntervieweeName
-				(entry.getTeamName(), entry.getInterviewerName(), entry.getIntervieweeName());
-			PitEntry toSave = DTOMapper.fromDTO(entry);
-			if(pulled.isPresent()) {
-				toSave.setId(pulled.get().getId());
-			}
-			pit.save(toSave);
+	public ResponseEntity<String> postPit(@RequestBody PitDTO entry) {
+		Optional<PitEntry> pulled = pit.findByTeamNameAndInterviewerNameAndIntervieweeName
+			(entry.getTeamName(), entry.getInterviewerName(), entry.getIntervieweeName());
+		PitEntry toSave = DTOMapper.fromDTO(entry);
+		if(pulled.isPresent()) {
+			toSave.setId(pulled.get().getId());
 		}
+		pit.save(toSave);
 		return ResponseEntity.ok("OK");
 	}
 	
 	@PostMapping("/api/hp")
-	public ResponseEntity<String> postHP(@RequestBody List<HPDTO> entries) {
-		for(HPDTO entry : entries) {
-			Optional<HPEntry> pulled = hp.findByMatchTypeAndReplayAndMatchNumberAndScouterName
-				(entry.getMatchType(), entry.getReplay(), entry.getMatchNumber(), entry.getScouterName());
-			HPEntry toSave = DTOMapper.fromDTO(entry);
-			if(pulled.isPresent()) {
-				toSave.setId(pulled.get().getId());
-			}
-			hp.save(toSave);
+	public ResponseEntity<String> postHP(@RequestBody HPDTO entry) {
+		Optional<HPEntry> pulled = hp.findByMatchTypeAndReplayAndMatchNumberAndScouterName
+			(entry.getMatchType(), entry.getReplay(), entry.getMatchNumber(), entry.getScouterName());
+		HPEntry toSave = DTOMapper.fromDTO(entry);
+		if(pulled.isPresent()) {
+			toSave.setId(pulled.get().getId());
 		}
+		hp.save(toSave);
 		return ResponseEntity.ok("OK");
 	}
 }
