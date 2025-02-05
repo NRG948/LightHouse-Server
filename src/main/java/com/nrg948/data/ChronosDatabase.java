@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChronosDatabase extends JpaRepository<ChronosEntry, Long> {
 	Optional<ChronosEntry> findByScouterNameAndMatchTypeAndMatchNumberAndReplayAndDriverStationAndTeamNumber(
-		    String scouterName, String matchType, String matchNumber, String replay, String driverStation, String teamNumber);
+		    String scouterName, String matchType, int matchNumber, boolean replay, String driverStation, int teamNumber);
 }

@@ -1,5 +1,10 @@
 package com.nrg948.data;
 
+import java.util.List;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -30,159 +35,208 @@ public class ChronosEntry {
 
 	private @Id @GeneratedValue Long id;
 
-    // HorizontalTest Page
-    private String random;
-
-    // Setup Page
-    private String scouterName;
-    private String teamNumber;
-    private String driverStation;
+	private String scouterName;
+    private int matchNumber;
+    private int teamNumber;
+    private boolean replay;
     private String matchType;
-    private String matchNumber;
-    private String replay;
-    private String startingPosition;
-    private String startMatchGuided;
+    private String driverStation;
+    /**
+	 * @return the scouterName
+	 */
+	public String getScouterName() {
+		return scouterName;
+	}
+	/**
+	 * @param scouterName the scouterName to set
+	 */
+	public void setScouterName(String scouterName) {
+		this.scouterName = scouterName;
+	}
+	/**
+	 * @return the matchNumber
+	 */
+	public int getMatchNumber() {
+		return matchNumber;
+	}
+	/**
+	 * @param matchNumber the matchNumber to set
+	 */
+	public void setMatchNumber(int matchNumber) {
+		this.matchNumber = matchNumber;
+	}
+	/**
+	 * @return the teamNumber
+	 */
+	public int getTeamNumber() {
+		return teamNumber;
+	}
+	/**
+	 * @param teamNumber the teamNumber to set
+	 */
+	public void setTeamNumber(int teamNumber) {
+		this.teamNumber = teamNumber;
+	}
+	/**
+	 * @return the replay
+	 */
+	public boolean getReplay() {
+		return replay;
+	}
+	/**
+	 * @param replay the replay to set
+	 */
+	public void setReplay(boolean replay) {
+		this.replay = replay;
+	}
+	/**
+	 * @return the matchType
+	 */
+	public String getMatchType() {
+		return matchType;
+	}
+	/**
+	 * @param matchType the matchType to set
+	 */
+	public void setMatchType(String matchType) {
+		this.matchType = matchType;
+	}
+	/**
+	 * @return the driverStation
+	 */
+	public String getDriverStation() {
+		return driverStation;
+	}
+	/**
+	 * @param driverStation the driverStation to set
+	 */
+	public void setDriverStation(String driverStation) {
+		this.driverStation = driverStation;
+	}
+	/**
+	 * @return the startingPosition
+	 */
+	public String getStartingPosition() {
+		return startingPosition;
+	}
+	/**
+	 * @param startingPosition the startingPosition to set
+	 */
+	public void setStartingPosition(String startingPosition) {
+		this.startingPosition = startingPosition;
+	}
+	/**
+	 * @return the autoEventList
+	 */
+	public List<ChronosEvent> getAutoEventList() {
+		return autoEventList;
+	}
 
-    // Auto Page
-    private String idkYetAuto;
-    private String shouldThisBeSeparateAuto;
+	/**
+	 * @param autoEventList the autoEventList to set
+	 */
+	public void setAutoEventList(List<ChronosEvent> autoEventList) {
+		this.autoEventList = autoEventList;
+	}
 
-    // Teleop Page
-    private String idkYetTeleop;
-    private String shouldThisBeSeparateTeleop;
+	/**
+	 * @return the teleopEventList
+	 */
+	public List<ChronosEvent> getTeleopEventList() {
+		return teleopEventList;
+	}
 
-    // Endgame Page
+	/**
+	 * @param teleopEventList the teleopEventList to set
+	 */
+	public void setTeleopEventList(List<ChronosEvent> teleopEventList) {
+		this.teleopEventList = teleopEventList;
+	}
+
+	/**
+	 * @return the generalStrategy
+	 */
+	public String getGeneralStrategy() {
+		return generalStrategy;
+	}
+	/**
+	 * @param generalStrategy the generalStrategy to set
+	 */
+	public void setGeneralStrategy(String generalStrategy) {
+		this.generalStrategy = generalStrategy;
+	}
+	/**
+	 * @return the dataQuality
+	 */
+	public double getDataQuality() {
+		return dataQuality;
+	}
+	/**
+	 * @param dataQuality the dataQuality to set
+	 */
+	public void setDataQuality(double dataQuality) {
+		this.dataQuality = dataQuality;
+	}
+	/**
+	 * @return the comments
+	 */
+	public String getComments() {
+		return comments;
+	}
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	/**
+	 * @return the layout
+	 */
+	public String getLayout() {
+		return layout;
+	}
+	/**
+	 * @param layout the layout to set
+	 */
+	public void setLayout(String layout) {
+		this.layout = layout;
+	}
+	/**
+	 * @return the exportName
+	 */
+	public String getExportName() {
+		return exportName;
+	}
+	/**
+	 * @param exportName the exportName to set
+	 */
+	public void setExportName(String exportName) {
+		this.exportName = exportName;
+	}
+	/**
+	 * @return the timestamp
+	 */
+	public String getTimestamp() {
+		return timestamp;
+	}
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+	private String startingPosition;
+	@JsonSerialize(contentUsing = ChronosSerializer.class) // Using the custom serializer for the Event list
+	@ElementCollection
+    private List<ChronosEvent> autoEventList;
+	@ElementCollection
+	@JsonSerialize(contentUsing = ChronosSerializer.class) // Using the custom serializer for the Event list
+    private List<ChronosEvent> teleopEventList;
     private String generalStrategy;
-    private String dataQuality;
+    private double dataQuality;
     private String comments;
-
-    // Getters and Setters
-    public String getRandom() {
-        return random;
-    }
-
-    public void setRandom(String random) {
-        this.random = random;
-    }
-
-    public String getScouterName() {
-        return scouterName;
-    }
-
-    public void setScouterName(String scouterName) {
-        this.scouterName = scouterName;
-    }
-
-    public String getTeamNumber() {
-        return teamNumber;
-    }
-
-    public void setTeamNumber(String teamNumber) {
-        this.teamNumber = teamNumber;
-    }
-
-    public String getDriverStation() {
-        return driverStation;
-    }
-
-    public void setDriverStation(String driverStation) {
-        this.driverStation = driverStation;
-    }
-
-    public String getMatchType() {
-        return matchType;
-    }
-
-    public void setMatchType(String matchType) {
-        this.matchType = matchType;
-    }
-
-    public String getMatchNumber() {
-        return matchNumber;
-    }
-
-    public void setMatchNumber(String matchNumber) {
-        this.matchNumber = matchNumber;
-    }
-
-    public String getReplay() {
-        return replay;
-    }
-
-    public void setReplay(String replay) {
-        this.replay = replay;
-    }
-
-    public String getStartingPosition() {
-        return startingPosition;
-    }
-
-    public void setStartingPosition(String startingPosition) {
-        this.startingPosition = startingPosition;
-    }
-
-    public String getStartMatchGuided() {
-        return startMatchGuided;
-    }
-
-    public void setStartMatchGuided(String startMatchGuided) {
-        this.startMatchGuided = startMatchGuided;
-    }
-
-    public String getIdkYetAuto() {
-        return idkYetAuto;
-    }
-
-    public void setIdkYetAuto(String idkYetAuto) {
-        this.idkYetAuto = idkYetAuto;
-    }
-
-    public String getShouldThisBeSeparateAuto() {
-        return shouldThisBeSeparateAuto;
-    }
-
-    public void setShouldThisBeSeparateAuto(String shouldThisBeSeparateAuto) {
-        this.shouldThisBeSeparateAuto = shouldThisBeSeparateAuto;
-    }
-
-    public String getIdkYetTeleop() {
-        return idkYetTeleop;
-    }
-
-    public void setIdkYetTeleop(String idkYetTeleop) {
-        this.idkYetTeleop = idkYetTeleop;
-    }
-
-    public String getShouldThisBeSeparateTeleop() {
-        return shouldThisBeSeparateTeleop;
-    }
-
-    public void setShouldThisBeSeparateTeleop(String shouldThisBeSeparateTeleop) {
-        this.shouldThisBeSeparateTeleop = shouldThisBeSeparateTeleop;
-    }
-
-    public String getGeneralStrategy() {
-        return generalStrategy;
-    }
-
-    public void setGeneralStrategy(String generalStrategy) {
-        this.generalStrategy = generalStrategy;
-    }
-
-    public String getDataQuality() {
-        return dataQuality;
-    }
-
-    public void setDataQuality(String dataQuality) {
-        this.dataQuality = dataQuality;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+    private String layout;
+    private String exportName;
+    private String timestamp;
 }
 

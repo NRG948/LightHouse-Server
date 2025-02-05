@@ -1,38 +1,47 @@
 package com.nrg948.data;
 
+import java.util.List;
+
 public class PitDTO {
-	// Initial Info Page
+
     private String teamNumber;
     private String teamName;
     private String intervieweeName;
     private String interviewerName;
-
-    // Robot Stats Page
-    private String robotTeamNumber;
-
-    // Auto Page
-    private String autoRoutine;
-    private String dropsAlgaeAuto;
-
-    // Teleop Page
-    private String coralScoringAbility;
-    private String coralIntakeAbility;
-    private String algaeRemovalAbility;
-    private String algaeScoringAbility;
-
-    // Endgame Page
-    private String climbingAbilityAndPreference;
+    private String robotHeight;
+    private String robotLength;
+    private String robotWidth;
+    private String robotWeight;
+    private String robotDrivetrain;
+    private String robotMechanisms;
+    private List<String> autoCoralScored;
+    private List<String> autoAlgaeRemoved;
+    private boolean dropsAlgaeAuto;
+    private String coralScoringAbilityL1;
+    private String coralScoringAbilityL2;
+    private String coralScoringAbilityL3;
+    private String coralScoringAbilityL4;
+    private String canIntakeStation;
+    private String canIntakeGround;
+    private String canRemoveAlgaeL2;
+    private String canRemoveAlgaeL3;
+    private String canScoreProcessor;
+    private String canScorenet;
+    private String canClimbShallow;
+    private String canClimbDeep;
     private String averageClimbTime;
-
-    // Drive Team Page
     private String driveExperience;
     private String humanPlayerPreference;
     private String averageCoralCycles;
     private String averageAlgaeCycles;
     private String idealAlliancePartnerQualities;
     private String otherComments;
+    private String coralScoredL1;
+    private String layout;
+    private String exportName;
+    private String timestamp;
 
-    // Getters and Setters
+    // Getters and setters
     public String getTeamNumber() {
         return teamNumber;
     }
@@ -65,68 +74,172 @@ public class PitDTO {
         this.interviewerName = interviewerName;
     }
 
-    public String getRobotTeamNumber() {
-        return robotTeamNumber;
+    public String getRobotHeight() {
+        return robotHeight;
     }
 
-    public void setRobotTeamNumber(String robotTeamNumber) {
-        this.robotTeamNumber = robotTeamNumber;
+    public void setRobotHeight(String robotHeight) {
+        this.robotHeight = robotHeight;
     }
 
-    public String getAutoRoutine() {
-        return autoRoutine;
+    public String getRobotLength() {
+        return robotLength;
     }
 
-    public void setAutoRoutine(String autoRoutine) {
-        this.autoRoutine = autoRoutine;
+    public void setRobotLength(String robotLength) {
+        this.robotLength = robotLength;
     }
 
-    public String getDropsAlgaeAuto() {
+    public String getRobotWidth() {
+        return robotWidth;
+    }
+
+    public void setRobotWidth(String robotWidth) {
+        this.robotWidth = robotWidth;
+    }
+
+    public String getRobotWeight() {
+        return robotWeight;
+    }
+
+    public void setRobotWeight(String robotWeight) {
+        this.robotWeight = robotWeight;
+    }
+
+    public String getRobotDrivetrain() {
+        return robotDrivetrain;
+    }
+
+    public void setRobotDrivetrain(String robotDrivetrain) {
+        this.robotDrivetrain = robotDrivetrain;
+    }
+
+    public String getRobotMechanisms() {
+        return robotMechanisms;
+    }
+
+    public void setRobotMechanisms(String robotMechanisms) {
+        this.robotMechanisms = robotMechanisms;
+    }
+
+    public List<String> getAutoCoralScored() {
+        return autoCoralScored;
+    }
+
+    public void setAutoCoralScored(List<String> autoCoralScored) {
+        this.autoCoralScored = autoCoralScored;
+    }
+
+    public List<String> getAutoAlgaeRemoved() {
+        return autoAlgaeRemoved;
+    }
+
+    public void setAutoAlgaeRemoved(List<String> autoAlgaeRemoved) {
+        this.autoAlgaeRemoved = autoAlgaeRemoved;
+    }
+
+    public boolean isDropsAlgaeAuto() {
         return dropsAlgaeAuto;
     }
 
-    public void setDropsAlgaeAuto(String dropsAlgaeAuto) {
+    public void setDropsAlgaeAuto(boolean dropsAlgaeAuto) {
         this.dropsAlgaeAuto = dropsAlgaeAuto;
     }
 
-    public String getCoralScoringAbility() {
-        return coralScoringAbility;
+    public String getCoralScoringAbilityL1() {
+        return coralScoringAbilityL1;
     }
 
-    public void setCoralScoringAbility(String coralScoringAbility) {
-        this.coralScoringAbility = coralScoringAbility;
+    public void setCoralScoringAbilityL1(String coralScoringAbilityL1) {
+        this.coralScoringAbilityL1 = coralScoringAbilityL1;
     }
 
-    public String getCoralIntakeAbility() {
-        return coralIntakeAbility;
+    public String getCoralScoringAbilityL2() {
+        return coralScoringAbilityL2;
     }
 
-    public void setCoralIntakeAbility(String coralIntakeAbility) {
-        this.coralIntakeAbility = coralIntakeAbility;
+    public void setCoralScoringAbilityL2(String coralScoringAbilityL2) {
+        this.coralScoringAbilityL2 = coralScoringAbilityL2;
     }
 
-    public String getAlgaeRemovalAbility() {
-        return algaeRemovalAbility;
+    public String getCoralScoringAbilityL3() {
+        return coralScoringAbilityL3;
     }
 
-    public void setAlgaeRemovalAbility(String algaeRemovalAbility) {
-        this.algaeRemovalAbility = algaeRemovalAbility;
+    public void setCoralScoringAbilityL3(String coralScoringAbilityL3) {
+        this.coralScoringAbilityL3 = coralScoringAbilityL3;
     }
 
-    public String getAlgaeScoringAbility() {
-        return algaeScoringAbility;
+    public String getCoralScoringAbilityL4() {
+        return coralScoringAbilityL4;
     }
 
-    public void setAlgaeScoringAbility(String algaeScoringAbility) {
-        this.algaeScoringAbility = algaeScoringAbility;
+    public void setCoralScoringAbilityL4(String coralScoringAbilityL4) {
+        this.coralScoringAbilityL4 = coralScoringAbilityL4;
     }
 
-    public String getClimbingAbilityAndPreference() {
-        return climbingAbilityAndPreference;
+    public String getCanIntakeStation() {
+        return canIntakeStation;
     }
 
-    public void setClimbingAbilityAndPreference(String climbingAbilityAndPreference) {
-        this.climbingAbilityAndPreference = climbingAbilityAndPreference;
+    public void setCanIntakeStation(String canIntakeStation) {
+        this.canIntakeStation = canIntakeStation;
+    }
+
+    public String getCanIntakeGround() {
+        return canIntakeGround;
+    }
+
+    public void setCanIntakeGround(String canIntakeGround) {
+        this.canIntakeGround = canIntakeGround;
+    }
+
+    public String getCanRemoveAlgaeL2() {
+        return canRemoveAlgaeL2;
+    }
+
+    public void setCanRemoveAlgaeL2(String canRemoveAlgaeL2) {
+        this.canRemoveAlgaeL2 = canRemoveAlgaeL2;
+    }
+
+    public String getCanRemoveAlgaeL3() {
+        return canRemoveAlgaeL3;
+    }
+
+    public void setCanRemoveAlgaeL3(String canRemoveAlgaeL3) {
+        this.canRemoveAlgaeL3 = canRemoveAlgaeL3;
+    }
+
+    public String getCanScoreProcessor() {
+        return canScoreProcessor;
+    }
+
+    public void setCanScoreProcessor(String canScoreProcessor) {
+        this.canScoreProcessor = canScoreProcessor;
+    }
+
+    public String getCanScorenet() {
+        return canScorenet;
+    }
+
+    public void setCanScorenet(String canScorenet) {
+        this.canScorenet = canScorenet;
+    }
+
+    public String getCanClimbShallow() {
+        return canClimbShallow;
+    }
+
+    public void setCanClimbShallow(String canClimbShallow) {
+        this.canClimbShallow = canClimbShallow;
+    }
+
+    public String getCanClimbDeep() {
+        return canClimbDeep;
+    }
+
+    public void setCanClimbDeep(String canClimbDeep) {
+        this.canClimbDeep = canClimbDeep;
     }
 
     public String getAverageClimbTime() {
@@ -183,5 +296,37 @@ public class PitDTO {
 
     public void setOtherComments(String otherComments) {
         this.otherComments = otherComments;
+    }
+
+    public String getCoralScoredL1() {
+        return coralScoredL1;
+    }
+
+    public void setCoralScoredL1(String coralScoredL1) {
+        this.coralScoredL1 = coralScoredL1;
+    }
+
+    public String getLayout() {
+        return layout;
+    }
+
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
+
+    public String getExportName() {
+        return exportName;
+    }
+
+    public void setExportName(String exportName) {
+        this.exportName = exportName;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

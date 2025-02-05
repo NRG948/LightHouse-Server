@@ -26,24 +26,24 @@ public class HPEntry {
 	}
 
 	private @Id @GeneratedValue Long id;
-
-    // Setup Page
-    private String scouterName;
-    private String redHPTeam;
-    private String blueHPTeam;
+	private String scouterName;
+    private int matchNumber;
+    private int redHPTeam;
+    private int blueHPTeam;
+    private boolean replay;
     private String matchType;
-    private String matchNumber;
-    private String replay;
+    private int redScore;
+    private int blueScore;
+    private int redMiss;
+    private int blueMiss;
+    private int redNetAlgae;
+    private int blueNetAlgae;
+    private double dataQuality;
+    private String layout;
+    private String exportName;
+    private String timestamp;
 
-    // Scoring Page
-    private String redScore;
-    private String blueScore;
-    private String redMiss;
-    private String blueMiss;
-    private String redNetAlgae;
-    private String blueNetAlgae;
-
-    // Getters and Setters
+    // Getters and setters
     public String getScouterName() {
         return scouterName;
     }
@@ -52,20 +52,36 @@ public class HPEntry {
         this.scouterName = scouterName;
     }
 
-    public String getRedHPTeam() {
+    public int getMatchNumber() {
+        return matchNumber;
+    }
+
+    public void setMatchNumber(int matchNumber) {
+        this.matchNumber = matchNumber;
+    }
+
+    public int getRedHPTeam() {
         return redHPTeam;
     }
 
-    public void setRedHPTeam(String redHPTeam) {
+    public void setRedHPTeam(int redHPTeam) {
         this.redHPTeam = redHPTeam;
     }
 
-    public String getBlueHPTeam() {
+    public int getBlueHPTeam() {
         return blueHPTeam;
     }
 
-    public void setBlueHPTeam(String blueHPTeam) {
+    public void setBlueHPTeam(int blueHPTeam) {
         this.blueHPTeam = blueHPTeam;
+    }
+
+    public boolean isReplay() {
+        return replay;
+    }
+
+    public void setReplay(boolean replay) {
+        this.replay = replay;
     }
 
     public String getMatchType() {
@@ -76,68 +92,84 @@ public class HPEntry {
         this.matchType = matchType;
     }
 
-    public String getMatchNumber() {
-        return matchNumber;
-    }
-
-    public void setMatchNumber(String matchNumber) {
-        this.matchNumber = matchNumber;
-    }
-
-    public String getReplay() {
-        return replay;
-    }
-
-    public void setReplay(String replay) {
-        this.replay = replay;
-    }
-
-    public String getRedScore() {
+    public int getRedScore() {
         return redScore;
     }
 
-    public void setRedScore(String redScore) {
+    public void setRedScore(int redScore) {
         this.redScore = redScore;
     }
 
-    public String getBlueScore() {
+    public int getBlueScore() {
         return blueScore;
     }
 
-    public void setBlueScore(String blueScore) {
+    public void setBlueScore(int blueScore) {
         this.blueScore = blueScore;
     }
 
-    public String getRedMiss() {
+    public int getRedMiss() {
         return redMiss;
     }
 
-    public void setRedMiss(String redMiss) {
+    public void setRedMiss(int redMiss) {
         this.redMiss = redMiss;
     }
 
-    public String getBlueMiss() {
+    public int getBlueMiss() {
         return blueMiss;
     }
 
-    public void setBlueMiss(String blueMiss) {
+    public void setBlueMiss(int blueMiss) {
         this.blueMiss = blueMiss;
     }
 
-    public String getRedNetAlgae() {
+    public int getRedNetAlgae() {
         return redNetAlgae;
     }
 
-    public void setRedNetAlgae(String redNetAlgae) {
+    public void setRedNetAlgae(int redNetAlgae) {
         this.redNetAlgae = redNetAlgae;
     }
 
-    public String getBlueNetAlgae() {
+    public int getBlueNetAlgae() {
         return blueNetAlgae;
     }
 
-    public void setBlueNetAlgae(String blueNetAlgae) {
+    public void setBlueNetAlgae(int blueNetAlgae) {
         this.blueNetAlgae = blueNetAlgae;
+    }
+
+    public double getDataQuality() {
+        return dataQuality;
+    }
+
+    public void setDataQuality(double dataQuality) {
+        this.dataQuality = dataQuality;
+    }
+
+    public String getLayout() {
+        return layout;
+    }
+
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
+
+    public String getExportName() {
+        return exportName;
+    }
+
+    public void setExportName(String exportName) {
+        this.exportName = exportName;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
 

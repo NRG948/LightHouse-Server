@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HPDatabase extends JpaRepository<HPEntry, Long> {
 	Optional<HPEntry> findByMatchTypeAndReplayAndMatchNumberAndScouterName(
-		    String matchType, String replay, String matchNumber, String scouterName);
+		    String matchType, boolean replay, int matchNumber, String scouterName);
 }
