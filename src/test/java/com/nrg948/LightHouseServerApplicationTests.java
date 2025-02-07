@@ -81,4 +81,58 @@ class LightHouseServerApplicationTests {
 			.andExpect(status().isOk())
 			.andExpect(content().json("[" + jsonTest + "]"));
 	}
+	
+	@Test
+	public void testAtlasPATCH() throws Exception {
+		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Atlas/948_Playoffs_3_1819.json")));
+		String jsonPatch = new String(Files.readAllBytes(Paths.get("./test-files/Atlas/948_Playoffs_3_1819_PATCH.json")));
+		String jsonVerify = new String(Files.readAllBytes(Paths.get("./test-files/Atlas/948_Playoffs_3_1819_PATCH_VERIFY.json")));
+		
+		mockMvc.perform(post("/api/atlas")
+			.contentType("application/json")
+			.content(jsonTest))
+			.andExpect(status().isOk());
+		
+		mockMvc.perform(get(("/api/atlas"))
+			.contentType("application/json"))
+			.andExpect(status().isOk())
+			.andExpect(content().json("[" + jsonTest + "]"));
+		
+		mockMvc.perform(post(("/api/patch"))
+			.contentType("application/json")
+			.content(jsonPatch))
+			.andExpect(status().isOk());
+		
+		mockMvc.perform(get("/api/atlas")
+			.contentType("application/json"))
+			.andExpect(status().isOk())
+			.andExpect(content().json(jsonVerify));
+	}
+	
+	@Test
+	public void testChronosPATCH() throws Exception {
+		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953.json")));
+		String jsonPatch = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953_PATCH.json")));
+		String jsonVerify = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953_PATCH_VERIFY.json")));
+		
+		mockMvc.perform(post("/api/chronos")
+			.contentType("application/json")
+			.content(jsonTest))
+			.andExpect(status().isOk());
+		
+		mockMvc.perform(get(("/api/chronos"))
+			.contentType("application/json"))
+			.andExpect(status().isOk())
+			.andExpect(content().json("[" + jsonTest + "]"));
+		
+		mockMvc.perform(post(("/api/patch"))
+			.contentType("application/json")
+			.content(jsonPatch))
+			.andExpect(status().isOk());
+		
+		mockMvc.perform(get("/api/chronos")
+			.contentType("application/json"))
+			.andExpect(status().isOk())
+			.andExpect(content().json(jsonVerify));
+	}
 }

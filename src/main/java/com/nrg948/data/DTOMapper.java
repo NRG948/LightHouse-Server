@@ -311,5 +311,36 @@ public class DTOMapper {
 	    entry.setTimestamp(dto.getTimestamp());
 	    return entry;
 	}
-
+	
+	public static PatchEntry fromDTO(PatchDTO dto) {
+		if (dto == null) {
+	        return null;
+	    }
+		PatchEntry entry = new PatchEntry();
+		entry.setComments(dto.getComments());
+		entry.setDataType(dto.getDataType());
+		entry.setDriverStation(dto.getDriverStation());
+		entry.setMatchNumber(dto.getMatchNumber());
+		entry.setMatchType(dto.getMatchType());
+		entry.setPatcher(dto.getPatcher());
+		entry.setReplay(dto.isReplay());
+		entry.setTeamNumber(dto.getTeamNumber());
+		return entry;
+	}
+	
+	public static PatchDTO fromEntry(PatchEntry entry) {
+		if (entry == null) {
+	        return null;
+	    }
+		PatchDTO dto = new PatchDTO();
+		entry.setComments(dto.getComments());
+		entry.setDataType(dto.getDataType());
+		entry.setDriverStation(dto.getDriverStation());
+		entry.setMatchNumber(dto.getMatchNumber());
+		entry.setMatchType(dto.getMatchType());
+		entry.setPatcher(dto.getPatcher());
+		entry.setReplay(dto.isReplay());
+		entry.setTeamNumber(dto.getTeamNumber());
+		return dto;
+	}
 }

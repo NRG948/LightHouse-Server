@@ -21,6 +21,9 @@ import com.nrg948.data.DTOMapper;
 import com.nrg948.data.HPDTO;
 import com.nrg948.data.HPDatabase;
 import com.nrg948.data.HPEntry;
+import com.nrg948.data.PatchDTO;
+import com.nrg948.data.PatchDatabase;
+import com.nrg948.data.PatchEntry;
 import com.nrg948.data.PitDTO;
 import com.nrg948.data.PitDatabase;
 import com.nrg948.data.PitEntry;
@@ -31,6 +34,7 @@ public class SiteAPI {
 	@Autowired ChronosDatabase chronos;
 	@Autowired PitDatabase pit;
 	@Autowired HPDatabase hp;
+	@Autowired PatchDatabase patch;
 	
 	public SiteAPI() {
 		
@@ -61,11 +65,37 @@ public class SiteAPI {
 	 */
 	@GetMapping("/api/atlas")
 	public List<AtlasDTO> getAtlas() {
-		return atlas.findAll().stream().map(DTOMapper::fromEntry).toList();
+		List<AtlasDTO> out = atlas.findAll().stream().map(DTOMapper::fromEntry).toList();
+		for(AtlasDTO entry : out) {
+			List<PatchEntry> patches = patch.findByTeamNumberAndMatchNumberAndReplayAndMatchTypeAndDriverStationAndDataType
+				(entry.getTeamNumber(), entry.getMatchNumber(), entry.getReplay(), entry.getMatchType(), entry.getDriverStation(), "Atlas");
+			String comments = entry.getComments();
+			comments += "\n";
+			for(PatchEntry patch : patches) {
+				comments += "---PATCH--- (by " + patch.getPatcher() + ")\n";
+				comments += entry.getComments();
+				comments += "\n";
+			}
+			entry.setComments(comments.trim());
+		}
+		return out;
 	}
 	@GetMapping("/api/chronos")
 	public List<ChronosDTO> getChronos() {
-		return chronos.findAll().stream().map(DTOMapper::fromEntry).toList();
+		List<ChronosDTO> out = chronos.findAll().stream().map(DTOMapper::fromEntry).toList();
+		for(ChronosDTO entry : out) {
+			List<PatchEntry> patches = patch.findByTeamNumberAndMatchNumberAndReplayAndMatchTypeAndDriverStationAndDataType
+				(entry.getTeamNumber(), entry.getMatchNumber(), entry.getReplay(), entry.getMatchType(), entry.getDriverStation(), "Chronos");
+			String comments = entry.getComments();
+			comments += "\n";
+			for(PatchEntry patch : patches) {
+				comments += "---PATCH--- (by " + patch.getPatcher() + ")\n";
+				comments += entry.getComments();
+				comments += "\n";
+			}
+			entry.setComments(comments.trim());
+		}
+		return out;
 	}
 	@GetMapping("/api/pit")
 	public List<PitDTO> getPit() {
@@ -122,6 +152,12 @@ public class SiteAPI {
 			toSave.setId(pulled.get().getId());
 		}
 		hp.save(toSave);
+		return ResponseEntity.ok("OK");
+	}
+	
+	@PostMapping("/api/patch")
+	public ResponseEntity<String> postPatch(@RequestBody PatchDTO entry) {
+		patch.save(DTOMapper.fromDTO(entry));
 		return ResponseEntity.ok("OK");
 	}
 }
