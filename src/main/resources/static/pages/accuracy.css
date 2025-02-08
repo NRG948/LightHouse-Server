@@ -137,3 +137,9 @@ input[type=text] {
   color: white;
   padding: 1rem;
 }
+
+.editableInput {
+  border: 1px solid #ddd;
+  padding: 2px;
+  margin-left: 5px;
+}
