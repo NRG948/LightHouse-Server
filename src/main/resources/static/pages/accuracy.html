@@ -94,19 +94,19 @@
       <div class="matchInfoEntry match">Match #1</div>
       <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
       <div class="matchInfoEntry score">Score: 948</div>
-      <div class="matchInfoEntry accuracy">948%</div>
+      <div class="matchInfoEntry accuracy">Accuracy: 948%</div>
     </button>
     <button id="2" class="matchBox">
       <div class="matchInfoEntry match">Match #2</div>
       <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
       <div class="matchInfoEntry score">Score: 948</div>
-      <div class="matchInfoEntry accuracy">948%</div>
+      <div class="matchInfoEntry accuracy">Accuracy: 948%</div>
     </button>
     <button id="3" class="matchBox">
       <div class="matchInfoEntry match">Match #3</div>
       <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
       <div class="matchInfoEntry score">Score: 948</div>
-      <div class="matchInfoEntry accuracy">948%</div>
+      <div class="matchInfoEntry accuracy">Accuracy: 948%</div>
     </button>
   </div>
 
@@ -134,7 +134,9 @@
           var matchInfo = this.getElementsByClassName("matchInfoEntry");
           for (let i = 0; i < matchInfo.length; i++) {
             let info = document.createElement("div");
+            let br = document.createElement("br");
             info.innerText = matchInfo[i].innerText;
+            topBox.appendChild(br);
             topBox.appendChild(info);
           }
 

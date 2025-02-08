@@ -97,6 +97,26 @@ input[type=text] {
   border-right: none;
 }
 
+.topBox {
+  background-color: black;
+  color: white;
+  border: 0.15rem solid;
+  border-radius: 1rem;
+
+
+  display: inline-block;
+  flex-direction: row;
+  align-content: stretch;
+
+
+  width: 95%;
+  height: auto;
+  margin-top: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 4rem;
+}
+
 #topBoxesContainer {
   display: flex;
   gap: 1rem;
@@ -110,6 +130,7 @@ input[type=text] {
   flex-direction: row;
   max-height: 5rem;
 }
+
 
 .navButton {
   text-decoration: none;
