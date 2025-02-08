@@ -115,6 +115,8 @@ input[type=text] {
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 4rem;
+
+  cursor: pointer;
 }
 
 #topBoxesContainer {
@@ -122,7 +124,7 @@ input[type=text] {
   gap: 1rem;
   margin-bottom: 2rem;
   border-radius: 1rem;
-  cursor: pointer;
+
 }
 
 #navbar {
@@ -130,7 +132,6 @@ input[type=text] {
   flex-direction: row;
   max-height: 5rem;
 }
-
 
 .navButton {
   text-decoration: none;

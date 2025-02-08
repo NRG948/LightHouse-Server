@@ -110,7 +110,7 @@
     </button>
   </div>
 
-  <div id="topBoxesContainer"></div>
+
 
   <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
@@ -164,6 +164,18 @@
 
         topBoxesContainer.appendChild(topBox);
       });
+
+      for (let topBox of topBoxesContainer.children) {
+        topBox.addEventListener("click", function () {
+          let topId = topBox.id;
+          let part = topId.split("-");
+          let mId = part[1];
+          let selectedTopBox = document.getElementById(mId);
+
+          selectedTopBox.classList.remove("clicked");
+          topBox.remove();
+        });
+      }
     });
 
     function confirmReset() {
