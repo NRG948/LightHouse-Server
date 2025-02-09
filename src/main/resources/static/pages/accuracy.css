@@ -103,11 +103,9 @@ input[type=text] {
   border: 0.15rem solid;
   border-radius: 1rem;
 
-
   display: inline-block;
   flex-direction: row;
   align-content: stretch;
-
 
   width: 95%;
   height: auto;
@@ -149,7 +147,6 @@ input[type=text] {
   gap: 1rem;
   margin-bottom: 2rem;
   border-radius: 1rem;
-
 }
 
 #navbar {
