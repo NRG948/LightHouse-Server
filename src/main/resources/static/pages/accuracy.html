@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="accuracy.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
   <title>Accuracy Page</title>
 
 </head>
@@ -132,6 +137,14 @@
         let topBox = document.createElement("div");
         topBox.className = "topBox";
         topBox.id = "topBox-" + matchId;
+        topBox.style.position = "relative";
+
+        let closeBtn = document.createElement("div");
+        closeBtn.className = "closeBtn";
+        closeBtn.innerHTML = "x";
+        closeBtn.setAttribute("data-id", matchId);
+
+        topBox.appendChild(closeBtn);
 
         let matchInfo = this.getElementsByClassName("matchInfoEntry");
 
@@ -158,20 +171,20 @@
             matchInfo[i].innerText = label + " " + newValue;
           });
 
+
           infoContainer.appendChild(inputField);
           topBox.appendChild(infoContainer);
         }
 
         topBoxesContainer.appendChild(topBox);
 
-        topBox.addEventListener("click", function () {
-          let topId = topBox.id;
-          let part = topId.split("-");
-          let mId = part[1];
-          let selectedTopBox = document.getElementById(mId);
+        closeBtn.addEventListener("click", function () {
+          let topId = "topBox-" + this.getAttribute("data-id");
+          let selectedButtomBox = document.getElementById(this.getAttribute("data-id"));
+          let selectedTopBox = document.getElementById(topId);
 
-          selectedTopBox.classList.remove("clicked");
-          topBox.remove();
+          selectedButtomBox.classList.remove("clicked");
+          topBoxesContainer.removeChild(selectedTopBox);
         })
       });
     });

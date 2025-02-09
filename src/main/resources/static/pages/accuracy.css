@@ -1,7 +1,7 @@
 body,
 p {
   background-color: black;
-  font-family: Arial;
+  font-family: Ubuntu;
   color: white;
   margin: 0;
 }
@@ -116,8 +116,33 @@ input[type=text] {
   margin-left: auto;
   margin-bottom: 4rem;
 
-  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
+
+.closeBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 0.75rem;
+  cursor: pointer;
+
+  border: 2px solid white;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+
+.closeBtn:hover {
+  opacity: 0.59;
+}
+
 
 #topBoxesContainer {
   display: flex;
