@@ -92,7 +92,7 @@
 
   </script> -->
 
-  <div id="topBoxesContainer"></div>
+  <div id="topBoxesesContainer"></div>
 
   <div id="matchBoxContainer">
     <button id="1" class="matchBox">
@@ -131,32 +131,32 @@
 
   <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
-    var topBoxesContainer = document.getElementById("topBoxesContainer");
+    var topBoxesesContainer = document.getElementById("topBoxesesContainer");
 
     Array.from(matchBoxes).forEach((matchBox) => {
       matchBox.addEventListener("click", function () {
         let matchId = this.id;
-        let existingTopBox = document.getElementById("topBox-" + matchId);
+        let existingtopBoxes = document.getElementById("topBoxes-" + matchId);
 
-        if (existingTopBox) {
-          topBoxesContainer.removeChild(existingTopBox);
+        if (existingtopBoxes) {
+          topBoxesesContainer.removeChild(existingtopBoxes);
           this.classList.remove("clicked");
           return;
         }
 
         this.classList.add("clicked");
 
-        let topBox = document.createElement("div");
-        topBox.className = "topBox";
-        topBox.id = "topBox-" + matchId;
-        topBox.style.position = "relative";
+        let topBoxes = document.createElement("div");
+        topBoxes.className = "topBoxes";
+        topBoxes.id = "topBoxes-" + matchId;
+        topBoxes.style.position = "relative";
 
         let closeBtn = document.createElement("div");
         closeBtn.className = "closeBtn";
         closeBtn.innerHTML = "x";
         closeBtn.setAttribute("data-id", matchId);
 
-        topBox.appendChild(closeBtn);
+        topBoxes.appendChild(closeBtn);
 
         let matchInfo = this.getElementsByClassName("matchInfoEntry");
 
@@ -185,18 +185,18 @@
 
 
           infoContainer.appendChild(inputField);
-          topBox.appendChild(infoContainer);
+          topBoxes.appendChild(infoContainer);
         }
 
-        topBoxesContainer.appendChild(topBox);
+        topBoxesesContainer.appendChild(topBoxes);
 
         closeBtn.addEventListener("click", function () {
-          let topId = "topBox-" + this.getAttribute("data-id");
+          let topId = "topBoxes-" + this.getAttribute("data-id");
           let selectedButtomBox = document.getElementById(this.getAttribute("data-id"));
-          let selectedTopBox = document.getElementById(topId);
+          let selectedtopBoxes = document.getElementById(topId);
 
           selectedButtomBox.classList.remove("clicked");
-          topBoxesContainer.removeChild(selectedTopBox);
+          topBoxesesContainer.removeChild(selectedtopBoxes);
         })
       });
     });
