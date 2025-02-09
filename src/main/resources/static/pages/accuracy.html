@@ -163,9 +163,7 @@
         }
 
         topBoxesContainer.appendChild(topBox);
-      });
 
-      for (let topBox of topBoxesContainer.children) {
         topBox.addEventListener("click", function () {
           let topId = topBox.id;
           let part = topId.split("-");
@@ -174,8 +172,8 @@
 
           selectedTopBox.classList.remove("clicked");
           topBox.remove();
-        });
-      }
+        })
+      });
     });
 
     function confirmReset() {
