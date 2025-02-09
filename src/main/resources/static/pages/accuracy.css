@@ -1,9 +1,30 @@
 body,
 p {
-  background-color: black;
+  background-image: url('background-hires.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   font-family: Ubuntu;
   color: white;
   margin: 0;
+}
+
+@media (max-width: 1200px) {
+  body {
+    background-image: url('background-hires.png');
+  }
+}
+
+@media (max-wdith: 768px) {
+  body {
+    background-image: url('background-hires.png');
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-image: url('background-mobile.jpg');
+  }
 }
 
 #reload {
