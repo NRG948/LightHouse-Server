@@ -47,12 +47,12 @@ public class AtlasEntry {
     private int coralScoredL2;
     private int coralScoredL3;
     private int coralScoredL4;
-    private int algaeremoveL2;
-    private int algaeremoveL3;
-    private int algaescoreProcessor;
-    private int algaescoreNet;
-    private int algaemissProcessor;
-    private int algaemissNet;
+    private int algaeRemoveL2;
+    private int algaeRemoveL3;
+    private int algaeScoreProcessor;
+    private int algaeScoreNet;
+    private int algaeMissProcessor;
+    private int algaeMissNet;
     private String autoProcessorCS;
     private String endLocation;
     private boolean attemptedClimb;
@@ -270,76 +270,76 @@ public class AtlasEntry {
 		this.coralScoredL4 = coralScoredL4;
 	}
 	/**
-	 * @return the algaeremoveL2
+	 * @return the algaeRemoveL2
 	 */
-	public int getAlgaeremoveL2() {
-		return algaeremoveL2;
+	public int getalgaeRemoveL2() {
+		return algaeRemoveL2;
 	}
 	/**
-	 * @param algaeremoveL2 the algaeremoveL2 to set
+	 * @param algaeRemoveL2 the algaeRemoveL2 to set
 	 */
-	public void setAlgaeremoveL2(int algaeremoveL2) {
-		this.algaeremoveL2 = algaeremoveL2;
+	public void setalgaeRemoveL2(int algaeRemoveL2) {
+		this.algaeRemoveL2 = algaeRemoveL2;
 	}
 	/**
-	 * @return the algaeremoveL3
+	 * @return the algaeRemoveL3
 	 */
-	public int getAlgaeremoveL3() {
-		return algaeremoveL3;
+	public int getalgaeRemoveL3() {
+		return algaeRemoveL3;
 	}
 	/**
-	 * @param algaeremoveL3 the algaeremoveL3 to set
+	 * @param algaeRemoveL3 the algaeRemoveL3 to set
 	 */
-	public void setAlgaeremoveL3(int algaeremoveL3) {
-		this.algaeremoveL3 = algaeremoveL3;
+	public void setalgaeRemoveL3(int algaeRemoveL3) {
+		this.algaeRemoveL3 = algaeRemoveL3;
 	}
 	/**
-	 * @return the algaescoreProcessor
+	 * @return the algaeScoreProcessor
 	 */
-	public int getAlgaescoreProcessor() {
-		return algaescoreProcessor;
+	public int getalgaeScoreProcessor() {
+		return algaeScoreProcessor;
 	}
 	/**
-	 * @param algaescoreProcessor the algaescoreProcessor to set
+	 * @param algaeScoreProcessor the algaeScoreProcessor to set
 	 */
-	public void setAlgaescoreProcessor(int algaescoreProcessor) {
-		this.algaescoreProcessor = algaescoreProcessor;
+	public void setalgaeScoreProcessor(int algaeScoreProcessor) {
+		this.algaeScoreProcessor = algaeScoreProcessor;
 	}
 	/**
-	 * @return the algaescoreNet
+	 * @return the algaeScoreNet
 	 */
-	public int getAlgaescoreNet() {
-		return algaescoreNet;
+	public int getalgaeScoreNet() {
+		return algaeScoreNet;
 	}
 	/**
-	 * @param algaescoreNet the algaescoreNet to set
+	 * @param algaeScoreNet the algaeScoreNet to set
 	 */
-	public void setAlgaescoreNet(int algaescoreNet) {
-		this.algaescoreNet = algaescoreNet;
+	public void setalgaeScoreNet(int algaeScoreNet) {
+		this.algaeScoreNet = algaeScoreNet;
 	}
 	/**
-	 * @return the algaemissProcessor
+	 * @return the algaeMissProcessor
 	 */
-	public int getAlgaemissProcessor() {
-		return algaemissProcessor;
+	public int getalgaeMissProcessor() {
+		return algaeMissProcessor;
 	}
 	/**
-	 * @param algaemissProcessor the algaemissProcessor to set
+	 * @param algaeMissProcessor the algaeMissProcessor to set
 	 */
-	public void setAlgaemissProcessor(int algaemissProcessor) {
-		this.algaemissProcessor = algaemissProcessor;
+	public void setalgaeMissProcessor(int algaeMissProcessor) {
+		this.algaeMissProcessor = algaeMissProcessor;
 	}
 	/**
-	 * @return the algaemissNet
+	 * @return the algaeMissNet
 	 */
-	public int getAlgaemissNet() {
-		return algaemissNet;
+	public int getalgaeMissNet() {
+		return algaeMissNet;
 	}
 	/**
-	 * @param algaemissNet the algaemissNet to set
+	 * @param algaeMissNet the algaeMissNet to set
 	 */
-	public void setAlgaemissNet(int algaemissNet) {
-		this.algaemissNet = algaemissNet;
+	public void setalgaeMissNet(int algaeMissNet) {
+		this.algaeMissNet = algaeMissNet;
 	}
 	/**
 	 * @return the autoProcessorCS

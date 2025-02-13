@@ -32,12 +32,12 @@ public class DTOMapper {
 	    dto.setCoralScoredL2(entry.getCoralScoredL2());
 	    dto.setCoralScoredL3(entry.getCoralScoredL3());
 	    dto.setCoralScoredL4(entry.getCoralScoredL4());
-	    dto.setAlgaeremoveL2(entry.getAlgaeremoveL2());
-	    dto.setAlgaeremoveL3(entry.getAlgaeremoveL3());
-	    dto.setAlgaescoreProcessor(entry.getAlgaescoreProcessor());
-	    dto.setAlgaescoreNet(entry.getAlgaescoreNet());
-	    dto.setAlgaemissProcessor(entry.getAlgaemissProcessor());
-	    dto.setAlgaemissNet(entry.getAlgaemissNet());
+	    dto.setalgaeRemoveL2(entry.getalgaeRemoveL2());
+	    dto.setalgaeRemoveL3(entry.getalgaeRemoveL3());
+	    dto.setalgaeScoreProcessor(entry.getalgaeScoreProcessor());
+	    dto.setalgaeScoreNet(entry.getalgaeScoreNet());
+	    dto.setalgaeMissProcessor(entry.getalgaeMissProcessor());
+	    dto.setalgaeMissNet(entry.getalgaeMissNet());
 
 	    // Mapping other string fields
 	    dto.setEndLocation(entry.getEndLocation());
@@ -85,12 +85,12 @@ public class DTOMapper {
 	    entry.setCoralScoredL2(dto.getCoralScoredL2());
 	    entry.setCoralScoredL3(dto.getCoralScoredL3());
 	    entry.setCoralScoredL4(dto.getCoralScoredL4());
-	    entry.setAlgaeremoveL2(dto.getAlgaeremoveL2());
-	    entry.setAlgaeremoveL3(dto.getAlgaeremoveL3());
-	    entry.setAlgaescoreProcessor(dto.getAlgaescoreProcessor());
-	    entry.setAlgaescoreNet(dto.getAlgaescoreNet());
-	    entry.setAlgaemissProcessor(dto.getAlgaemissProcessor());
-	    entry.setAlgaemissNet(dto.getAlgaemissNet());
+	    entry.setalgaeRemoveL2(dto.getalgaeRemoveL2());
+	    entry.setalgaeRemoveL3(dto.getalgaeRemoveL3());
+	    entry.setalgaeScoreProcessor(dto.getalgaeScoreProcessor());
+	    entry.setalgaeScoreNet(dto.getalgaeScoreNet());
+	    entry.setalgaeMissProcessor(dto.getalgaeMissProcessor());
+	    entry.setalgaeMissNet(dto.getalgaeMissNet());
 
 	    // Mapping other string fields
 	    entry.setEndLocation(dto.getEndLocation());
