@@ -94,8 +94,90 @@
 
   <div id="topBoxesesContainer"></div>
 
+
   <div id="matchBoxContainer">
-    <button id="1" class="matchBox">
+    <script>
+      fetch('testData/Atlas.json')
+        .then(res => res.json())
+        .then(atlas => {
+          const matchBoxContainer = document.getElementById('matchBoxContainer');
+          const topBoxesesContainer = document.getElementById('topBoxesesContainer');
+
+          atlas.forEach(game => {
+            const box = document.createElement('button');
+            box.id = game["matchNumber"];
+            box.className = "matchBox";
+            box.innerText = `Match Number: ${game.matchNumber}, Team Number: ${game.teamNumber}`;
+
+            matchBoxContainer.appendChild(box);
+
+            box.addEventListener("click", function () {
+              let matchId = this.id;
+              let existingTopBoxes = document.getElementById("topBoxes-" + matchId);
+
+              if (existingTopBoxes) {
+                topBoxesesContainer.removeChild(existingTopBoxes);
+                this.classList.remove("clicked");
+                return;
+              }
+
+              this.classList.add("clicked");
+
+              let topBoxes = document.createElement("div");
+              topBoxes.className = "topBoxes";
+              topBoxes.id = "topBoxes-" + matchId;
+              topBoxes.style.position = "relative";
+
+              let closeBtn = document.createElement("div");
+              closeBtn.className = "closeBtn";
+              closeBtn.innerHTML = "x";
+              closeBtn.setAttribute("data-id", matchId);
+              topBoxes.appendChild(closeBtn);
+
+              for (const gameData in game) {
+                if (game.hasOwnProperty(gameData)) {
+                  let entry = gameData + ": " + game[gameData];
+                  let parts = entry.split(": ");
+                  let label = parts[0] + ":";
+                  let value = parts.length > 1 ? parts[1] : "";
+
+                  let infoContainer = document.createElement("div");
+
+                  let labelSpan = document.createElement("span");
+                  labelSpan.innerText = label + " ";
+                  infoContainer.appendChild(labelSpan);
+
+                  let inputField = document.createElement("input");
+                  inputField.type = "text";
+                  inputField.value = value;
+                  inputField.className = "editableInput";
+                  inputField.setAttribute("data-index", game.matchNumber);
+
+                  inputField.addEventListener("blur", function () {
+                    let newValue = inputField.value;
+                    infoContainer.innerText = label + " " + newValue;
+                  });
+
+                  infoContainer.appendChild(inputField);
+                  topBoxes.appendChild(infoContainer);
+                }
+              }
+
+              topBoxesesContainer.appendChild(topBoxes);
+
+              closeBtn.addEventListener("click", function () {
+                let topId = "topBoxes-" + this.getAttribute("data-id");
+                let selectedButtonBox = document.getElementById(this.getAttribute("data-id"));
+                let selectedTopBoxes = document.getElementById(topId);
+
+                selectedButtonBox.classList.remove("clicked");
+                topBoxesesContainer.removeChild(selectedTopBoxes);
+              });
+            });
+          });
+        });
+    </script>
+    <!-- <button id="1" class="matchBox">
       <div class="matchInfoEntry match">Match #: 1</div>
       <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
       <div class="matchInfoEntry score">Score: 948</div>
@@ -124,12 +206,12 @@
       <div class="matchInfoEntry alliance">Red Alliance: 948, 9994, 2980</div>
       <div class="matchInfoEntry score">Score: 948</div>
       <div class="matchInfoEntry accuracy">Accuracy: 948%</div>
-    </button>
+    </button> -->
   </div>
 
 
 
-  <script>
+  <!-- <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
     var topBoxesesContainer = document.getElementById("topBoxesesContainer");
 
@@ -200,7 +282,8 @@
         })
       });
     });
-
+  -->
+  <script>
     function confirmReset() {
       const userConfirmation = confirm("Are you sure you want to reset the boxes?");
       if (userConfirmation) {
