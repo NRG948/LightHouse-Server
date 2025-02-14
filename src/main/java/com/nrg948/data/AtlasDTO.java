@@ -12,7 +12,7 @@ public class AtlasDTO {
     private String[] autoCoralScored;
     private String[] autoAlgaeRemoved;
     private int coralScoredL1;
-    private String autoBargeCS;
+    private String[] autoBargeCS;
     private int coralPickupsStation;
     private int coralPickupsGround;
     private int coralScoredL2;
@@ -24,7 +24,7 @@ public class AtlasDTO {
     private int algaeScoreNet;
     private int algaeMissProcessor;
     private int algaeMissNet;
-    private String autoProcessorCS;
+    private String[] autoProcessorCS;
     private String endLocation;
     private boolean attemptedClimb;
     private String climbStartTime;
@@ -171,13 +171,13 @@ public class AtlasDTO {
 	/**
 	 * @return the autoBargeCS
 	 */
-	public String getAutoBargeCS() {
+	public String[] getAutoBargeCS() {
 		return autoBargeCS;
 	}
 	/**
 	 * @param autoBargeCS the autoBargeCS to set
 	 */
-	public void setAutoBargeCS(String autoBargeCS) {
+	public void setAutoBargeCS(String[] autoBargeCS) {
 		this.autoBargeCS = autoBargeCS;
 	}
 	/**
@@ -315,13 +315,13 @@ public class AtlasDTO {
 	/**
 	 * @return the autoProcessorCS
 	 */
-	public String getAutoProcessorCS() {
+	public String[] getAutoProcessorCS() {
 		return autoProcessorCS;
 	}
 	/**
 	 * @param autoProcessorCS the autoProcessorCS to set
 	 */
-	public void setAutoProcessorCS(String autoProcessorCS) {
+	public void setAutoProcessorCS(String[] autoProcessorCS) {
 		this.autoProcessorCS = autoProcessorCS;
 	}
 	/**
