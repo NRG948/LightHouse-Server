@@ -41,7 +41,7 @@ public class AtlasEntry {
     private String[] autoCoralScored;
     private String[] autoAlgaeRemoved;
     private int coralScoredL1;
-    private String autoBargeCS;
+    private String[] autoBargeCS;
     private int coralPickupsStation;
     private int coralPickupsGround;
     private int coralScoredL2;
@@ -53,10 +53,10 @@ public class AtlasEntry {
     private int algaeScoreNet;
     private int algaeMissProcessor;
     private int algaeMissNet;
-    private String autoProcessorCS;
+    private String[] autoProcessorCS;
     private String endLocation;
     private boolean attemptedClimb;
-    private String climbStartTime;
+    private int climbStartTime;
     private boolean robotDisabled;
     private String robotDisableReason;
     private int dataQuality;
@@ -200,13 +200,13 @@ public class AtlasEntry {
 	/**
 	 * @return the autoBargeCS
 	 */
-	public String getAutoBargeCS() {
+	public String[] getAutoBargeCS() {
 		return autoBargeCS;
 	}
 	/**
 	 * @param autoBargeCS the autoBargeCS to set
 	 */
-	public void setAutoBargeCS(String autoBargeCS) {
+	public void setAutoBargeCS(String[] autoBargeCS) {
 		this.autoBargeCS = autoBargeCS;
 	}
 	/**
@@ -344,13 +344,13 @@ public class AtlasEntry {
 	/**
 	 * @return the autoProcessorCS
 	 */
-	public String getAutoProcessorCS() {
+	public String[] getAutoProcessorCS() {
 		return autoProcessorCS;
 	}
 	/**
 	 * @param autoProcessorCS the autoProcessorCS to set
 	 */
-	public void setAutoProcessorCS(String autoProcessorCS) {
+	public void setAutoProcessorCS(String[] autoProcessorCS) {
 		this.autoProcessorCS = autoProcessorCS;
 	}
 	/**
@@ -380,13 +380,13 @@ public class AtlasEntry {
 	/**
 	 * @return the climbStartTime
 	 */
-	public String getClimbStartTime() {
+	public int getClimbStartTime() {
 		return climbStartTime;
 	}
 	/**
 	 * @param climbStartTime the climbStartTime to set
 	 */
-	public void setClimbStartTime(String climbStartTime) {
+	public void setClimbStartTime(int climbStartTime) {
 		this.climbStartTime = climbStartTime;
 	}
 	/**
