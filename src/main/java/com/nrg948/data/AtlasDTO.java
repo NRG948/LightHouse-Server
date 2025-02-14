@@ -27,7 +27,7 @@ public class AtlasDTO {
     private String[] autoProcessorCS;
     private String endLocation;
     private boolean attemptedClimb;
-    private String climbStartTime;
+    private int climbStartTime;
     private boolean robotDisabled;
     private String robotDisableReason;
     private int dataQuality;
@@ -351,13 +351,13 @@ public class AtlasDTO {
 	/**
 	 * @return the climbStartTime
 	 */
-	public String getClimbStartTime() {
+	public int getClimbStartTime() {
 		return climbStartTime;
 	}
 	/**
 	 * @param climbStartTime the climbStartTime to set
 	 */
-	public void setClimbStartTime(String climbStartTime) {
+	public void setClimbStartTime(int climbStartTime) {
 		this.climbStartTime = climbStartTime;
 	}
 	/**
