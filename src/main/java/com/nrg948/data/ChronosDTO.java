@@ -13,7 +13,20 @@ public class ChronosDTO {
     private boolean replay;
     private String matchType;
     private String driverStation;
+    private double rating;
     /**
+	 * @return the rating
+	 */
+	public double getRating() {
+		return rating;
+	}
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	/**
 	 * @return the scouterName
 	 */
 	public String getScouterName() {

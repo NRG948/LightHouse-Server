@@ -73,7 +73,7 @@ public class SiteAPI {
 			comments += "\n";
 			for(PatchEntry patch : patches) {
 				comments += "---PATCH--- (by " + patch.getPatcher() + ")\n";
-				comments += entry.getComments();
+				comments += patch.getComments();
 				comments += "\n";
 			}
 			entry.setComments(comments.trim());
@@ -90,7 +90,7 @@ public class SiteAPI {
 			comments += "\n";
 			for(PatchEntry patch : patches) {
 				comments += "---PATCH--- (by " + patch.getPatcher() + ")\n";
-				comments += entry.getComments();
+				comments += patch.getComments();
 				comments += "\n";
 			}
 			entry.setComments(comments.trim());

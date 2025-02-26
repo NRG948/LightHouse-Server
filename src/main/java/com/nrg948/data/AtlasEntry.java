@@ -25,11 +25,12 @@ public class AtlasEntry {
 
 	/**
 	 * @param id the id to set
+	 * 
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	private String scouterName;
     private int matchNumber;
     private int teamNumber;
@@ -38,22 +39,20 @@ public class AtlasEntry {
     private String driverStation;
     private String startingPosition;
     private boolean preload;
-    private String[] autoCoralScored;
-    private String[] autoAlgaeRemoved;
+    private String autoCoralScoredL1;
+    private int algaeRemove;
     private int coralScoredL1;
-    private String[] autoBargeCS;
     private int coralPickupsStation;
     private int coralPickupsGround;
     private int coralScoredL2;
     private int coralScoredL3;
     private int coralScoredL4;
-    private int algaeRemoveL2;
-    private int algaeRemoveL3;
+    private int algaeremoveL2;
+    private int algaeremoveL3;
     private int algaeScoreProcessor;
-    private int algaeScoreNet;
     private int algaeMissProcessor;
     private int algaeMissNet;
-    private String[] autoProcessorCS;
+    private String[] autoCS;
     private String endLocation;
     private boolean attemptedClimb;
     private int climbStartTime;
@@ -65,6 +64,48 @@ public class AtlasEntry {
     private String layout;
     private String exportName;
     private String timestamp;
+    private String[] autoCoralScored;
+    private String[] autoAlgaeRemoved;
+    private int algaeScoreNet;
+    private int algaePickups;
+    private int coralPickups;
+    
+	/**
+	 * @return the algaeScoreNet
+	 */
+	public int getAlgaeScoreNet() {
+		return algaeScoreNet;
+	}
+	/**
+	 * @param algaeScoreNet the algaeScoreNet to set
+	 */
+	public void setAlgaeScoreNet(int algaeScoreNet) {
+		this.algaeScoreNet = algaeScoreNet;
+	}
+	/**
+	 * @return the autoCoralScored
+	 */
+	public String[] getAutoCoralScored() {
+		return autoCoralScored;
+	}
+	/**
+	 * @param autoCoralScored the autoCoralScored to set
+	 */
+	public void setAutoCoralScored(String[] autoCoralScored) {
+		this.autoCoralScored = autoCoralScored;
+	}
+	/**
+	 * @return the autoAlgaeRemoved
+	 */
+	public String[] getAutoAlgaeRemoved() {
+		return autoAlgaeRemoved;
+	}
+	/**
+	 * @param autoAlgaeRemoved the autoAlgaeRemoved to set
+	 */
+	public void setAutoAlgaeRemoved(String[] autoAlgaeRemoved) {
+		this.autoAlgaeRemoved = autoAlgaeRemoved;
+	}
 	/**
 	 * @return the scouterName
 	 */
@@ -162,28 +203,16 @@ public class AtlasEntry {
 		this.preload = preload;
 	}
 	/**
-	 * @return the autoCoralScored
+	 * @return the autoCoralScoredL1
 	 */
-	public String[] getAutoCoralScored() {
-		return autoCoralScored;
+	public String getAutoCoralScoredL1() {
+		return autoCoralScoredL1;
 	}
 	/**
-	 * @param autoCoralScored the autoCoralScored to set
+	 * @param autoCoralScoredL1 the autoCoralScoredL1 to set
 	 */
-	public void setAutoCoralScored(String[] autoCoralScored) {
-		this.autoCoralScored = autoCoralScored;
-	}
-	/**
-	 * @return the autoAlgaeRemoved
-	 */
-	public String[] getAutoAlgaeRemoved() {
-		return autoAlgaeRemoved;
-	}
-	/**
-	 * @param autoAlgaeRemoved the autoAlgaeRemoved to set
-	 */
-	public void setAutoAlgaeRemoved(String[] autoAlgaeRemoved) {
-		this.autoAlgaeRemoved = autoAlgaeRemoved;
+	public void setAutoCoralScoredL1(String autoCoralScoredL1) {
+		this.autoCoralScoredL1 = autoCoralScoredL1;
 	}
 	/**
 	 * @return the coralScoredL1
@@ -196,18 +225,6 @@ public class AtlasEntry {
 	 */
 	public void setCoralScoredL1(int coralScoredL1) {
 		this.coralScoredL1 = coralScoredL1;
-	}
-	/**
-	 * @return the autoBargeCS
-	 */
-	public String[] getAutoBargeCS() {
-		return autoBargeCS;
-	}
-	/**
-	 * @param autoBargeCS the autoBargeCS to set
-	 */
-	public void setAutoBargeCS(String[] autoBargeCS) {
-		this.autoBargeCS = autoBargeCS;
 	}
 	/**
 	 * @return the coralPickupsStation
@@ -270,89 +287,79 @@ public class AtlasEntry {
 		this.coralScoredL4 = coralScoredL4;
 	}
 	/**
-	 * @return the algaeRemoveL2
+	 * @return the algaeremoveL2
 	 */
-	public int getalgaeRemoveL2() {
-		return algaeRemoveL2;
+	public int getAlgaeremoveL2() {
+		return algaeremoveL2;
 	}
 	/**
-	 * @param algaeRemoveL2 the algaeRemoveL2 to set
+	 * @param algaeremoveL2 the algaeremoveL2 to set
 	 */
-	public void setalgaeRemoveL2(int algaeRemoveL2) {
-		this.algaeRemoveL2 = algaeRemoveL2;
+	public void setAlgaeremoveL2(int algaeremoveL2) {
+		this.algaeremoveL2 = algaeremoveL2;
 	}
 	/**
-	 * @return the algaeRemoveL3
+	 * @return the algaeremoveL3
 	 */
-	public int getalgaeRemoveL3() {
-		return algaeRemoveL3;
+	public int getAlgaeremoveL3() {
+		return algaeremoveL3;
 	}
 	/**
-	 * @param algaeRemoveL3 the algaeRemoveL3 to set
+	 * @param algaeremoveL3 the algaeremoveL3 to set
 	 */
-	public void setalgaeRemoveL3(int algaeRemoveL3) {
-		this.algaeRemoveL3 = algaeRemoveL3;
+	public void setAlgaeremoveL3(int algaeremoveL3) {
+		this.algaeremoveL3 = algaeremoveL3;
 	}
 	/**
-	 * @return the algaeScoreProcessor
+	 * @return the algaescoreProcessor
 	 */
-	public int getalgaeScoreProcessor() {
+	public int getAlgaeScoreProcessor() {
 		return algaeScoreProcessor;
 	}
 	/**
-	 * @param algaeScoreProcessor the algaeScoreProcessor to set
+	 * @param algaescoreProcessor the algaescoreProcessor to set
 	 */
-	public void setalgaeScoreProcessor(int algaeScoreProcessor) {
-		this.algaeScoreProcessor = algaeScoreProcessor;
+	public void setAlgaeScoreProcessor(int algaescoreProcessor) {
+		this.algaeScoreProcessor = algaescoreProcessor;
 	}
 	/**
-	 * @return the algaeScoreNet
+	 * @return the algaemissProcessor
 	 */
-	public int getalgaeScoreNet() {
-		return algaeScoreNet;
-	}
-	/**
-	 * @param algaeScoreNet the algaeScoreNet to set
-	 */
-	public void setalgaeScoreNet(int algaeScoreNet) {
-		this.algaeScoreNet = algaeScoreNet;
-	}
-	/**
-	 * @return the algaeMissProcessor
-	 */
-	public int getalgaeMissProcessor() {
+	public int getAlgaeMissProcessor() {
 		return algaeMissProcessor;
 	}
 	/**
-	 * @param algaeMissProcessor the algaeMissProcessor to set
+	 * @param algaemissProcessor the algaemissProcessor to set
 	 */
-	public void setalgaeMissProcessor(int algaeMissProcessor) {
-		this.algaeMissProcessor = algaeMissProcessor;
+	public void setAlgaeMissProcessor(int algaemissProcessor) {
+		this.algaeMissProcessor = algaemissProcessor;
 	}
 	/**
-	 * @return the algaeMissNet
+	 * @return the algaemissNet
 	 */
-	public int getalgaeMissNet() {
+	public int getAlgaeMissNet() {
 		return algaeMissNet;
 	}
 	/**
-	 * @param algaeMissNet the algaeMissNet to set
+	 * @param algaemissNet the algaemissNet to set
 	 */
-	public void setalgaeMissNet(int algaeMissNet) {
-		this.algaeMissNet = algaeMissNet;
+	public void setAlgaeMissNet(int algaemissNet) {
+		this.algaeMissNet = algaemissNet;
 	}
 	/**
-	 * @return the autoProcessorCS
+	 * @return the autoCS
 	 */
-	public String[] getAutoProcessorCS() {
-		return autoProcessorCS;
+	public String[] getAutoCS() {
+		return autoCS;
 	}
+
 	/**
-	 * @param autoProcessorCS the autoProcessorCS to set
+	 * @param autoCS the autoCS to set
 	 */
-	public void setAutoProcessorCS(String[] autoProcessorCS) {
-		this.autoProcessorCS = autoProcessorCS;
+	public void setAutoCS(String[] autoCS) {
+		this.autoCS = autoCS;
 	}
+
 	/**
 	 * @return the endLocation
 	 */
@@ -484,6 +491,30 @@ public class AtlasEntry {
 	 */
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public int getAlgaeRemove() {
+		return algaeRemove;
+	}
+
+	public void setAlgaeRemove(int algaeRemove) {
+		this.algaeRemove = algaeRemove;
+	}
+
+	public int getAlgaePickups() {
+		return algaePickups;
+	}
+
+	public void setAlgaePickups(int algaePickups) {
+		this.algaePickups = algaePickups;
+	}
+
+	public int getCoralPickups() {
+		return coralPickups;
+	}
+
+	public void setCoralPickups(int coralPickups) {
+		this.coralPickups = coralPickups;
 	}
 }
 

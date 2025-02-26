@@ -22,9 +22,10 @@ public class DTOMapper {
 	    dto.setPreload(entry.getPreload());
 
 	    // Mapping arrays
-	    dto.setAutoCoralScored(entry.getAutoCoralScored()); // Assuming AtlasEntry has a method getAutoCoralScored()
-	    dto.setAutoAlgaeRemoved(entry.getAutoAlgaeRemoved()); // Assuming AtlasEntry has a method getAutoAlgaeRemoved()
-
+	    dto.setAutoCoralScoredL1(entry.getAutoCoralScoredL1()); // Assuming AtlasEntry has a method getAutoCoralScored()
+	    
+	    dto.setAutoAlgaeRemoved(entry.getAutoAlgaeRemoved());
+	    dto.setAutoCoralScored(entry.getAutoCoralScored());
 	    // Mapping other numeric fields
 	    dto.setCoralPickupsStation(entry.getCoralPickupsStation());
 	    dto.setCoralPickupsGround(entry.getCoralPickupsGround());
@@ -32,12 +33,15 @@ public class DTOMapper {
 	    dto.setCoralScoredL2(entry.getCoralScoredL2());
 	    dto.setCoralScoredL3(entry.getCoralScoredL3());
 	    dto.setCoralScoredL4(entry.getCoralScoredL4());
-	    dto.setalgaeRemoveL2(entry.getalgaeRemoveL2());
-	    dto.setalgaeRemoveL3(entry.getalgaeRemoveL3());
-	    dto.setalgaeScoreProcessor(entry.getalgaeScoreProcessor());
-	    dto.setalgaeScoreNet(entry.getalgaeScoreNet());
-	    dto.setalgaeMissProcessor(entry.getalgaeMissProcessor());
-	    dto.setalgaeMissNet(entry.getalgaeMissNet());
+	    dto.setAlgaeremoveL2(entry.getAlgaeremoveL2());
+	    dto.setAlgaeremoveL3(entry.getAlgaeremoveL3());
+	    dto.setAlgaeScoreProcessor(entry.getAlgaeScoreProcessor());
+	    dto.setAlgaeScoreNet(entry.getAlgaeScoreNet());
+	    dto.setAlgaeMissProcessor(entry.getAlgaeMissProcessor());
+	    dto.setAlgaeMissNet(entry.getAlgaeMissNet());
+	    dto.setAlgaeRemove(entry.getAlgaeRemove());
+	    dto.setAlgaePickups(entry.getAlgaePickups());
+	    dto.setCoralPickups(entry.getCoralPickups());
 
 	    // Mapping other string fields
 	    dto.setEndLocation(entry.getEndLocation());
@@ -48,8 +52,7 @@ public class DTOMapper {
 	    dto.setDataQuality(entry.getDataQuality());
 	    dto.setComments(entry.getComments());
 	    dto.setCrossedMidline(entry.getCrossedMidline());
-	    dto.setAutoBargeCS(entry.getAutoBargeCS());
-	    dto.setAutoProcessorCS(entry.getAutoProcessorCS());
+	    dto.setAutoCS(entry.getAutoCS());
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
@@ -75,9 +78,11 @@ public class DTOMapper {
 	    entry.setPreload(dto.getPreload());
 
 	    // Mapping arrays
-	    entry.setAutoCoralScored(dto.getAutoCoralScored()); // Assuming AtlasDTO has getAutoCoralScored()
-	    entry.setAutoAlgaeRemoved(dto.getAutoAlgaeRemoved()); // Assuming AtlasDTO has getAutoAlgaeRemoved()
-
+	    entry.setAutoCoralScoredL1(dto.getAutoCoralScoredL1()); // Assuming Atlasdto has a method getAutoCoralScored()
+	    entry.setAutoAlgaeRemoved(dto.getAutoAlgaeRemoved());
+	    entry.setAutoCoralScored(dto.getAutoCoralScored());
+	    entry.setAlgaeScoreNet(dto.getAlgaeScoreNet());
+	    
 	    // Mapping other numeric fields
 	    entry.setCoralPickupsStation(dto.getCoralPickupsStation());
 	    entry.setCoralPickupsGround(dto.getCoralPickupsGround());
@@ -85,12 +90,14 @@ public class DTOMapper {
 	    entry.setCoralScoredL2(dto.getCoralScoredL2());
 	    entry.setCoralScoredL3(dto.getCoralScoredL3());
 	    entry.setCoralScoredL4(dto.getCoralScoredL4());
-	    entry.setalgaeRemoveL2(dto.getalgaeRemoveL2());
-	    entry.setalgaeRemoveL3(dto.getalgaeRemoveL3());
-	    entry.setalgaeScoreProcessor(dto.getalgaeScoreProcessor());
-	    entry.setalgaeScoreNet(dto.getalgaeScoreNet());
-	    entry.setalgaeMissProcessor(dto.getalgaeMissProcessor());
-	    entry.setalgaeMissNet(dto.getalgaeMissNet());
+	    entry.setAlgaeremoveL2(dto.getAlgaeremoveL2());
+	    entry.setAlgaeremoveL3(dto.getAlgaeremoveL3());
+	    entry.setAlgaeScoreProcessor(dto.getAlgaeScoreProcessor());
+	    entry.setAlgaeMissProcessor(dto.getAlgaeMissProcessor());
+	    entry.setAlgaeMissNet(dto.getAlgaeMissNet());
+	    entry.setAlgaeRemove(dto.getAlgaeRemove());
+	    entry.setAlgaePickups(dto.getAlgaePickups());
+	    entry.setCoralPickups(dto.getCoralPickups());
 
 	    // Mapping other string fields
 	    entry.setEndLocation(dto.getEndLocation());
@@ -101,8 +108,7 @@ public class DTOMapper {
 	    entry.setDataQuality(dto.getDataQuality());
 	    entry.setComments(dto.getComments());
 	    entry.setCrossedMidline(dto.getCrossedMidline());
-	    entry.setAutoBargeCS(dto.getAutoBargeCS());
-	    entry.setAutoProcessorCS(dto.getAutoProcessorCS());
+	    entry.setAutoCS(dto.getAutoCS());
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());
@@ -137,6 +143,8 @@ public class DTOMapper {
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
+	    
+	    dto.setRating(entry.getRating());
 
 	    return dto;
 	}
@@ -169,6 +177,8 @@ public class DTOMapper {
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());
+	    
+	    entry.setRating(dto.getRating());
 
 	    return entry;
 	}
