@@ -2,6 +2,7 @@ package com.nrg948.data;
 
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,20 +29,17 @@ public class PitEntry {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	private String teamNumber;
     private String teamName;
     private String intervieweeName;
     private String interviewerName;
-    private String robotHeight;
-    private String robotLength;
-    private String robotWidth;
-    private String robotWeight;
+    private int robotHeight;
+    private int robotLength;
+    private int robotWidth;
+    private int robotWeight;
     private String robotDrivetrain;
     private String robotMechanisms;
-    private List<String> autoCoralScored;
-    private List<String> autoAlgaeRemoved;
-    private boolean dropsAlgaeAuto;
     private String coralScoringAbilityL1;
     private String coralScoringAbilityL2;
     private String coralScoringAbilityL3;
@@ -57,14 +55,16 @@ public class PitEntry {
     private String averageClimbTime;
     private String driveExperience;
     private String humanPlayerPreference;
-    private String averageCoralCycles;
-    private String averageAlgaeCycles;
+    private int averageCoralCycles;
+    private int averageAlgaeCycles;
     private String idealAlliancePartnerQualities;
     private String otherComments;
-    private String coralScoredL1;
     private String layout;
     private String exportName;
     private String timestamp;
+    
+    @ElementCollection
+    private PitAuto[] auto;
 
     // Getters and setters
     public String getTeamNumber() {
@@ -99,35 +99,35 @@ public class PitEntry {
         this.interviewerName = interviewerName;
     }
 
-    public String getRobotHeight() {
+    public int getRobotHeight() {
         return robotHeight;
     }
 
-    public void setRobotHeight(String robotHeight) {
+    public void setRobotHeight(int robotHeight) {
         this.robotHeight = robotHeight;
     }
 
-    public String getRobotLength() {
+    public int getRobotLength() {
         return robotLength;
     }
 
-    public void setRobotLength(String robotLength) {
+    public void setRobotLength(int robotLength) {
         this.robotLength = robotLength;
     }
 
-    public String getRobotWidth() {
+    public int getRobotWidth() {
         return robotWidth;
     }
 
-    public void setRobotWidth(String robotWidth) {
+    public void setRobotWidth(int robotWidth) {
         this.robotWidth = robotWidth;
     }
 
-    public String getRobotWeight() {
+    public int getRobotWeight() {
         return robotWeight;
     }
 
-    public void setRobotWeight(String robotWeight) {
+    public void setRobotWeight(int robotWeight) {
         this.robotWeight = robotWeight;
     }
 
@@ -145,30 +145,6 @@ public class PitEntry {
 
     public void setRobotMechanisms(String robotMechanisms) {
         this.robotMechanisms = robotMechanisms;
-    }
-
-    public List<String> getAutoCoralScored() {
-        return autoCoralScored;
-    }
-
-    public void setAutoCoralScored(List<String> autoCoralScored) {
-        this.autoCoralScored = autoCoralScored;
-    }
-
-    public List<String> getAutoAlgaeRemoved() {
-        return autoAlgaeRemoved;
-    }
-
-    public void setAutoAlgaeRemoved(List<String> autoAlgaeRemoved) {
-        this.autoAlgaeRemoved = autoAlgaeRemoved;
-    }
-
-    public boolean isDropsAlgaeAuto() {
-        return dropsAlgaeAuto;
-    }
-
-    public void setDropsAlgaeAuto(boolean dropsAlgaeAuto) {
-        this.dropsAlgaeAuto = dropsAlgaeAuto;
     }
 
     public String getCoralScoringAbilityL1() {
@@ -291,19 +267,19 @@ public class PitEntry {
         this.humanPlayerPreference = humanPlayerPreference;
     }
 
-    public String getAverageCoralCycles() {
+    public int getAverageCoralCycles() {
         return averageCoralCycles;
     }
 
-    public void setAverageCoralCycles(String averageCoralCycles) {
+    public void setAverageCoralCycles(int averageCoralCycles) {
         this.averageCoralCycles = averageCoralCycles;
     }
 
-    public String getAverageAlgaeCycles() {
+    public int getAverageAlgaeCycles() {
         return averageAlgaeCycles;
     }
 
-    public void setAverageAlgaeCycles(String averageAlgaeCycles) {
+    public void setAverageAlgaeCycles(int averageAlgaeCycles) {
         this.averageAlgaeCycles = averageAlgaeCycles;
     }
 
@@ -321,14 +297,6 @@ public class PitEntry {
 
     public void setOtherComments(String otherComments) {
         this.otherComments = otherComments;
-    }
-
-    public String getCoralScoredL1() {
-        return coralScoredL1;
-    }
-
-    public void setCoralScoredL1(String coralScoredL1) {
-        this.coralScoredL1 = coralScoredL1;
     }
 
     public String getLayout() {
@@ -354,4 +322,12 @@ public class PitEntry {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+	public PitAuto[] getAuto() {
+		return auto;
+	}
+
+	public void setAuto(PitAuto[] auto) {
+		this.auto = auto;
+	}
 }

@@ -248,9 +248,6 @@ public class DTOMapper {
 	    dto.setRobotWeight(entry.getRobotWeight());
 	    dto.setRobotDrivetrain(entry.getRobotDrivetrain());
 	    dto.setRobotMechanisms(entry.getRobotMechanisms());
-	    dto.setAutoCoralScored(entry.getAutoCoralScored());
-	    dto.setAutoAlgaeRemoved(entry.getAutoAlgaeRemoved());
-	    dto.setDropsAlgaeAuto(entry.isDropsAlgaeAuto());
 	    dto.setCoralScoringAbilityL1(entry.getCoralScoringAbilityL1());
 	    dto.setCoralScoringAbilityL2(entry.getCoralScoringAbilityL2());
 	    dto.setCoralScoringAbilityL3(entry.getCoralScoringAbilityL3());
@@ -270,10 +267,10 @@ public class DTOMapper {
 	    dto.setAverageAlgaeCycles(entry.getAverageAlgaeCycles());
 	    dto.setIdealAlliancePartnerQualities(entry.getIdealAlliancePartnerQualities());
 	    dto.setOtherComments(entry.getOtherComments());
-	    dto.setCoralScoredL1(entry.getCoralScoredL1());
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
+	    dto.setAuto(entry.getAuto());
 	    return dto;
 	}
 
@@ -293,9 +290,6 @@ public class DTOMapper {
 	    entry.setRobotWeight(dto.getRobotWeight());
 	    entry.setRobotDrivetrain(dto.getRobotDrivetrain());
 	    entry.setRobotMechanisms(dto.getRobotMechanisms());
-	    entry.setAutoCoralScored(dto.getAutoCoralScored());
-	    entry.setAutoAlgaeRemoved(dto.getAutoAlgaeRemoved());
-	    entry.setDropsAlgaeAuto(dto.isDropsAlgaeAuto());
 	    entry.setCoralScoringAbilityL1(dto.getCoralScoringAbilityL1());
 	    entry.setCoralScoringAbilityL2(dto.getCoralScoringAbilityL2());
 	    entry.setCoralScoringAbilityL3(dto.getCoralScoringAbilityL3());
@@ -315,10 +309,10 @@ public class DTOMapper {
 	    entry.setAverageAlgaeCycles(dto.getAverageAlgaeCycles());
 	    entry.setIdealAlliancePartnerQualities(dto.getIdealAlliancePartnerQualities());
 	    entry.setOtherComments(dto.getOtherComments());
-	    entry.setCoralScoredL1(dto.getCoralScoredL1());
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());
+	    entry.setAuto(dto.getAuto());
 	    return entry;
 	}
 	
