@@ -155,6 +155,16 @@
 
                   inputField.addEventListener("blur", function () {
                     let newValue = inputField.value;
+                    let infoContainer = document.createElement("div");
+                    let labelSpan = document.createElement("span");
+                    labelSpan.innerText = label + " ";
+                    infoContainer.appendChild(labelSpan);
+
+                    let inputField = document.createElement("input");
+                    inputField.type = "text";
+                    inputField.value = newValue;
+                    inputField.className = "editableInput";
+
                     infoContainer.innerText = label + " " + newValue;
                   });
 
