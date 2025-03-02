@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+s<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -21,14 +21,18 @@
     <a class="navButton" href="about.html">ABOUT</a>
     <a class="navButton" href="settings.html">SETTINGS</a>
     <a class="navButton" href="accuracy.html">ACCURACY</a>
-  </nav>
-
-  <div>
     <button id="reload">
       reload data
     </button>
+    <button id="reload" onclick="saveData()">
+      save data
+    </button>
+  </nav>
 
-    <button onclick="confirmReset()">
+  <div>
+
+
+    <button id="reload" onclick="confirmReset()">
       reset boxes
     </button>
   </div>
@@ -92,7 +96,7 @@
 
   </script> -->
 
-  <div id="topBoxesesContainer"></div>
+  <div id="topBoxesContainer"></div>
 
 
   <div id="matchBoxContainer">
@@ -101,7 +105,7 @@
         .then(res => res.json())
         .then(atlas => {
           const matchBoxContainer = document.getElementById('matchBoxContainer');
-          const topBoxesesContainer = document.getElementById('topBoxesesContainer');
+          const topBoxesContainer = document.getElementById('topBoxesContainer');
 
           atlas.forEach(game => {
             const box = document.createElement('button');
@@ -116,7 +120,7 @@
               let existingTopBoxes = document.getElementById("topBoxes-" + matchId);
 
               if (existingTopBoxes) {
-                topBoxesesContainer.removeChild(existingTopBoxes);
+                topBoxesContainer.removeChild(existingTopBoxes);
                 this.classList.remove("clicked");
                 return;
               }
@@ -152,9 +156,10 @@
                   inputField.value = value;
                   inputField.className = "editableInput";
                   inputField.setAttribute("data-index", game.matchNumber);
+                  let newValue = inputField.value;
 
                   inputField.addEventListener("blur", function () {
-                    let newValue = inputField.value;
+
                     let infoContainer = document.createElement("div");
                     let labelSpan = document.createElement("span");
                     labelSpan.innerText = label + " ";
@@ -173,7 +178,7 @@
                 }
               }
 
-              topBoxesesContainer.appendChild(topBoxes);
+              topBoxesContainer.appendChild(topBoxes);
 
               closeBtn.addEventListener("click", function () {
                 let topId = "topBoxes-" + this.getAttribute("data-id");
@@ -181,11 +186,13 @@
                 let selectedTopBoxes = document.getElementById(topId);
 
                 selectedButtonBox.classList.remove("clicked");
-                topBoxesesContainer.removeChild(selectedTopBoxes);
+                topBoxesContainer.removeChild(selectedTopBoxes);
               });
+
             });
           });
         });
+
     </script>
     <!-- <button id="1" class="matchBox">
       <div class="matchInfoEntry match">Match #: 1</div>
@@ -223,7 +230,7 @@
 
   <!-- <script>
     var matchBoxes = document.getElementsByClassName("matchBox");
-    var topBoxesesContainer = document.getElementById("topBoxesesContainer");
+    var topBoxesContainer = document.getElementById("topBoxesContainer");
 
     Array.from(matchBoxes).forEach((matchBox) => {
       matchBox.addEventListener("click", function () {
@@ -231,7 +238,7 @@
         let existingtopBoxes = document.getElementById("topBoxes-" + matchId);
 
         if (existingtopBoxes) {
-          topBoxesesContainer.removeChild(existingtopBoxes);
+          topBoxesContainer.removeChild(existingtopBoxes);
           this.classList.remove("clicked");
           return;
         }
@@ -280,7 +287,7 @@
           topBoxes.appendChild(infoContainer);
         }
 
-        topBoxesesContainer.appendChild(topBoxes);
+        topBoxesContainer.appendChild(topBoxes);
 
         closeBtn.addEventListener("click", function () {
           let topId = "topBoxes-" + this.getAttribute("data-id");
@@ -288,7 +295,7 @@
           let selectedtopBoxes = document.getElementById(topId);
 
           selectedButtomBox.classList.remove("clicked");
-          topBoxesesContainer.removeChild(selectedtopBoxes);
+          topBoxesContainer.removeChild(selectedtopBoxes);
         })
       });
     });
@@ -300,7 +307,42 @@
         location.reload();
       }
     }
+
+    function saveData() {
+      let updatedData = [];
+      document.querySelectorAll(".topBoxes").forEach(box => {
+        let matchNumber = box.id.replace("topBoxes-", "");  // 获取 matchNumber
+        let updatedEntry = { matchNumber: matchNumber };
+
+        box.querySelectorAll(".editableInput").forEach(input => {
+          let label = input.previousSibling.innerText.replace(":", "").trim();  // 获取字段名称
+          updatedEntry[label] = input.value;
+        });
+
+        updatedData.push(updatedEntry);
+        console.log(updatedData);
+        // now is every value is string
+
+      });
+
+      // 发送数据到服务器
+      fetch("/updateAtlas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          alert("Data saved successfully!");
+        })
+        .catch(error => {
+          console.error("Error saving data:", error);
+        });
+
+    }
   </script>
+
+
 
 </body>
 

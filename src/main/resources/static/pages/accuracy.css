@@ -181,6 +181,7 @@ input[type=text] {
   display: flex;
   flex-direction: row;
   max-height: 5rem;
+  gap: 1rem;
 }
 
 .navButton {
@@ -193,4 +194,17 @@ input[type=text] {
   border: 1px solid #ddd;
   padding: 2px;
   margin-left: 5px;
+}
+
+#reload {
+  border: none;
+  border-radius: 1rem;
+  background-color: #ECC18E;
+  font-family: Ubuntu;
+  font-size: 1rem;
+
+}
+
+#reload:hover {
+  opacity: 0.69;
 }

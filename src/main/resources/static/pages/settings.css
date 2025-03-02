@@ -5,4 +5,18 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  font-family: Ubuntu;
+  font-weight: bold;
+}
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  max-height: 5rem;
+}
+
+.navButton {
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
 }
