@@ -178,12 +178,13 @@ public class Match {
 	private Video[] videos;
 }
 
-@Embeddable
+@Entity
 class MatchAlliances {
+	private @Id @GeneratedValue Long id;
 	/**
 	 * @return the red
 	 */
-	public MatchAlliance getRed() {
+	public RedMatchAlliance getRed() {
 		return red;
 	}
 	/**
@@ -195,7 +196,7 @@ class MatchAlliances {
 	/**
 	 * @return the blue
 	 */
-	public MatchAlliance getBlue() {
+	public BlueMatchAlliance getBlue() {
 		return blue;
 	}
 	/**
@@ -204,12 +205,71 @@ class MatchAlliances {
 	public void setBlue(BlueMatchAlliance blue) {
 		this.blue = blue;
 	}
+	@OneToOne(cascade = CascadeType.ALL)
     private RedMatchAlliance red;
-    private BlueMatchAlliance blue;
+	@OneToOne(cascade = CascadeType.ALL)
+	private BlueMatchAlliance blue;
 }
 
-@Embeddable
-class MatchAlliance {
+@Entity
+class RedMatchAlliance {
+	private @Id @GeneratedValue Long id;
+	private int score;
+	private String[] team_keys;
+	private String[] surrogate_team_keys;
+	private String[] dq_team_keys;
+	/**
+	 * @return the score
+	 */
+	public int getScore() {
+		return score;
+	}
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(int score) {
+		this.score = score;
+	}
+	/**
+	 * @return the team_keys
+	 */
+	public String[] getTeam_keys() {
+		return team_keys;
+	}
+	/**
+	 * @param team_keys the team_keys to set
+	 */
+	public void setTeam_keys(String[] team_keys) {
+		this.team_keys = team_keys;
+	}
+	/**
+	 * @return the surrogate_team_keys
+	 */
+	public String[] getSurrogate_team_keys() {
+		return surrogate_team_keys;
+	}
+	/**
+	 * @param surrogate_team_keys the surrogate_team_keys to set
+	 */
+	public void setSurrogate_team_keys(String[] surrogate_team_keys) {
+		this.surrogate_team_keys = surrogate_team_keys;
+	}
+	/**
+	 * @return the dq_team_keys
+	 */
+	public String[] getDq_team_keys() {
+		return dq_team_keys;
+	}
+	/**
+	 * @param dq_team_keys the dq_team_keys to set
+	 */
+	public void setDq_team_keys(String[] dq_team_keys) {
+		this.dq_team_keys = dq_team_keys;
+	}
+}
+@Entity
+class BlueMatchAlliance {
+	private @Id @GeneratedValue Long id;
 	private int score;
 	private String[] team_keys;
 	private String[] surrogate_team_keys;
@@ -294,10 +354,6 @@ class Video {
 	@JsonProperty("key")
 	private String keyy;
 }
-@Embeddable
-class BlueMatchAlliance extends MatchAlliance {}
-@Embeddable
-class RedMatchAlliance extends MatchAlliance {}
 
 @Entity
 class ScoreBreakdown2025 {

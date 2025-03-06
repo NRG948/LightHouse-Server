@@ -32,6 +32,7 @@ public class MatchEntry {
 	private String compLevel;
 	private int setNumber;
 	private int matchNumber;
+	@OneToOne(cascade = CascadeType.ALL)
 	private MatchAlliances alliances;
 	private String winningAlliance;
 	private String eventKey;
