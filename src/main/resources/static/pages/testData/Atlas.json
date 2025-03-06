@@ -1,7 +1,7 @@
 [
   {
     "scouterName": "Test Data 1",
-    "matchNumber": "1",
+    "matchNumber": 1,
     "teamNumber": 949,
     "replay": true,
     "matchType": "Playoffs",
@@ -58,8 +58,8 @@
   },
   {
     "scouterName": "Test Data 1",
-    "matchNumber": "2",
-    "teamNumber": 948,
+    "matchNumber": 2,
+    "teamNumber": 949,
     "replay": true,
     "matchType": "Playoffs",
     "driverStation": "Blue 2",
@@ -116,7 +116,7 @@
   {
     "scouterName": "Test Data 3",
     "matchNumber": 3,
-    "teamNumber": 933,
+    "teamNumber": 935,
     "replay": true,
     "matchType": "Qualifications",
     "driverStation": "Blue 2",

@@ -78,6 +78,12 @@ app.post("/updateAtlas", (req, res) => {
     return res.status(400).json({ error: "Expected an array of match data" });
   }
 
+  if (Array.isArray(updatedData)) {
+    updatedData.forEach(match => {
+      match.matchNumber = parseInt(match.matchNumber);
+    });
+  }
+
   // Read current Atlas.json
   fs.readFile(path.join(__dirname, "testData/Atlas.json"), "utf8", (err, data) => {
     if (err) {
@@ -103,9 +109,12 @@ app.post("/updateAtlas", (req, res) => {
       if (index !== -1) {
         const originalData = atlasData[index];
 
-        Object.keys(updatedMatch).forEach(key => {
-          if (key === "matchNumber") return; // 跳过无需处理的字段
+        updatedMatch.matchNumber = matchNumber;
 
+        Object.keys(updatedMatch).forEach(key => {
+          if (key === "matchNumber") {
+            return; // 跳过无需处理的字段
+          }
           const value = updatedMatch[key];
           const originalType = typeof originalData[key];
           const originalValue = originalData[key];
