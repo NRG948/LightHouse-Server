@@ -311,34 +311,47 @@ s<html lang="en">
     function saveData() {
       let updatedData = [];
       document.querySelectorAll(".topBoxes").forEach(box => {
-        let matchNumber = box.id.replace("topBoxes-", "");  // 获取 matchNumber
-        let updatedEntry = { matchNumber: matchNumber };
+        const matchNumber = parseInt(box.id.replace("topBoxes-", ""));
+        const inputs = box.querySelectorAll(".editableInput");
+        const updatedMatch = { matchNumber };
 
-        box.querySelectorAll(".editableInput").forEach(input => {
-          let label = input.previousSibling.innerText.replace(":", "").trim();  // 获取字段名称
-          updatedEntry[label] = input.value;
+        inputs.forEach(input => {
+          const label = input.previousElementSibling.textContent
+            .replace(":", "")
+            .trim()
+            .replace(/\s+/g, ""); // 移除所有空格（防止字段名中有空格）
+          updatedMatch[label] = input.value;
         });
 
-        updatedData.push(updatedEntry);
-        console.log(updatedData);
-        // now is every value is string
+        // 验证必填字段
+        if (!updatedMatch.teamNumber || !updatedMatch.scouterName) {
+          alert("Team Number and Scouter Name are required!");
+          return;
+        }
 
+        updatedData.push(updatedMatch);
       });
 
-      // 发送数据到服务器
-      fetch("/updateAtlas", {
+      // 打印发送的数据以便调试
+      console.log("Sending data:", updatedData);
+
+      fetch("http://localhost:3000/updateAtlas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData),
       })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) throw new Error("Network error");
+          return response.json();
+        })
         .then(data => {
-          alert("Data saved successfully!");
+          alert(data.message || "Data saved!");
+          location.reload(); // Refresh to reflect changes
         })
         .catch(error => {
-          console.error("Error saving data:", error);
+          console.error("Error:", error);
+          alert("Failed to save data.");
         });
-
     }
   </script>
 
