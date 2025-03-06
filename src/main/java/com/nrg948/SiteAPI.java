@@ -1,16 +1,23 @@
 package com.nrg948;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nrg948.data.AtlasDTO;
 import com.nrg948.data.AtlasDatabase;
 import com.nrg948.data.AtlasEntry;
@@ -27,6 +34,9 @@ import com.nrg948.data.PatchEntry;
 import com.nrg948.data.PitDTO;
 import com.nrg948.data.PitDatabase;
 import com.nrg948.data.PitEntry;
+import com.nrg948.tba.Match;
+import com.nrg948.tba.MatchDatabase;
+import com.nrg948.tba.MatchEntry;
 
 @RestController
 public class SiteAPI {
@@ -35,6 +45,12 @@ public class SiteAPI {
 	@Autowired PitDatabase pit;
 	@Autowired HPDatabase hp;
 	@Autowired PatchDatabase patch;
+	@Autowired MatchDatabase localTBA;
+	@Autowired RestTemplate restTemplate;
+	
+	@Value("${tbakey}")
+	private String TBAKey;
+	private String returnKey = null;
 	
 	public SiteAPI() {
 		
@@ -159,5 +175,40 @@ public class SiteAPI {
 	public ResponseEntity<String> postPatch(@RequestBody PatchDTO entry) {
 		patch.save(DTOMapper.fromDTO(entry));
 		return ResponseEntity.ok("OK");
+	}
+	
+	@GetMapping("/api/tba")
+	public List<Match> getTBA() {
+		return localTBA.findAll().stream().map(DTOMapper::fromEntry).toList();
+	}
+	
+	@GetMapping("/api/refreshTBA")
+	public ResponseEntity<String> refreshTBA(@RequestParam String gameKey) throws JsonMappingException, JsonProcessingException {
+		String url = "https://www.thebluealliance.com/api/v3/event/" + gameKey + "/matches?eventKey=" + gameKey + "&" + "X-TBA-Auth-Key=" + TBAKey;
+		
+		if(returnKey != null) {
+			url += "&If-None-Match=" + returnKey;
+		}
+		
+		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
+		switch(result.getStatusCode().value()) {
+			case 401: // broken
+			case 304: // already cached
+			case 404: // broken
+				System.out.println(result.getStatusCode().value());
+				return result;
+		}
+		//returnKey = result.getHeaders().getETag().split("\\\"")[1];
+		ObjectMapper mapper = new ObjectMapper();
+		Match[] matches = mapper.readValue(result.getBody(), Match[].class);
+		for(Match match : matches) {
+			MatchEntry toPush = DTOMapper.fromDTO(match);
+			Optional<MatchEntry> pulled = localTBA.findByKeyyAndMatchNumberAndCompLevel(gameKey, 0, url);
+			if(pulled.isPresent()) {
+				toPush.setId(pulled.get().getId());
+			}
+			localTBA.save(toPush);
+		}
+		return ResponseEntity.ok("OKAY");
 	}
 }

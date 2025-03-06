@@ -3,6 +3,9 @@ package com.nrg948.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nrg948.tba.Match;
+import com.nrg948.tba.MatchEntry;
+
 public class DTOMapper {
 	public static AtlasDTO fromEntry(AtlasEntry entry) {
 	    if (entry == null) {
@@ -346,5 +349,43 @@ public class DTOMapper {
 		entry.setReplay(dto.isReplay());
 		entry.setTeamNumber(dto.getTeamNumber());
 		return dto;
+	}
+	
+	public static Match fromEntry(MatchEntry entry) {
+		if(entry == null) return null;
+		Match dto = new Match();
+		dto.setActual_time(entry.getActual_time());
+		dto.setAlliances(entry.getAlliances());
+		dto.setComp_level(entry.getComp_level());
+		dto.setEvent_key(entry.getEvent_key());
+		dto.setKey(entry.getKey());
+		dto.setMatch_number(entry.getMatch_number());
+		dto.setPost_result_time(entry.getPost_result_time());
+		dto.setPredicted_time(entry.getPredicted_time());
+		dto.setScore_breakdown(entry.getScore_breakdown());
+		dto.setSet_number(entry.getSet_number());;
+		dto.setTime(entry.getTime());
+		dto.setVideos(entry.getVideos());
+		dto.setWinning_alliances(entry.getWinning_alliance());
+		return dto;
+	}
+	
+	public static MatchEntry fromDTO(Match dto) {
+		if(dto == null) return null;
+		MatchEntry entry = new MatchEntry();
+		entry.setActual_time(dto.getActual_time());
+		entry.setAlliances(dto.getAlliances());
+		entry.setComp_level(dto.getComp_level());
+		entry.setEvent_key(dto.getEvent_key());
+		entry.setKey(dto.getKey());
+		entry.setMatch_number(dto.getMatch_number());
+		entry.setPost_result_time(dto.getPost_result_time());
+		entry.setPredicted_time(dto.getPredicted_time());
+		entry.setScore_breakdown(dto.getScore_breakdown());
+		entry.setSet_number(dto.getSet_number());;
+		entry.setTime(dto.getTime());
+		entry.setVideos(dto.getVideos());
+		entry.setWinning_alliance(dto.getWinning_alliance());
+		return entry;
 	}
 }
