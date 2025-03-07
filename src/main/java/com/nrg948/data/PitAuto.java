@@ -9,6 +9,7 @@ public class PitAuto {
 	private String[] autoAlgaeRemoved;
 	private String autoCoralScoredL1;
 	private boolean dropsAlgaeAuto;
+	private boolean drivesOut;
 	/**
 	 * @return the autoCS
 	 */
@@ -68,5 +69,17 @@ public class PitAuto {
 	 */
 	public void setDropsAlgaeAuto(boolean dropsAlgaeAuto) {
 		this.dropsAlgaeAuto = dropsAlgaeAuto;
+	}
+	/**
+	 * @return the drivesOut
+	 */
+	public boolean isDrivesOut() {
+		return drivesOut;
+	}
+	/**
+	 * @param drivesOut the drivesOut to set
+	 */
+	public void setDrivesOut(boolean drivesOut) {
+		this.drivesOut = drivesOut;
 	}
 }

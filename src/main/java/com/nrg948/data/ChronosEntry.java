@@ -181,6 +181,18 @@ public class ChronosEntry {
 		this.generalStrategy = generalStrategy;
 	}
 	/**
+	 * @return the endLocation
+	 */
+	public String getEndLocation() {
+		return endLocation;
+	}
+	/**
+	 * @param endLocation the endLocation to set
+	 */
+	public void setEndLocation(String endLocation) {
+		this.endLocation = endLocation;
+	}
+	/**
 	 * @return the dataQuality
 	 */
 	public double getDataQuality() {
@@ -248,6 +260,7 @@ public class ChronosEntry {
 	@JsonSerialize(contentUsing = ChronosSerializer.class) // Using the custom serializer for the Event list
     private List<ChronosEvent> teleopEventList;
     private String generalStrategy;
+	private String endLocation;
     private double dataQuality;
     private String comments;
     private String layout;

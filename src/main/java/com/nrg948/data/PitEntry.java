@@ -58,6 +58,7 @@ public class PitEntry {
     private int averageCoralCycles;
     private int averageAlgaeCycles;
     private String idealAlliancePartnerQualities;
+    private String generalStrategyPreference;
     private String otherComments;
     private String layout;
     private String exportName;
@@ -291,6 +292,13 @@ public class PitEntry {
         this.idealAlliancePartnerQualities = idealAlliancePartnerQualities;
     }
 
+    public String getGeneralStrategyPreference() {
+        return generalStrategyPreference;
+    }
+
+    public void setGeneralStrategyPreference(String generalStrategyPreference) {
+        this.generalStrategyPreference = generalStrategyPreference;
+    }
     public String getOtherComments() {
         return otherComments;
     }

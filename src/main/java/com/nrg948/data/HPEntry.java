@@ -39,6 +39,7 @@ public class HPEntry {
     private int redNetAlgae;
     private int blueNetAlgae;
     private double dataQuality;
+    private String comments;
     private String layout;
     private String exportName;
     private String timestamp;
@@ -154,6 +155,13 @@ public class HPEntry {
 
     public void setLayout(String layout) {
         this.layout = layout;
+    }
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public String getExportName() {

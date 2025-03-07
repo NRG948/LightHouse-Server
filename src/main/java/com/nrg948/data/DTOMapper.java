@@ -141,6 +141,7 @@ public class DTOMapper {
 
 	    // Mapping other fields
 	    dto.setGeneralStrategy(entry.getGeneralStrategy());
+		dto.setEndLocation(entry.getEndLocation());
 	    dto.setDataQuality(entry.getDataQuality());
 	    dto.setComments(entry.getComments());
 	    dto.setLayout(entry.getLayout());
@@ -174,6 +175,7 @@ public class DTOMapper {
 	    entry.setTeleopEventList(dto.getTeleopEventList()); // Assuming ChronosEntry has a method setTeleopEventList()
 
 	    // Mapping other fields
+		entry.setEndLocation(dto.getEndLocation());
 	    entry.setGeneralStrategy(dto.getGeneralStrategy());
 	    entry.setDataQuality(dto.getDataQuality());
 	    entry.setComments(dto.getComments());
@@ -205,6 +207,7 @@ public class DTOMapper {
 	    dto.setRedNetAlgae(entry.getRedNetAlgae());
 	    dto.setBlueNetAlgae(entry.getBlueNetAlgae());
 	    dto.setDataQuality(entry.getDataQuality());
+		dto.setComments(entry.getComments());
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
@@ -230,6 +233,7 @@ public class DTOMapper {
 	    entry.setRedNetAlgae(dto.getRedNetAlgae());
 	    entry.setBlueNetAlgae(dto.getBlueNetAlgae());
 	    entry.setDataQuality(dto.getDataQuality());
+		entry.setComments(dto.getComments());;
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());
@@ -269,6 +273,7 @@ public class DTOMapper {
 	    dto.setAverageCoralCycles(entry.getAverageCoralCycles());
 	    dto.setAverageAlgaeCycles(entry.getAverageAlgaeCycles());
 	    dto.setIdealAlliancePartnerQualities(entry.getIdealAlliancePartnerQualities());
+		dto.setGeneralStrategyPreference(entry.getGeneralStrategyPreference());
 	    dto.setOtherComments(entry.getOtherComments());
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
@@ -311,6 +316,7 @@ public class DTOMapper {
 	    entry.setAverageCoralCycles(dto.getAverageCoralCycles());
 	    entry.setAverageAlgaeCycles(dto.getAverageAlgaeCycles());
 	    entry.setIdealAlliancePartnerQualities(dto.getIdealAlliancePartnerQualities());
+		entry.setGeneralStrategyPreference(dto.getGeneralStrategyPreference());
 	    entry.setOtherComments(dto.getOtherComments());
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
