@@ -55,7 +55,10 @@ public class DTOMapper {
 	    dto.setDataQuality(entry.getDataQuality());
 	    dto.setComments(entry.getComments());
 	    dto.setCrossedMidline(entry.getCrossedMidline());
-	    dto.setAutoCS(entry.getAutoCS());
+		dto.setBargeCS(entry.getBargeCS());
+		dto.setProcessorCS(entry.getProcessorCS());
+		dto.setHasNoAuto(entry.getHasNoAuto());
+		dto.setGroundIntake(entry.getGroundIntake());
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
@@ -111,7 +114,10 @@ public class DTOMapper {
 	    entry.setDataQuality(dto.getDataQuality());
 	    entry.setComments(dto.getComments());
 	    entry.setCrossedMidline(dto.getCrossedMidline());
-	    entry.setAutoCS(dto.getAutoCS());
+	    entry.setBargeCS(dto.getBargeCS());
+		entry.setProcessorCS(dto.getProcessorCS());
+		entry.setHasNoAuto(dto.getHasNoAuto());
+		entry.setGroundIntake(dto.getGroundIntake());
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());

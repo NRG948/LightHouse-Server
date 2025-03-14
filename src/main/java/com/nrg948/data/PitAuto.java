@@ -4,24 +4,43 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class PitAuto {
-	private String[] autoCS;
+	private boolean bargeCS;
+	private boolean processorCS;
 	private String[] autoCoralScored;
 	private String[] autoAlgaeRemoved;
 	private String autoCoralScoredL1;
 	private boolean dropsAlgaeAuto;
 	private boolean drivesOut;
+	private boolean hasNoAuto;
+	private boolean groundIntake;
 	/**
-	 * @return the autoCS
+	 * @return the bargeCS
 	 */
-	public String[] getAutoCS() {
-		return autoCS;
+	public boolean getBargeCS() {
+		return bargeCS;
 	}
+
 	/**
-	 * @param autoCS the autoCS to set
+	 * @param bargeCS the bargeCS to set
 	 */
-	public void setAutoCS(String[] autoCS) {
-		this.autoCS = autoCS;
+	public void setBargeCS(boolean bargeCS) {
+		this.bargeCS = bargeCS;
 	}
+
+	/**
+	 * @return the processorCS
+	 */
+	public boolean getProcessorCS() {
+		return processorCS;
+	}
+
+	/**
+	 * @param processorCS the processorCS to set
+	 */
+	public void setProcessorCS(boolean processorCS) {
+		this.processorCS = processorCS;
+	}
+
 	/**
 	 * @return the autoCoralScored
 	 */
@@ -81,5 +100,31 @@ public class PitAuto {
 	 */
 	public void setDrivesOut(boolean drivesOut) {
 		this.drivesOut = drivesOut;
+	}
+	/**
+	 * @return the hasNoAuto
+	 */
+	public boolean getHasNoAuto() {
+		return hasNoAuto;
+	}
+
+	/**
+	 * @param hasNoAuto the hasNoAuto to set
+	 */
+	public void setHasNoAuto(boolean hasNoAuto) {
+		this.hasNoAuto = hasNoAuto;
+	}
+	/**
+	 * @return the groundIntake
+	 */
+	public boolean getGroundIntake() {
+		return groundIntake;
+	}
+
+	/**
+	 * @param groundIntake the groundIntake to set
+	 */
+	public void setGroundIntake(boolean groundIntake) {
+		this.groundIntake = groundIntake;
 	}
 }
