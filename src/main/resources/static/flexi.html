@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Flexible scout upload!!</title>
+	</head>
+	<body>
+		<h1>Flexible scouter data upload!</h1>
+		<form action="/api/patch" method="POST">
+			<input type="text" name="dataType" value="Atlas">Data Type (DO NOT EDIT)</input>
+			<br>
+			<input type="number" name="matchNumber">Match Number</input>
+			<br>
+			<input type="number" name="teamNumber">Team #</input>
+			<br>
+			<input type="checkbox" name="replay">Replay?</input>
+			<br>
+			<input type="text" name="matchType" value="Qualifications">Match Type - Qualifications/Playoffs/Finals/ (that exact spelling)</input>
+			<br>
+			<input type="text" name="driverStation">Driver Station - Red/Blue 1/2/3 (those exact spellings)</input>
+			<br>
+			<input type="text" name="patcher">Your Name</input>
+			<br>
+			<input type="text" name="comments">Your Comments</input>
+			<br>
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>

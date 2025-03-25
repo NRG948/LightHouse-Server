@@ -15,4 +15,9 @@ public class MainSite {
 	public String index(Model model) {
 		return "index.html";
 	}
+	
+	@GetMapping("/flexi")
+	public String flexi(Model model) {
+		return "flexi.html";
+	}
 }
