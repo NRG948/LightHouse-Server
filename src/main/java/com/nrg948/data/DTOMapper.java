@@ -55,6 +55,7 @@ public class DTOMapper {
 	    dto.setDataQuality(entry.getDataQuality());
 	    dto.setComments(entry.getComments());
 	    dto.setCrossedMidline(entry.getCrossedMidline());
+		dto.setDefenseRating(entry.getDefenseRating());
 		dto.setBargeCS(entry.getBargeCS());
 		dto.setProcessorCS(entry.getProcessorCS());
 		dto.setHasNoAuto(entry.getHasNoAuto());
@@ -114,6 +115,7 @@ public class DTOMapper {
 	    entry.setDataQuality(dto.getDataQuality());
 	    entry.setComments(dto.getComments());
 	    entry.setCrossedMidline(dto.getCrossedMidline());
+		entry.setDefenseRating(dto.getDefenseRating());
 	    entry.setBargeCS(dto.getBargeCS());
 		entry.setProcessorCS(dto.getProcessorCS());
 		entry.setHasNoAuto(dto.getHasNoAuto());

@@ -34,6 +34,7 @@ public class AtlasDTO {
     private int dataQuality;
     private String comments;
     private boolean crossedMidline;
+	private String defenseRating;
     private String layout;
     private String exportName;
     private String timestamp;
@@ -469,6 +470,20 @@ public class AtlasDTO {
 	public void setCrossedMidline(boolean crossedMidline) {
 		this.crossedMidline = crossedMidline;
 	}
+	
+	/**
+	 * @return the defenseRating
+	 */
+	public String getDefenseRating() {
+		return defenseRating;
+	}
+	/**
+	 * @param defenseRating the defenseRating to set
+	 */
+	public void setDefenseRating(String defenseRating) {
+		this.defenseRating = defenseRating;
+	}
+	
 	/**
 	 * @return the layout
 	 */
