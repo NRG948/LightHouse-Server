@@ -15,8 +15,25 @@ import jakarta.transaction.Transactional;
  */
 public class AtlasEntry {
 	private @Id @GeneratedValue Long id;
+	
+	// is it tba verified
+	private boolean accurateClimb = false;
 
     /**
+	 * @return the accurateClimb
+	 */
+	public boolean isAccurateClimb() {
+		return accurateClimb;
+	}
+
+	/**
+	 * @param accurateClimb the accurateClimb to set
+	 */
+	public void setAccurateClimb(boolean accurateClimb) {
+		this.accurateClimb = accurateClimb;
+	}
+
+	/**
 	 * @return the id
 	 */
 	public Long getId() {
