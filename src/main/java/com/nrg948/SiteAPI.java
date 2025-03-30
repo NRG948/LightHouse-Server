@@ -225,10 +225,6 @@ public class SiteAPI {
 		Match[] matches = mapper.readValue(result.getBody(), Match[].class);
 		for(Match match : matches) {
 			MatchEntry toPush = DTOMapper.fromDTO(match);
-			Optional<MatchEntry> pulled = localTBA.findByEventKeyAndMatchNumberAndCompLevel(gameKey, 0, url);
-			if(pulled.isPresent()) {
-				toPush.setId(pulled.get().getId());
-			}
 			localTBA.save(toPush);
 		}
 		return ResponseEntity.ok("OKAY");

@@ -14,20 +14,7 @@ import jakarta.transaction.Transactional;
 @Entity
 @Transactional
 public class MatchEntry {
-	private @Id @GeneratedValue Long id;
-	
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Id
 	private String keyy;
 	private String compLevel;
 	private int setNumber;
