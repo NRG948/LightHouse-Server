@@ -6,10 +6,12 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,17 +26,17 @@ public class SecureAPI {
 	@Value("${spring.datasource.password}")
 	private String password;
 	
-	private HashSet<String> tempKeys = new HashSet<>();
 	private HashMap<String, String> tempComments = new HashMap<>();
+	private HashMap<String, Long> tempKeyTimestamps = new HashMap<>();
 	private Random random = new Random();
 	
 	@PostMapping("/secure/create")
 	public ResponseEntity<String> createUUID(@RequestHeader String uuid, @RequestHeader String key) throws NoSuchAlgorithmException {
-		if(!tempKeys.contains(key)) {
+		if(!tempKeyTimestamps.containsKey(key)) {
 			return ResponseEntity.badRequest().body("INVALID KEY");
 		}
 		
-		tempKeys.remove(key);
+		tempKeyTimestamps.remove(key);
 		
 		VerifCode code = new VerifCode();
 		code.setPassword(hash(uuid));
@@ -46,18 +48,19 @@ public class SecureAPI {
 	}
 	
 	@PostMapping("/secure/gen")
-	public ResponseEntity<String> generateKey(@RequestHeader String username, @RequestHeader String password, @RequestHeader(defaultValue="") String comment) {
-		if(this.username.equals(username) && this.password.equals(password)) {
-			String generatedCode = genKey();
-			tempKeys.add(generatedCode);
-			tempComments.put(generatedCode, comment);
-			System.out.println("THE COMMENT (GEN): " + comment + " vs " + tempComments);
-			return ResponseEntity.ok(generatedCode);
-		} else {
-			return ResponseEntity.badRequest().body("INVALID USERNAME OR PASSWORD");
-		}
-		
+	public ResponseEntity<String> generateKey(@RequestHeader String username, @RequestHeader String password, @RequestHeader(defaultValue = "") String comment) {
+	    if (this.username.equals(username) && this.password.equals(password)) {
+	        String generatedCode = genKey();
+	        tempKeyTimestamps.put(generatedCode, System.currentTimeMillis());
+	        tempComments.put(generatedCode, comment);
+
+	        // Immediately return the response
+	        return ResponseEntity.ok(generatedCode);  
+	    } else {
+	        return ResponseEntity.badRequest().body("INVALID USERNAME OR PASSWORD");
+	    }
 	}
+
 	
 	private String genKey() {
         long value = random.nextLong();
@@ -82,4 +85,20 @@ public class SecureAPI {
         }
         return hexString.toString();
     }
+
+	protected void cleanAllKeys() {
+		long currentTime = System.currentTimeMillis();
+		int keysRemoved = 0;
+
+        // Iterate over tempKeys and remove expired keys
+        for (String key : tempKeyTimestamps.keySet()) {
+            long timestamp = tempKeyTimestamps.get(key);
+            if (currentTime - timestamp > 60000*5) {  // 5 min before code expires
+                tempKeyTimestamps.remove(key);
+                tempComments.remove(key);
+                keysRemoved++;
+            }
+        }
+        System.out.println("Keys removed: " + keysRemoved);
+	}
 }
