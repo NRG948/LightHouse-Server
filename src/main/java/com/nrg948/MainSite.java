@@ -20,4 +20,9 @@ public class MainSite {
 	public String flexi(Model model) {
 		return "flexi.html";
 	}
+	
+	@GetMapping("/gen")
+	public String gen(Model model) {
+		return "gen.html";
+	}
 }

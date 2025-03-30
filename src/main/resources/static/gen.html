@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<title>super secret generator</title>
+	</head>
+	<body>
+		<h1>super secret generator</h1>
+		<input type="password" id="username" placeholder="Username">
+		<br>
+		<input type="password" id="password" placeholder="Password">
+		<br>
+		<input type="text" id="comment" placeholder="Comment">
+		<br>
+		<button type="submit" onclick="submitForm()">Submit</button>
+		
+		<div>
+			<h3 id="gennedKey">Generated Key: </h3>
+		</div>
+
+		<script>
+			function submitForm() {
+				// Get values from the inputs
+				const username = document.getElementById('username').value;
+				const password = document.getElementById('password').value;
+				const comment = document.getElementById('comment').value;
+				
+				// Prepare the request headers
+				const headers = new Headers();
+				headers.append('Username', username);
+				headers.append('Password', password);
+				headers.append('Comment', comment);
+				
+				// Make the HTTP request
+				fetch('/secure/gen', {
+					method: 'POST', // Assuming GET request, change to 'POST' if needed
+					headers: headers,
+				})
+				.then(response => {
+					if (response.status === 200) {
+						// If the response status is 200, set the generated key
+						return response.text();
+					} else if (response.status === 400) {
+						// If the response status is 400, show error
+						document.getElementById('gennedKey').innerText = 'Generated Key: ERROR';
+						alert("BAD REQUEST")
+					} else {
+						// Handle other status codes (optional)
+						document.getElementById('gennedKey').innerText = 'Generated Key: ERROR';
+						alert('Unexpected response');
+					}
+				})
+				.then(key => {
+					// If the key is returned, set it in the UI
+					document.getElementById('gennedKey').innerText = 'Generated Key: ' + key;
+				})
+				.catch(error => {
+					// Log errors if necessary
+					console.error(error);
+				});
+			}
+		</script>
+	</body>
+</html>
