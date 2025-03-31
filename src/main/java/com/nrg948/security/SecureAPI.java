@@ -86,7 +86,7 @@ public class SecureAPI {
         return hexString.toString();
     }
 
-	protected void cleanAllKeys() {
+	public void cleanAllKeys() {
 		long currentTime = System.currentTimeMillis();
 		int keysRemoved = 0;
 

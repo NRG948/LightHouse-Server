@@ -10,4 +10,5 @@ public interface AtlasDatabase extends JpaRepository<AtlasEntry, Long>{
 		(String scouterName, int teamNumber, String driverStation, String matchType, int matchNumber, boolean replay);
 
 	public List<AtlasEntry> findAllByMatchNumberAndMatchType(int match, String string);
+	public List<AtlasEntry> findAllByAccurateClimbFalse();
 }

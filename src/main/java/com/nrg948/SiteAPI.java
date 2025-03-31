@@ -2,6 +2,7 @@ package com.nrg948;
 
 import java.beans.Statement;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -50,6 +51,8 @@ import com.nrg948.data.PatchEntry;
 import com.nrg948.data.PitDTO;
 import com.nrg948.data.PitDatabase;
 import com.nrg948.data.PitEntry;
+import com.nrg948.services.TBAService;
+import com.nrg948.services.TempCodeCleanupService;
 import com.nrg948.tba.Match;
 import com.nrg948.tba.MatchDatabase;
 import com.nrg948.tba.MatchEntry;
@@ -65,10 +68,8 @@ public class SiteAPI {
 	@Autowired MatchDatabase localTBA;
 	@Autowired RestTemplate restTemplate;
 	@Autowired FlagDatabase flags;
-	
-	@Value("${tbakey}")
-	private String TBAKey;
-	private String returnKey = null;
+	@Autowired TempCodeCleanupService cleanupService;
+	@Autowired TBAService tbaService;
 	
 	public SiteAPI() {
 		
@@ -92,6 +93,10 @@ public class SiteAPI {
 	@GetMapping("/int/hp")
 	public List<HPEntry> intHP() {
 		return hp.findAll();
+	}
+	@GetMapping("/int/patch")
+	public List<PatchEntry> intPatch() {
+		return patch.findAll();
 	}
 	
 	/*
@@ -202,32 +207,6 @@ public class SiteAPI {
 	@GetMapping("/api/tba")
 	public List<Match> getTBA() {
 		return localTBA.findAll().stream().map(DTOMapper::fromEntry).toList();
-	}
-	
-	@GetMapping("/api/refreshTBA")
-	public ResponseEntity<String> refreshTBA(@RequestParam String gameKey) throws JsonMappingException, JsonProcessingException {
-		String url = "https://www.thebluealliance.com/api/v3/event/" + gameKey + "/matches?eventKey=" + gameKey + "&" + "X-TBA-Auth-Key=" + TBAKey;
-		
-		if(returnKey != null) {
-			url += "&If-None-Match=" + returnKey;
-		}
-		
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-		switch(result.getStatusCode().value()) {
-			case 401: // broken
-			case 304: // already cached
-			case 404: // broken
-				System.out.println(result.getStatusCode().value());
-				return result;
-		}
-		//returnKey = result.getHeaders().getETag().split("\\\"")[1];
-		ObjectMapper mapper = new ObjectMapper();
-		Match[] matches = mapper.readValue(result.getBody(), Match[].class);
-		for(Match match : matches) {
-			MatchEntry toPush = DTOMapper.fromDTO(match);
-			localTBA.save(toPush);
-		}
-		return ResponseEntity.ok("OKAY");
 	}
 	
 	@GetMapping("/int/flags")
@@ -498,5 +477,51 @@ public class SiteAPI {
 		
 	}
 	
+	@GetMapping("/int/copyFromAnotherSource")
+	public ResponseEntity<String> copy(@RequestParam String site) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(site);
+		
+		ResponseEntity<String> result = restTemplate.getForEntity((site + "/int/atlas"), String.class);
+		AtlasEntry[] aE = mapper.readValue(result.getBody(), AtlasEntry[].class);
+		
+		result = restTemplate.getForEntity((site + "/int/pit"), String.class);
+		PitEntry[] pE = mapper.readValue(result.getBody(), PitEntry[].class);
+		
+		atlas.deleteAll();
+		atlas.flush();
+		for(AtlasEntry entry : aE) {
+			entry.setId(null);
+			atlas.save(entry);
+		}
+		
+		pit.deleteAll();
+		pit.flush();
+		for(PitEntry entry : pE) {
+			entry.setId(null);
+			pit.save(entry);
+		}
+		
+		return ResponseEntity.ok("OK");
+	}
 	
+	@GetMapping("/int/tbaService")
+	public ResponseEntity<String> tbaService(@RequestParam Optional<Boolean> enabled, @RequestParam Optional<Boolean> climb, @RequestParam Optional<String> key) {
+		if(enabled.isPresent()) tbaService.setEnabled(enabled.get());
+		if(climb.isPresent()) tbaService.setClimb(climb.get());
+		if(key.isPresent()) tbaService.setGamekey(key.get());
+		return ResponseEntity.ok("OK + " + enabled.isPresent() + " " + climb.isPresent() + " " + key.isPresent());
+	}
+	
+	@GetMapping("/int/forceTBAService")
+	public ResponseEntity<String> forceTBAService() throws JsonMappingException, JsonProcessingException {
+		tbaService.loadTBA();
+		return ResponseEntity.ok("OK");
+	}
+	
+	@GetMapping("/int/forceCleanupService")
+	public ResponseEntity<String> forceCleanupService() {
+		cleanupService.deleteExpiredKeys();
+		return ResponseEntity.ok("OK");
+	}
 }
