@@ -1,25 +1,9 @@
 package com.nrg948;
 
-import java.beans.Statement;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,8 +34,17 @@ import com.nrg948.services.TempCodeCleanupService;
 import com.nrg948.tba.Match;
 import com.nrg948.tba.MatchDatabase;
 import com.nrg948.tba.MatchEntry;
-import com.nrg948.tba.ScoreBreakdown2025;
 
+/*
+ * REST API Controller for ScoutServer
+ * 
+ * Provides endpoints for:
+ * - Atlas/Pit/Patch data CRUD operations (internal and external)
+ * - TBA (The Blue Alliance) sync and match data
+ * - Data flag management for scouters
+ * - Cross-site data copying for multi-event support
+ * - Service control endpoints (TBA sync, cleanup)
+ */
 @RestController
 public class SiteAPI {
 	@Autowired AtlasDatabase atlas;
@@ -68,7 +61,8 @@ public class SiteAPI {
 	}
 	
 	/*
-	 * use these for database manager operations
+	 * Internal endpoints for direct database access
+	 * Used by database manager tools
 	 */
 	@GetMapping("/int/atlas")
 	public List<AtlasEntry> intAtlas() {
@@ -84,7 +78,8 @@ public class SiteAPI {
 	}
 	
 	/*
-	 * use these for transferring on/off phones
+	 * External API endpoints for mobile app data transfer
+	 * Used by scouters on phones
 	 */
 	@GetMapping("/api/atlas")
 	public List<AtlasDTO> getAtlas() {
@@ -107,7 +102,6 @@ public class SiteAPI {
 	public List<PitDTO> getPit() {
 		return pit.findAll().stream().map(DTOMapper::fromEntry).toList();
 	}
-	
 	@PostMapping("/api/atlas")
 	public ResponseEntity<String> postAtlas(@RequestBody AtlasDTO entry, @RequestParam Optional<String> override) {
 		Optional<AtlasEntry> pulled = atlas.findByScouterNameAndTeamNumberAndDriverStationAndMatchTypeAndMatchNumberAndReplay
@@ -145,6 +139,10 @@ public class SiteAPI {
 		return localTBA.findAll().stream().map(DTOMapper::fromEntry).toList();
 	}
 	
+	/*
+	 * Data flag management
+	 * Used for marking entries that need review or correction
+	 */
 	@GetMapping("/int/flags")
 	public List<DataFlagEntry> getFlags() {
 		return flags.findAll();
@@ -170,194 +168,10 @@ public class SiteAPI {
 		return ResponseEntity.ok("ok");
 	}
 	
-	@GetMapping("/int/climbs")
-	public ResponseEntity<String> climbs() {
-		List<AtlasEntry> entries = atlas.findAll();
-		double total = entries.size();
-		double numerator = 0;
-		HashMap<String, Integer> BADSCOUTERS = new HashMap<>();
-		HashMap<String, Integer> GOODSCOUTERS = new HashMap<>();
-		HashMap<String, Double> percentages = new HashMap<>();
-		int matchesSorted = 0;
-		for(AtlasEntry entry : entries) {
-			String match = "qm";
-			Optional<MatchEntry> TBA = localTBA.findByEventKeyAndMatchNumberAndCompLevel("2025wasam", entry.getMatchNumber(), "qm");
-			if(TBA.isPresent()) {
-				MatchEntry entrytba = TBA.get();
-				String[] parts = entry.getDriverStation().split(" ");
-				Integer dsn = Integer.parseInt(parts[1]);
-				ScoreBreakdown2025 breakdown = entrytba.getScore_breakdown();
-				String answer = "";
-				switch(parts[0]) {
-					case "Red":
-						switch(dsn) {
-							case 1:
-								answer = breakdown.getRed().getEndGameRobot1();
-								break;
-							case 2:
-								answer = breakdown.getRed().getEndGameRobot2();
-								break;
-							case 3:
-								answer = breakdown.getRed().getEndGameRobot3();
-								break;
-						}
-						break;
-					case "Blue":
-						switch(dsn) {
-							case 1:
-								answer = breakdown.getBlue().getEndGameRobot1();
-								break;
-							case 2:
-								answer = breakdown.getBlue().getEndGameRobot2();
-								break;
-							case 3:
-								answer = breakdown.getBlue().getEndGameRobot3();
-								break;
-						}
-						break;
-				}
-				if(answer.substring(0,2).equals(entry.getEndLocation().substring(0,2))) {
-					numerator++;
-					GOODSCOUTERS.putIfAbsent(entry.getScouterName(), 0);
-					GOODSCOUTERS.put(entry.getScouterName(), GOODSCOUTERS.get(entry.getScouterName())+1);
-					percentages.putIfAbsent(entry.getScouterName(), 0.0);
-				} else {
-					BADSCOUTERS.putIfAbsent(entry.getScouterName(), 0);
-					BADSCOUTERS.put(entry.getScouterName(), BADSCOUTERS.get(entry.getScouterName())+1);
-					percentages.putIfAbsent(entry.getScouterName(), 0.0);
-				}
-			} else {
-				System.out.println("NO TBA?");
-			}
-			matchesSorted++;
-		}
-		
-		for(String name : percentages.keySet()) {
-			int goodvalue = GOODSCOUTERS.getOrDefault(name, 0);
-			int badvalue = BADSCOUTERS.getOrDefault(name, 0);
-			
-			percentages.put(name, (goodvalue)/(goodvalue+badvalue+0.0));
-		}
-		TreeMap<String, Double> map = new TreeMap<>(percentages);
-		System.out.println(Arrays.toString(map.descendingKeySet().toArray()));
-		System.out.println((map.descendingMap().toString()));
-		System.out.println(matchesSorted);
-		
-		return ResponseEntity.ok("" + (numerator / total));
-	}
-	
-	@GetMapping("/int/matchPercentage")
-	public List<String> matchPercentage() {
-		LinkedList<String> output = new LinkedList<>();
-		List<AtlasEntry> allEntries = atlas.findAll();
-		HashSet<Integer> matches = new HashSet<>();
-		for(AtlasEntry entry : allEntries) {
-			matches.add(entry.getMatchNumber());
-		}
-		System.out.println("searching through matches, " + matches.size());
-		for(int match : matches) {
-			Optional<MatchEntry> opt = localTBA.findByEventKeyAndMatchNumberAndCompLevel("2025wabon", match, "qm");
-			if(opt.isEmpty() || opt.get().getScore_breakdown() == null) {
-				System.out.println("empty in tba");
-				continue;
-			}
-			MatchEntry tbaEntry = opt.get();
-			
-			List<AtlasEntry> entries = atlas.findAllByMatchNumberAndMatchType(match, "Qualifications");
-			AtlasEntry[] reds = new AtlasEntry[3];
-			AtlasEntry[] blues = new AtlasEntry[3];
-			for(AtlasEntry entry : entries) {
-				switch(entry.getDriverStation()) {
-					case "Red 1":
-						reds[0] = entry;
-						break;
-					case "Red 2":
-						reds[1] = entry;
-						break;
-					case "Red 3":
-						reds[2] = entry;
-						break;
-						
-					case "Blue 1":
-						blues[0] = entry;
-						break;
-					case "Blue 2":
-						blues[1] = entry;
-						break;
-					case "Blue 3":
-						blues[2] = entry;
-						break;
-				}
-			}
-			if(reds[0] == null || reds[1] == null || reds[2] == null || blues[0] == null || blues[1] == null || blues[2] == null) {
-				System.out.println("#" + match + ": not all are full: " + 
-						(reds[0] == null) + ", " + 
-						(reds[1] == null) + ", " + 
-						(reds[2] == null) + ", " + 
-						(blues[0] == null) + ", " + 
-						(blues[1] == null) + ", " + 
-						(blues[2] == null)
-				);
-				continue;
-			}
-			
-			double R_teleStatusAccuracy = 0;
-			double R_endStatusAccuracy = 0;
-			double B_teleStatusAccuracy = 0;
-			double B_endStatusAccuracy = 0;
-			String interout = "#" + match;
-			
-			{
-				int L4 = reds[0].getCoralScoredL4() + reds[1].getCoralScoredL4() + reds[2].getCoralScoredL4();
-				int L3 = reds[0].getCoralScoredL3() + reds[1].getCoralScoredL3() + reds[2].getCoralScoredL3();
-				int L2 = reds[0].getCoralScoredL2() + reds[1].getCoralScoredL2() + reds[2].getCoralScoredL2();
-				int L1 = reds[0].getCoralScoredL1() + reds[1].getCoralScoredL1() + reds[2].getCoralScoredL1();
-				
-				int T4 = tbaEntry.getScore_breakdown().getRed().getTeleopReef().getTba_topRowCount();
-				int T3 = tbaEntry.getScore_breakdown().getRed().getTeleopReef().getTba_midRowCount();
-				int T2 = tbaEntry.getScore_breakdown().getRed().getTeleopReef().getTba_botRowCount();
-				int T1 = tbaEntry.getScore_breakdown().getRed().getTeleopReef().getTrough();
-				
-				double A1 = T4 == 0? 0 : Math.abs((T4-L4)/(double)T4);
-				double A2 = T3 == 0? 0 : Math.abs((T3-L3)/(double)T3);
-				double A3 = T2 == 0? 0 : Math.abs((T2-L2)/(double)T2);
-				double A4 = T1 == 0? 0 : Math.abs((T1-L1)/(double)T1);
-				R_teleStatusAccuracy = 1 - ((A1 + A2 + A3 + A4) / 4);
-				R_endStatusAccuracy = 0 + 
-						(((reds[0].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getRed().getEndGameRobot1().substring(0,2))? 1 : 0) + 
-						(reds[1].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getRed().getEndGameRobot2().substring(0,2))? 1 : 0) +
-						(reds[2].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getRed().getEndGameRobot3().substring(0,2))? 1 : 0)
-				) / 3.0);
-			}
-			{
-				int L4 = blues[0].getCoralScoredL4() + blues[1].getCoralScoredL4() + blues[2].getCoralScoredL4();
-				int L3 = blues[0].getCoralScoredL3() + blues[1].getCoralScoredL3() + blues[2].getCoralScoredL3();
-				int L2 = blues[0].getCoralScoredL2() + blues[1].getCoralScoredL2() + blues[2].getCoralScoredL2();
-				int L1 = blues[0].getCoralScoredL1() + blues[1].getCoralScoredL1() + blues[2].getCoralScoredL1();
-				
-				int T4 = tbaEntry.getScore_breakdown().getBlue().getTeleopReef().getTba_topRowCount();
-				int T3 = tbaEntry.getScore_breakdown().getBlue().getTeleopReef().getTba_midRowCount();
-				int T2 = tbaEntry.getScore_breakdown().getBlue().getTeleopReef().getTba_botRowCount();
-				int T1 = tbaEntry.getScore_breakdown().getBlue().getTeleopReef().getTrough();
-				
-				double A1 = T4 == 0? 0 : Math.abs((T4-L4)/(double)T4);
-				double A2 = T3 == 0? 0 : Math.abs((T3-L3)/(double)T3);
-				double A3 = T2 == 0? 0 : Math.abs((T2-L2)/(double)T2);
-				double A4 = T1 == 0? 0 : Math.abs((T1-L1)/(double)T1);
-				B_teleStatusAccuracy = 1 - ((A1 + A2 + A3 + A4) / 4);
-				B_endStatusAccuracy =
-						(((blues[0].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getBlue().getEndGameRobot1().substring(0,2))? 1 : 0) + 
-						(blues[1].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getBlue().getEndGameRobot2().substring(0,2))? 1 : 0) +
-						(blues[2].getEndLocation().substring(0,2).equals(tbaEntry.getScore_breakdown().getBlue().getEndGameRobot3().substring(0,2))? 1 : 0))
-				) / 3.0;
-			}
-			
-			output.add("#" + match + "; BT: " + B_teleStatusAccuracy + ", BE: " + B_endStatusAccuracy + ", RT: " + R_teleStatusAccuracy + ", RE: " + R_endStatusAccuracy);
-		}
-		return output;
-		
-	}
-	
+	/*
+	 * Copy all Atlas and Pit data from another ScoutServer instance
+	 * Used for aggregating data from multiple competition sites
+	 */
 	@GetMapping("/int/copyFromAnotherSource")
 	public ResponseEntity<String> copy(@RequestParam String site) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -386,6 +200,10 @@ public class SiteAPI {
 		return ResponseEntity.ok("OK");
 	}
 	
+	/*
+	 * TBA Service control endpoints
+	 * Controls automatic sync with The Blue Alliance
+	 */
 	@GetMapping("/int/tbaService")
 	public ResponseEntity<String> tbaService(@RequestParam Optional<Boolean> enabled, @RequestParam Optional<Boolean> climb, @RequestParam Optional<String> key) {
 		if(enabled.isPresent()) tbaService.setEnabled(enabled.get());
@@ -400,6 +218,10 @@ public class SiteAPI {
 		return ResponseEntity.ok("OK");
 	}
 	
+	/*
+	 * Cleanup service control
+	 * Manages temporary keys and expired data
+	 */
 	@GetMapping("/int/forceCleanupService")
 	public ResponseEntity<String> forceCleanupService() {
 		cleanupService.deleteExpiredKeys();
