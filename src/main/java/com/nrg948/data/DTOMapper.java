@@ -14,52 +14,67 @@ public class DTOMapper {
 
 	    AtlasDTO dto = new AtlasDTO();
 
-	    // Mapping scalar values
 	    dto.setScouterName(entry.getScouterName());
 	    dto.setTeamNumber(entry.getTeamNumber());
 	    dto.setDriverStation(entry.getDriverStation());
 	    dto.setMatchType(entry.getMatchType());
 	    dto.setMatchNumber(entry.getMatchNumber());
 	    dto.setReplay(entry.getReplay());
-	    dto.setStartingPosition(entry.getStartingPosition());
-	    dto.setPreload(entry.getPreload());
 
-	    // Mapping arrays
-	    dto.setAutoCoralScoredL1(entry.getAutoCoralScoredL1()); // Assuming AtlasEntry has a method getAutoCoralScored()
+	    dto.setAutoPath(entry.getAutoPath());
 	    
-	    dto.setAutoAlgaeRemoved(entry.getAutoAlgaeRemoved());
-	    dto.setAutoCoralScored(entry.getAutoCoralScored());
-	    // Mapping other numeric fields
-	    dto.setCoralPickupsStation(entry.getCoralPickupsStation());
-	    dto.setCoralPickupsGround(entry.getCoralPickupsGround());
-	    dto.setCoralScoredL1(entry.getCoralScoredL1());
-	    dto.setCoralScoredL2(entry.getCoralScoredL2());
-	    dto.setCoralScoredL3(entry.getCoralScoredL3());
-	    dto.setCoralScoredL4(entry.getCoralScoredL4());
-	    dto.setAlgaeremoveL2(entry.getAlgaeremoveL2());
-	    dto.setAlgaeremoveL3(entry.getAlgaeremoveL3());
-	    dto.setAlgaeScoreProcessor(entry.getAlgaeScoreProcessor());
-	    dto.setAlgaeScoreNet(entry.getAlgaeScoreNet());
-	    dto.setAlgaeMissProcessor(entry.getAlgaeMissProcessor());
-	    dto.setAlgaeMissNet(entry.getAlgaeMissNet());
-	    dto.setAlgaeRemove(entry.getAlgaeRemove());
-	    dto.setAlgaePickups(entry.getAlgaePickups());
-	    dto.setCoralPickups(entry.getCoralPickups());
+	    CycleDataList autoCycles = entry.getAutoCycles();
+	    if (autoCycles != null) {
+	        autoCycles.setKeyPrefix("autoCycles");
+	    }
+	    dto.setAutoCycles(autoCycles);
 
-	    // Mapping other string fields
-	    dto.setEndLocation(entry.getEndLocation());
-	    dto.setAttemptedClimb(entry.getAttemptedClimb());
-	    dto.setClimbStartTime(entry.getClimbStartTime());
-	    dto.setRobotDisabled(entry.getRobotDisabled());
-	    dto.setRobotDisableReason(entry.getRobotDisableReason());
+	    dto.setTransitionOnshiftIsFeeding(entry.isTransitionOnshiftIsFeeding());
+	    dto.setTransitionOnshiftIsDisabled(entry.isTransitionOnshiftIsDisabled());
+	    dto.setTransitionOnshiftIsDefending(entry.isTransitionOnshiftIsDefending());
+	    dto.setFirstOnshiftIsFeeding(entry.isFirstOnshiftIsFeeding());
+	    dto.setFirstOnshiftIsDisabled(entry.isFirstOnshiftIsDisabled());
+	    dto.setFirstOnshiftIsDefending(entry.isFirstOnshiftIsDefending());
+	    dto.setSecondOnshiftIsFeeding(entry.isSecondOnshiftIsFeeding());
+	    dto.setSecondOnshiftIsDisabled(entry.isSecondOnshiftIsDisabled());
+	    dto.setSecondOnshiftIsDefending(entry.isSecondOnshiftIsDefending());
+
+	    CycleDataList transitionOnshiftCycles = entry.getTransitionOnshiftCycles();
+	    if (transitionOnshiftCycles != null) {
+	        transitionOnshiftCycles.setKeyPrefix("transitionOnshiftCycles");
+	    }
+	    dto.setTransitionOnshiftCycles(transitionOnshiftCycles);
+	    
+	    CycleDataList firstOnshiftCycles = entry.getFirstOnshiftCycles();
+	    if (firstOnshiftCycles != null) {
+	        firstOnshiftCycles.setKeyPrefix("firstOnshiftCycles");
+	    }
+	    dto.setFirstOnshiftCycles(firstOnshiftCycles);
+	    
+	    CycleDataList secondOnshiftCycles = entry.getSecondOnshiftCycles();
+	    if (secondOnshiftCycles != null) {
+	        secondOnshiftCycles.setKeyPrefix("secondOnshiftCycles");
+	    }
+	    dto.setSecondOnshiftCycles(secondOnshiftCycles);
+
+	    dto.setTransitionOffshiftIsDisabled(entry.isTransitionOffshiftIsDisabled());
+	    dto.setFirstOffshiftIsDisabled(entry.isFirstOffshiftIsDisabled());
+	    dto.setSecondOffshiftIsDisabled(entry.isSecondOffshiftIsDisabled());
+
 	    dto.setDataQuality(entry.getDataQuality());
 	    dto.setComments(entry.getComments());
-	    dto.setCrossedMidline(entry.getCrossedMidline());
-		dto.setDefenseRating(entry.getDefenseRating());
-		dto.setBargeCS(entry.getBargeCS());
-		dto.setProcessorCS(entry.getProcessorCS());
-		dto.setHasNoAuto(entry.getHasNoAuto());
-		dto.setGroundIntake(entry.getGroundIntake());
+
+	    dto.setTransitionOffshiftIsDefending(entry.getTransitionOffshiftIsDefending());
+	    dto.setTransitionOffshiftIsFeeding(entry.getTransitionOffshiftIsFeeding());
+	    dto.setTransitionOffshiftIsStealing(entry.getTransitionOffshiftIsStealing());
+	    dto.setFirstOffshiftIsDefending(entry.getFirstOffshiftIsDefending());
+	    dto.setFirstOffshiftIsStealing(entry.getFirstOffshiftIsStealing());
+	    dto.setSecondOffshiftIsDefending(entry.getSecondOffshiftIsDefending());
+	    dto.setSecondOffshiftIsStealing(entry.getSecondOffshiftIsStealing());
+
+	    dto.setTags(entry.getTags());
+	    dto.setClimb(entry.getClimb());
+
 	    dto.setLayout(entry.getLayout());
 	    dto.setExportName(entry.getExportName());
 	    dto.setTimestamp(entry.getTimestamp());
@@ -74,52 +89,67 @@ public class DTOMapper {
 
 	    AtlasEntry entry = new AtlasEntry();
 
-	    // Mapping scalar values
 	    entry.setScouterName(dto.getScouterName());
 	    entry.setTeamNumber(dto.getTeamNumber());
 	    entry.setDriverStation(dto.getDriverStation());
 	    entry.setMatchType(dto.getMatchType());
 	    entry.setMatchNumber(dto.getMatchNumber());
 	    entry.setReplay(dto.getReplay());
-	    entry.setStartingPosition(dto.getStartingPosition());
-	    entry.setPreload(dto.getPreload());
 
-	    // Mapping arrays
-	    entry.setAutoCoralScoredL1(dto.getAutoCoralScoredL1()); // Assuming Atlasdto has a method getAutoCoralScored()
-	    entry.setAutoAlgaeRemoved(dto.getAutoAlgaeRemoved());
-	    entry.setAutoCoralScored(dto.getAutoCoralScored());
-	    entry.setAlgaeScoreNet(dto.getAlgaeScoreNet());
+	    entry.setAutoPath(dto.getAutoPath());
 	    
-	    // Mapping other numeric fields
-	    entry.setCoralPickupsStation(dto.getCoralPickupsStation());
-	    entry.setCoralPickupsGround(dto.getCoralPickupsGround());
-	    entry.setCoralScoredL1(dto.getCoralScoredL1());
-	    entry.setCoralScoredL2(dto.getCoralScoredL2());
-	    entry.setCoralScoredL3(dto.getCoralScoredL3());
-	    entry.setCoralScoredL4(dto.getCoralScoredL4());
-	    entry.setAlgaeremoveL2(dto.getAlgaeremoveL2());
-	    entry.setAlgaeremoveL3(dto.getAlgaeremoveL3());
-	    entry.setAlgaeScoreProcessor(dto.getAlgaeScoreProcessor());
-	    entry.setAlgaeMissProcessor(dto.getAlgaeMissProcessor());
-	    entry.setAlgaeMissNet(dto.getAlgaeMissNet());
-	    entry.setAlgaeRemove(dto.getAlgaeRemove());
-	    entry.setAlgaePickups(dto.getAlgaePickups());
-	    entry.setCoralPickups(dto.getCoralPickups());
+	    CycleDataList autoCycles = dto.getAutoCycles();
+	    if (autoCycles != null) {
+	        autoCycles.setKeyPrefix("autoCycles");
+	    }
+	    entry.setAutoCycles(autoCycles);
 
-	    // Mapping other string fields
-	    entry.setEndLocation(dto.getEndLocation());
-	    entry.setAttemptedClimb(dto.getAttemptedClimb());
-	    entry.setClimbStartTime(dto.getClimbStartTime());
-	    entry.setRobotDisabled(dto.getRobotDisabled());
-	    entry.setRobotDisableReason(dto.getRobotDisableReason());
+	    entry.setTransitionOnshiftIsFeeding(dto.isTransitionOnshiftIsFeeding());
+	    entry.setTransitionOnshiftIsDisabled(dto.isTransitionOnshiftIsDisabled());
+	    entry.setTransitionOnshiftIsDefending(dto.isTransitionOnshiftIsDefending());
+	    entry.setFirstOnshiftIsFeeding(dto.isFirstOnshiftIsFeeding());
+	    entry.setFirstOnshiftIsDisabled(dto.isFirstOnshiftIsDisabled());
+	    entry.setFirstOnshiftIsDefending(dto.isFirstOnshiftIsDefending());
+	    entry.setSecondOnshiftIsFeeding(dto.isSecondOnshiftIsFeeding());
+	    entry.setSecondOnshiftIsDisabled(dto.isSecondOnshiftIsDisabled());
+	    entry.setSecondOnshiftIsDefending(dto.isSecondOnshiftIsDefending());
+
+	    CycleDataList transitionOnshiftCycles = dto.getTransitionOnshiftCycles();
+	    if (transitionOnshiftCycles != null) {
+	        transitionOnshiftCycles.setKeyPrefix("transitionOnshiftCycles");
+	    }
+	    entry.setTransitionOnshiftCycles(transitionOnshiftCycles);
+	    
+	    CycleDataList firstOnshiftCycles = dto.getFirstOnshiftCycles();
+	    if (firstOnshiftCycles != null) {
+	        firstOnshiftCycles.setKeyPrefix("firstOnshiftCycles");
+	    }
+	    entry.setFirstOnshiftCycles(firstOnshiftCycles);
+	    
+	    CycleDataList secondOnshiftCycles = dto.getSecondOnshiftCycles();
+	    if (secondOnshiftCycles != null) {
+	        secondOnshiftCycles.setKeyPrefix("secondOnshiftCycles");
+	    }
+	    entry.setSecondOnshiftCycles(secondOnshiftCycles);
+
+	    entry.setTransitionOffshiftIsDisabled(dto.isTransitionOffshiftIsDisabled());
+	    entry.setFirstOffshiftIsDisabled(dto.isFirstOffshiftIsDisabled());
+	    entry.setSecondOffshiftIsDisabled(dto.isSecondOffshiftIsDisabled());
+
 	    entry.setDataQuality(dto.getDataQuality());
 	    entry.setComments(dto.getComments());
-	    entry.setCrossedMidline(dto.getCrossedMidline());
-		entry.setDefenseRating(dto.getDefenseRating());
-	    entry.setBargeCS(dto.getBargeCS());
-		entry.setProcessorCS(dto.getProcessorCS());
-		entry.setHasNoAuto(dto.getHasNoAuto());
-		entry.setGroundIntake(dto.getGroundIntake());
+
+	    entry.setTransitionOffshiftIsDefending(dto.getTransitionOffshiftIsDefending());
+	    entry.setTransitionOffshiftIsFeeding(dto.getTransitionOffshiftIsFeeding());
+	    entry.setTransitionOffshiftIsStealing(dto.getTransitionOffshiftIsStealing());
+	    entry.setFirstOffshiftIsDefending(dto.getFirstOffshiftIsDefending());
+	    entry.setFirstOffshiftIsStealing(dto.getFirstOffshiftIsStealing());
+	    entry.setSecondOffshiftIsDefending(dto.getSecondOffshiftIsDefending());
+	    entry.setSecondOffshiftIsStealing(dto.getSecondOffshiftIsStealing());
+
+	    entry.setTags(dto.getTags());
+	    entry.setClimb(dto.getClimb());
+
 	    entry.setLayout(dto.getLayout());
 	    entry.setExportName(dto.getExportName());
 	    entry.setTimestamp(dto.getTimestamp());

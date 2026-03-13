@@ -43,43 +43,44 @@ public class TBAService {
         if(!enabled) return;
         refreshTBA();
         if(!updateClimb) return;
-        List<AtlasEntry> allEntries = atlas.findAllByAccurateClimbFalse();
-        int climbs = 0;
-        for(AtlasEntry entry : allEntries) {
-        	int matchNum = entry.getMatchNumber();
-        	Optional<MatchEntry> match = tba.findByEventKeyAndMatchNumberAndCompLevel(gameKey, matchNum, "qm");
-        	if(match.isEmpty()) continue;
-        	MatchEntry me = match.get();
-        	String[] parts = entry.getDriverStation().split(" ");
-        	Integer dN = Integer.parseInt(parts[1]);
-        	entry.setAccurateClimb(true);
-        	climbs++;
-        	switch(entry.getDriverStation()) {
-        		case "Red 1":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot1()));
-        			break;
-        		case "Red 2":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot2()));
-        			break;
-        		case "Red 3":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot3()));
-        			break;
-        		case "Blue 1":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot1()));
-        			break;
-        		case "Blue 2":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot2()));
-        			break;
-        		case "Blue 3":
-        			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot3()));
-        			break;
-        		default:
-        			climbs--;
-        			entry.setAccurateClimb(false);
-        	}
-        	atlas.save(entry);
-        }
-        System.out.println("Updated " + climbs + " Climbs");
+        // TODO: Reimplement accurateClimb verification later
+        // List<AtlasEntry> allEntries = atlas.findAllByAccurateClimbFalse();
+        // int climbs = 0;
+        // for(AtlasEntry entry : allEntries) {
+        // 	int matchNum = entry.getMatchNumber();
+        // 	Optional<MatchEntry> match = tba.findByEventKeyAndMatchNumberAndCompLevel(gameKey, matchNum, "qm");
+        // 	if(match.isEmpty()) continue;
+        // 	MatchEntry me = match.get();
+        // 	String[] parts = entry.getDriverStation().split(" ");
+        // 	Integer dN = Integer.parseInt(parts[1]);
+        // 	entry.setAccurateClimb(true);
+        // 	climbs++;
+        // 	switch(entry.getDriverStation()) {
+        // 		case "Red 1":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot1()));
+        // 			break;
+        // 		case "Red 2":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot2()));
+        // 			break;
+        // 		case "Red 3":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getRed().getEndGameRobot3()));
+        // 			break;
+        // 		case "Blue 1":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot1()));
+        // 			break;
+        // 		case "Blue 2":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot2()));
+        // 			break;
+        // 		case "Blue 3":
+        // 			entry.setEndLocation(convertEndLocation(me.getScore_breakdown().getBlue().getEndGameRobot3()));
+        // 			break;
+        // 		default:
+        // 			climbs--;
+        // 			entry.setAccurateClimb(false);
+        // 	}
+        // 	atlas.save(entry);
+        // }
+        // System.out.println("Updated " + climbs + " Climbs");
     }
     
     public void refreshTBA() throws JsonMappingException, JsonProcessingException {
