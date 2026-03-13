@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.transaction.Transactional;
+import jakarta.persistence.Transient;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,10 +33,12 @@ public class AtlasEntry {
     
     @JsonSerialize(using = AutoPathSerializer.class)
     @JsonDeserialize(using = AutoPathDeserializer.class)
+    @Transient
     private AutoPath autoPath;
     
     @JsonSerialize(using = CycleDataListSerializer.class)
     @JsonDeserialize(using = CycleDataListDeserializer.class)
+    @Transient
     private CycleDataList autoCycles;
     
     private boolean transitionOnshiftIsFeeding;
@@ -50,14 +53,17 @@ public class AtlasEntry {
     
     @JsonSerialize(using = CycleDataListSerializer.class)
     @JsonDeserialize(using = CycleDataListDeserializer.class)
+    @Transient
     private CycleDataList transitionOnshiftCycles;
     
     @JsonSerialize(using = CycleDataListSerializer.class)
     @JsonDeserialize(using = CycleDataListDeserializer.class)
+    @Transient
     private CycleDataList firstOnshiftCycles;
     
     @JsonSerialize(using = CycleDataListSerializer.class)
     @JsonDeserialize(using = CycleDataListDeserializer.class)
+    @Transient
     private CycleDataList secondOnshiftCycles;
     
     private boolean transitionOffshiftIsDisabled;
@@ -66,16 +72,24 @@ public class AtlasEntry {
     private int dataQuality;
     private String comments;
     
+    @Transient
     private CheckboxSelection transitionOffshiftIsDefending;
+    @Transient
     private CheckboxSelection transitionOffshiftIsFeeding;
+    @Transient
     private CheckboxSelection transitionOffshiftIsStealing;
+    @Transient
     private CheckboxSelection firstOffshiftIsDefending;
+    @Transient
     private CheckboxSelection firstOffshiftIsStealing;
+    @Transient
     private CheckboxSelection secondOffshiftIsDefending;
+    @Transient
     private CheckboxSelection secondOffshiftIsStealing;
     
     private String[] tags;
     
+    @Transient
     private ClimbData climb;
     
     private String layout;

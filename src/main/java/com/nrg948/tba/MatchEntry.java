@@ -1,12 +1,8 @@
 package com.nrg948.tba;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.transaction.Transactional;
@@ -15,7 +11,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class MatchEntry {
 	@Id
-	private String keyy;
+	private String key;
 	private String compLevel;
 	private int setNumber;
 	private int matchNumber;
@@ -33,13 +29,13 @@ public class MatchEntry {
 	 * @return the key
 	 */
 	public String getKey() {
-		return keyy;
+		return key;
 	}
 	/**
 	 * @param key the key to set
 	 */
 	public void setKey(String key) {
-		this.keyy = key;
+		this.key = key;
 	}
 	/**
 	 * @return the comp_level

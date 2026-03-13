@@ -1,11 +1,15 @@
 package com.nrg948.data;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.FetchType;
+import java.util.List;
 
 @Embeddable
 public class PitAuto {
 	private int[] autoFuelScored;
-	private PitAutoPath[] autoPath;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<PitAutoPath> autoPath;
 	
 	public int[] getAutoFuelScored() {
 		return autoFuelScored;
@@ -15,11 +19,11 @@ public class PitAuto {
 		this.autoFuelScored = autoFuelScored;
 	}
 	
-	public PitAutoPath[] getAutoPath() {
+	public List<PitAutoPath> getAutoPath() {
 		return autoPath;
 	}
 	
-	public void setAutoPath(PitAutoPath[] autoPath) {
+	public void setAutoPath(List<PitAutoPath> autoPath) {
 		this.autoPath = autoPath;
 	}
 }

@@ -4,16 +4,16 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class PitAutoPath {
-	private Object[] path;
+	private String path;
 	private boolean attemptedClimb;
 	private boolean climbSuccessful;
 	private String climbLevel;
 	
-	public Object[] getPath() {
+	public String getPath() {
 		return path;
 	}
 	
-	public void setPath(Object[] path) {
+	public void setPath(String path) {
 		this.path = path;
 	}
 	
