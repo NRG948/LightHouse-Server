@@ -35,16 +35,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nrg948.data.AtlasDTO;
 import com.nrg948.data.AtlasDatabase;
 import com.nrg948.data.AtlasEntry;
-import com.nrg948.data.ChronosDTO;
-import com.nrg948.data.ChronosDatabase;
-import com.nrg948.data.ChronosEntry;
 import com.nrg948.data.DTOMapper;
 import com.nrg948.data.DataFlagDTO;
 import com.nrg948.data.DataFlagEntry;
 import com.nrg948.data.FlagDatabase;
-import com.nrg948.data.HPDTO;
-import com.nrg948.data.HPDatabase;
-import com.nrg948.data.HPEntry;
 import com.nrg948.data.PatchDTO;
 import com.nrg948.data.PatchDatabase;
 import com.nrg948.data.PatchEntry;
@@ -61,9 +55,7 @@ import com.nrg948.tba.ScoreBreakdown2025;
 @RestController
 public class SiteAPI {
 	@Autowired AtlasDatabase atlas;
-	@Autowired ChronosDatabase chronos;
 	@Autowired PitDatabase pit;
-	@Autowired HPDatabase hp;
 	@Autowired PatchDatabase patch;
 	@Autowired MatchDatabase localTBA;
 	@Autowired RestTemplate restTemplate;
@@ -82,17 +74,9 @@ public class SiteAPI {
 	public List<AtlasEntry> intAtlas() {
 		return atlas.findAll();
 	}
-	@GetMapping("/int/chronos")
-	public List<ChronosEntry> intChronos() {
-		return chronos.findAll();
-	}
 	@GetMapping("/int/pit")
 	public List<PitEntry> intPit() {
 		return pit.findAll();
-	}
-	@GetMapping("/int/hp")
-	public List<HPEntry> intHP() {
-		return hp.findAll();
 	}
 	@GetMapping("/int/patch")
 	public List<PatchEntry> intPatch() {
@@ -119,30 +103,9 @@ public class SiteAPI {
 		}
 		return out;
 	}
-	@GetMapping("/api/chronos")
-	public List<ChronosDTO> getChronos() {
-		List<ChronosDTO> out = chronos.findAll().stream().map(DTOMapper::fromEntry).toList();
-		for(ChronosDTO entry : out) {
-			List<PatchEntry> patches = patch.findByTeamNumberAndMatchNumberAndReplayAndMatchTypeAndDriverStationAndDataType
-				(entry.getTeamNumber(), entry.getMatchNumber(), entry.getReplay(), entry.getMatchType(), entry.getDriverStation(), "Chronos");
-			String comments = entry.getComments();
-			comments += "\n";
-			for(PatchEntry patch : patches) {
-				comments += "---PATCH--- (by " + patch.getPatcher() + ")\n";
-				comments += patch.getComments();
-				comments += "\n";
-			}
-			entry.setComments(comments.trim());
-		}
-		return out;
-	}
 	@GetMapping("/api/pit")
 	public List<PitDTO> getPit() {
 		return pit.findAll().stream().map(DTOMapper::fromEntry).toList();
-	}
-	@GetMapping("/api/hp")
-	public List<HPDTO> getHP() {
-		return hp.findAll().stream().map(DTOMapper::fromEntry).toList();
 	}
 	
 	@PostMapping("/api/atlas")
@@ -159,19 +122,6 @@ public class SiteAPI {
 		return ResponseEntity.ok("OK");
 	}
 	
-	@PostMapping("/api/chronos")
-	public ResponseEntity<String> postChronos(@RequestBody ChronosDTO entry, @RequestParam Optional<String> override) {
-		Optional<ChronosEntry> pulled = chronos.findByScouterNameAndMatchTypeAndMatchNumberAndReplayAndDriverStationAndTeamNumber
-			(entry.getScouterName(), entry.getMatchType(), entry.getMatchNumber(), entry.getReplay(), entry.getDriverStation(), entry.getTeamNumber());
-		ChronosEntry toSave = DTOMapper.fromDTO(entry);
-		if(pulled.isPresent()) {
-			if(override.isEmpty() || !override.get().equals("true")) return ResponseEntity.ok("ALREADY EXISTS");
-			toSave.setId(pulled.get().getId());
-		}
-		chronos.save(toSave);
-		return ResponseEntity.ok("OK");
-	}
-	
 	@PostMapping("/api/pit")
 	public ResponseEntity<String> postPit(@RequestBody PitDTO entry, @RequestParam Optional<String> override) {
 		Optional<PitEntry> pulled = pit.findByTeamNameAndInterviewerNameAndIntervieweeName
@@ -182,19 +132,6 @@ public class SiteAPI {
 			toSave.setId(pulled.get().getId());
 		}
 		pit.save(toSave);
-		return ResponseEntity.ok("OK");
-	}
-	
-	@PostMapping("/api/hp")
-	public ResponseEntity<String> postHP(@RequestBody HPDTO entry, @RequestParam Optional<String> override) {
-		Optional<HPEntry> pulled = hp.findByMatchTypeAndReplayAndMatchNumberAndScouterName
-			(entry.getMatchType(), entry.getReplay(), entry.getMatchNumber(), entry.getScouterName());
-		HPEntry toSave = DTOMapper.fromDTO(entry);
-		if(pulled.isPresent()) {
-			if(override.isEmpty() || !override.get().equals("true")) return ResponseEntity.ok("ALREADY EXISTS");
-			toSave.setId(pulled.get().getId());
-		}
-		hp.save(toSave);
 		return ResponseEntity.ok("OK");
 	}
 	
@@ -237,8 +174,7 @@ public class SiteAPI {
 	@GetMapping("/int/climbs")
 	public ResponseEntity<String> climbs() {
 		List<AtlasEntry> entries = atlas.findAll();
-		List<ChronosEntry> entries2 = chronos.findAll();
-		double total = entries.size() + entries2.size();
+		double total = entries.size();
 		double numerator = 0;
 		HashMap<String, Integer> BADSCOUTERS = new HashMap<>();
 		HashMap<String, Integer> GOODSCOUTERS = new HashMap<>();
@@ -289,60 +225,6 @@ public class SiteAPI {
 				} else {
 					BADSCOUTERS.putIfAbsent(entry.getScouterName(), 0);
 					BADSCOUTERS.put(entry.getScouterName(), BADSCOUTERS.get(entry.getScouterName())+1);
-					percentages.putIfAbsent(entry.getScouterName(), 0.0);
-				}
-			} else {
-				System.out.println("NO TBA?");
-			}
-			matchesSorted++;
-		}
-		for(ChronosEntry entry : entries2) {
-			String match = "qm";
-			Optional<MatchEntry> TBA = localTBA.findByEventKeyAndMatchNumberAndCompLevel("2025wasam", entry.getMatchNumber(), "qm");
-			if(TBA.isPresent() && TBA.get().getScore_breakdown() != null) {
-				MatchEntry entrytba = TBA.get();
-				String[] parts = entry.getDriverStation().split(" ");
-				Integer dsn = Integer.parseInt(parts[1]);
-				ScoreBreakdown2025 breakdown = entrytba.getScore_breakdown();
-				String answer = "";
-				switch(parts[0]) {
-					case "Red":
-						switch(dsn) {
-							case 1:
-								answer = breakdown.getRed().getEndGameRobot1();
-								break;
-							case 2:
-								answer = breakdown.getRed().getEndGameRobot2();
-								break;
-							case 3:
-								answer = breakdown.getRed().getEndGameRobot3();
-								break;
-						}
-						break;
-					case "Blue":
-						switch(dsn) {
-							case 1:
-								answer = breakdown.getBlue().getEndGameRobot1();
-								break;
-							case 2:
-								answer = breakdown.getBlue().getEndGameRobot2();
-								break;
-							case 3:
-								answer = breakdown.getBlue().getEndGameRobot3();
-								break;
-						}
-						break;
-				}
-				if(answer.substring(0,2).equals(entry.getEndLocation().substring(0,2))) {
-					numerator++;
-					GOODSCOUTERS.putIfAbsent(entry.getScouterName(), 0);
-					GOODSCOUTERS.put(entry.getScouterName(), GOODSCOUTERS.get(entry.getScouterName())+1);
-					
-					percentages.putIfAbsent(entry.getScouterName(), 0.0);
-				} else {
-					BADSCOUTERS.putIfAbsent(entry.getScouterName(), 0);
-					BADSCOUTERS.put(entry.getScouterName(), BADSCOUTERS.get(entry.getScouterName())+1);
-					
 					percentages.putIfAbsent(entry.getScouterName(), 0.0);
 				}
 			} else {

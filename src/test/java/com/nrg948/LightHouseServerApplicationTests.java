@@ -38,21 +38,6 @@ class LightHouseServerApplicationTests {
 	}
 	
 	@Test
-	public void testChronosPOSTandGET() throws Exception {
-		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953.json")));
-		
-		mockMvc.perform(post("/api/chronos")
-			.contentType("application/json")
-			.content(jsonTest))
-			.andExpect(status().isOk());
-		
-		mockMvc.perform(get(("/api/chronos"))
-			.contentType("application/json"))
-			.andExpect(status().isOk())
-			.andExpect(content().json("[" + jsonTest + "]"));
-	}
-	
-	@Test
 	public void testPitPOSTandGET() throws Exception {
 		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Pit/948_Pit_8703.json")));
 		
@@ -62,21 +47,6 @@ class LightHouseServerApplicationTests {
 			.andExpect(status().isOk());
 		
 		mockMvc.perform(get(("/api/pit"))
-			.contentType("application/json"))
-			.andExpect(status().isOk())
-			.andExpect(content().json("[" + jsonTest + "]"));
-	}
-	
-	@Test
-	public void testHPPOSTandGET() throws Exception {
-		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Human Player/948_492_HumanPlayer_4169.json")));
-		
-		mockMvc.perform(post("/api/hp")
-			.contentType("application/json")
-			.content(jsonTest))
-			.andExpect(status().isOk());
-		
-		mockMvc.perform(get(("/api/hp"))
 			.contentType("application/json"))
 			.andExpect(status().isOk())
 			.andExpect(content().json("[" + jsonTest + "]"));
@@ -104,33 +74,6 @@ class LightHouseServerApplicationTests {
 			.andExpect(status().isOk());
 		
 		mockMvc.perform(get("/api/atlas")
-			.contentType("application/json"))
-			.andExpect(status().isOk())
-			.andExpect(content().json(jsonVerify));
-	}
-	
-	@Test
-	public void testChronosPATCH() throws Exception {
-		String jsonTest = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953.json")));
-		String jsonPatch = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953_PATCH.json")));
-		String jsonVerify = new String(Files.readAllBytes(Paths.get("./test-files/Chronos/948_Playoffs_3_8953_PATCH_VERIFY.json")));
-		
-		mockMvc.perform(post("/api/chronos")
-			.contentType("application/json")
-			.content(jsonTest))
-			.andExpect(status().isOk());
-		
-		mockMvc.perform(get(("/api/chronos"))
-			.contentType("application/json"))
-			.andExpect(status().isOk())
-			.andExpect(content().json("[" + jsonTest + "]"));
-		
-		mockMvc.perform(post(("/api/patch"))
-			.contentType("application/json")
-			.content(jsonPatch))
-			.andExpect(status().isOk());
-		
-		mockMvc.perform(get("/api/chronos")
 			.contentType("application/json"))
 			.andExpect(status().isOk())
 			.andExpect(content().json(jsonVerify));
