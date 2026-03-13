@@ -10,10 +10,9 @@ public class MainSite {
 		
 	}
 	
-	// figure this out later
 	@GetMapping("/")
 	public String index(Model model) {
-		return "index.html";
+		return "redirect:/h2-console";
 	}
 	
 	@GetMapping("/flexi")
