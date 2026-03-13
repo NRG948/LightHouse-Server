@@ -124,8 +124,7 @@ public class SiteAPI {
 	
 	@PostMapping("/api/pit")
 	public ResponseEntity<String> postPit(@RequestBody PitDTO entry, @RequestParam Optional<String> override) {
-		Optional<PitEntry> pulled = pit.findByTeamNameAndInterviewerNameAndIntervieweeName
-			(entry.getTeamName(), entry.getInterviewerName(), entry.getIntervieweeName());
+		Optional<PitEntry> pulled = pit.findByTeamNumber(entry.getTeamNumber());
 		PitEntry toSave = DTOMapper.fromDTO(entry);
 		if(pulled.isPresent()) {
 			if(override.isEmpty() || !override.get().equals("true")) return ResponseEntity.ok("ALREADY EXISTS");

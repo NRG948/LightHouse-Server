@@ -1,53 +1,47 @@
 package com.nrg948.data;
 
-import java.util.List;
-
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
 
 public class PitDTO {
 
-    private String teamNumber;
+    private int teamNumber;
     private String teamName;
-    private String intervieweeName;
-    private String interviewerName;
-    private int robotHeight;
-    private int robotLength;
-    private int robotWidth;
-    private int robotWeight;
-    private String robotDrivetrain;
-    private String robotMechanisms;
-    private String coralScoringAbilityL1;
-    private String coralScoringAbilityL2;
-    private String coralScoringAbilityL3;
-    private String coralScoringAbilityL4;
-    private String canIntakeStation;
-    private String canIntakeGround;
-    private String canRemoveAlgaeL2;
-    private String canRemoveAlgaeL3;
-    private String canScoreProcessor;
-    private String canScorenet;
-    private String canClimbShallow;
-    private String canClimbDeep;
-    private String averageClimbTime;
-    private String driveExperience;
-    private String humanPlayerPreference;
-    private int averageCoralCycles;
-    private int averageAlgaeCycles;
-    private String idealAlliancePartnerQualities;
-    private String generalStrategyPreference;
-    private String otherComments;
+    private int fuelCapacity;
+    private int bps;
+    private int weight;
+    private int width;
+    private int length;
+    private String drivetrain;
+    private String mechanisms;
+    private String shooterType;
+    private String intakeType;
+    @Embedded
+    private PitAuto pitAuto;
+    private String canGoBump;
+    private String canGoTrench;
+    private String canShootTrench;
+    private String canShootHub;
+    private String canShootTower;
+    private String canShootAnywhere;
+    private String canFeed;
+    private String canDefend;
+    private String canHoard;
+    private String canPass;
+    private String canPushOverBump;
+    private String canPushThroughTrench;
+    private int cycleTime;
+    private String canShootEndgame;
+    @Embedded
+    private PitClimb climb;
     private String layout;
     private String exportName;
     private String timestamp;
-    @ElementCollection
-    private PitAuto[] auto;
-
-    // Getters and setters
-    public String getTeamNumber() {
+    
+    public int getTeamNumber() {
         return teamNumber;
     }
 
-    public void setTeamNumber(String teamNumber) {
+    public void setTeamNumber(int teamNumber) {
         this.teamNumber = teamNumber;
     }
 
@@ -59,227 +53,204 @@ public class PitDTO {
         this.teamName = teamName;
     }
 
-    public String getIntervieweeName() {
-        return intervieweeName;
+    public int getFuelCapacity() {
+        return fuelCapacity;
     }
 
-    public void setIntervieweeName(String intervieweeName) {
-        this.intervieweeName = intervieweeName;
+    public void setFuelCapacity(int fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
     }
 
-    public String getInterviewerName() {
-        return interviewerName;
+    public int getBps() {
+        return bps;
     }
 
-    public void setInterviewerName(String interviewerName) {
-        this.interviewerName = interviewerName;
+    public void setBps(int bps) {
+        this.bps = bps;
     }
 
-    public int getRobotHeight() {
-        return robotHeight;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setRobotHeight(int robotHeight) {
-        this.robotHeight = robotHeight;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
-    public int getRobotLength() {
-        return robotLength;
+    public int getWidth() {
+        return width;
     }
 
-    public void setRobotLength(int robotLength) {
-        this.robotLength = robotLength;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public int getRobotWidth() {
-        return robotWidth;
+    public int getLength() {
+        return length;
     }
 
-    public void setRobotWidth(int robotWidth) {
-        this.robotWidth = robotWidth;
+    public void setLength(int length) {
+        this.length = length;
     }
 
-    public int getRobotWeight() {
-        return robotWeight;
+    public String getDrivetrain() {
+        return drivetrain;
     }
 
-    public void setRobotWeight(int robotWeight) {
-        this.robotWeight = robotWeight;
+    public void setDrivetrain(String drivetrain) {
+        this.drivetrain = drivetrain;
     }
 
-    public String getRobotDrivetrain() {
-        return robotDrivetrain;
+    public String getMechanisms() {
+        return mechanisms;
     }
 
-    public void setRobotDrivetrain(String robotDrivetrain) {
-        this.robotDrivetrain = robotDrivetrain;
+    public void setMechanisms(String mechanisms) {
+        this.mechanisms = mechanisms;
     }
 
-    public String getRobotMechanisms() {
-        return robotMechanisms;
+    public String getShooterType() {
+        return shooterType;
     }
 
-    public void setRobotMechanisms(String robotMechanisms) {
-        this.robotMechanisms = robotMechanisms;
+    public void setShooterType(String shooterType) {
+        this.shooterType = shooterType;
     }
 
-    public String getCoralScoringAbilityL1() {
-        return coralScoringAbilityL1;
+    public String getIntakeType() {
+        return intakeType;
     }
 
-    public void setCoralScoringAbilityL1(String coralScoringAbilityL1) {
-        this.coralScoringAbilityL1 = coralScoringAbilityL1;
+    public void setIntakeType(String intakeType) {
+        this.intakeType = intakeType;
     }
 
-    public String getCoralScoringAbilityL2() {
-        return coralScoringAbilityL2;
+    public PitAuto getPitAuto() {
+        return pitAuto;
     }
 
-    public void setCoralScoringAbilityL2(String coralScoringAbilityL2) {
-        this.coralScoringAbilityL2 = coralScoringAbilityL2;
+    public void setPitAuto(PitAuto pitAuto) {
+        this.pitAuto = pitAuto;
     }
 
-    public String getCoralScoringAbilityL3() {
-        return coralScoringAbilityL3;
+    public String getCanGoBump() {
+        return canGoBump;
     }
 
-    public void setCoralScoringAbilityL3(String coralScoringAbilityL3) {
-        this.coralScoringAbilityL3 = coralScoringAbilityL3;
+    public void setCanGoBump(String canGoBump) {
+        this.canGoBump = canGoBump;
     }
 
-    public String getCoralScoringAbilityL4() {
-        return coralScoringAbilityL4;
+    public String getCanGoTrench() {
+        return canGoTrench;
     }
 
-    public void setCoralScoringAbilityL4(String coralScoringAbilityL4) {
-        this.coralScoringAbilityL4 = coralScoringAbilityL4;
+    public void setCanGoTrench(String canGoTrench) {
+        this.canGoTrench = canGoTrench;
     }
 
-    public String getCanIntakeStation() {
-        return canIntakeStation;
+    public String getCanShootTrench() {
+        return canShootTrench;
     }
 
-    public void setCanIntakeStation(String canIntakeStation) {
-        this.canIntakeStation = canIntakeStation;
+    public void setCanShootTrench(String canShootTrench) {
+        this.canShootTrench = canShootTrench;
     }
 
-    public String getCanIntakeGround() {
-        return canIntakeGround;
+    public String getCanShootHub() {
+        return canShootHub;
     }
 
-    public void setCanIntakeGround(String canIntakeGround) {
-        this.canIntakeGround = canIntakeGround;
+    public void setCanShootHub(String canShootHub) {
+        this.canShootHub = canShootHub;
     }
 
-    public String getCanRemoveAlgaeL2() {
-        return canRemoveAlgaeL2;
+    public String getCanShootTower() {
+        return canShootTower;
     }
 
-    public void setCanRemoveAlgaeL2(String canRemoveAlgaeL2) {
-        this.canRemoveAlgaeL2 = canRemoveAlgaeL2;
+    public void setCanShootTower(String canShootTower) {
+        this.canShootTower = canShootTower;
     }
 
-    public String getCanRemoveAlgaeL3() {
-        return canRemoveAlgaeL3;
+    public String getCanShootAnywhere() {
+        return canShootAnywhere;
     }
 
-    public void setCanRemoveAlgaeL3(String canRemoveAlgaeL3) {
-        this.canRemoveAlgaeL3 = canRemoveAlgaeL3;
+    public void setCanShootAnywhere(String canShootAnywhere) {
+        this.canShootAnywhere = canShootAnywhere;
     }
 
-    public String getCanScoreProcessor() {
-        return canScoreProcessor;
+    public String getCanFeed() {
+        return canFeed;
     }
 
-    public void setCanScoreProcessor(String canScoreProcessor) {
-        this.canScoreProcessor = canScoreProcessor;
+    public void setCanFeed(String canFeed) {
+        this.canFeed = canFeed;
     }
 
-    public String getCanScorenet() {
-        return canScorenet;
+    public String getCanDefend() {
+        return canDefend;
     }
 
-    public void setCanScorenet(String canScorenet) {
-        this.canScorenet = canScorenet;
+    public void setCanDefend(String canDefend) {
+        this.canDefend = canDefend;
     }
 
-    public String getCanClimbShallow() {
-        return canClimbShallow;
+    public String getCanHoard() {
+        return canHoard;
     }
 
-    public void setCanClimbShallow(String canClimbShallow) {
-        this.canClimbShallow = canClimbShallow;
+    public void setCanHoard(String canHoard) {
+        this.canHoard = canHoard;
     }
 
-    public String getCanClimbDeep() {
-        return canClimbDeep;
+    public String getCanPass() {
+        return canPass;
     }
 
-    public void setCanClimbDeep(String canClimbDeep) {
-        this.canClimbDeep = canClimbDeep;
+    public void setCanPass(String canPass) {
+        this.canPass = canPass;
     }
 
-    public String getAverageClimbTime() {
-        return averageClimbTime;
+    public String getCanPushOverBump() {
+        return canPushOverBump;
     }
 
-    public void setAverageClimbTime(String averageClimbTime) {
-        this.averageClimbTime = averageClimbTime;
+    public void setCanPushOverBump(String canPushOverBump) {
+        this.canPushOverBump = canPushOverBump;
     }
 
-    public String getDriveExperience() {
-        return driveExperience;
+    public String getCanPushThroughTrench() {
+        return canPushThroughTrench;
     }
 
-    public void setDriveExperience(String driveExperience) {
-        this.driveExperience = driveExperience;
+    public void setCanPushThroughTrench(String canPushThroughTrench) {
+        this.canPushThroughTrench = canPushThroughTrench;
     }
 
-    public String getHumanPlayerPreference() {
-        return humanPlayerPreference;
+    public int getCycleTime() {
+        return cycleTime;
     }
 
-    public void setHumanPlayerPreference(String humanPlayerPreference) {
-        this.humanPlayerPreference = humanPlayerPreference;
+    public void setCycleTime(int cycleTime) {
+        this.cycleTime = cycleTime;
     }
 
-    public int getAverageCoralCycles() {
-        return averageCoralCycles;
+    public String getCanShootEndgame() {
+        return canShootEndgame;
     }
 
-    public void setAverageCoralCycles(int averageCoralCycles) {
-        this.averageCoralCycles = averageCoralCycles;
+    public void setCanShootEndgame(String canShootEndgame) {
+        this.canShootEndgame = canShootEndgame;
     }
 
-    public int getAverageAlgaeCycles() {
-        return averageAlgaeCycles;
+    public PitClimb getClimb() {
+        return climb;
     }
 
-    public void setAverageAlgaeCycles(int averageAlgaeCycles) {
-        this.averageAlgaeCycles = averageAlgaeCycles;
-    }
-
-    public String getIdealAlliancePartnerQualities() {
-        return idealAlliancePartnerQualities;
-    }
-
-    public void setIdealAlliancePartnerQualities(String idealAlliancePartnerQualities) {
-        this.idealAlliancePartnerQualities = idealAlliancePartnerQualities;
-    }
-
-    public String getGeneralStrategyPreference() {
-        return generalStrategyPreference;
-    }
-
-    public void setGeneralStrategyPreference(String generalStrategyPreference) {
-        this.generalStrategyPreference = generalStrategyPreference;
-    }
-    public String getOtherComments() {
-        return otherComments;
-    }
-
-    public void setOtherComments(String otherComments) {
-        this.otherComments = otherComments;
+    public void setClimb(PitClimb climb) {
+        this.climb = climb;
     }
 
     public String getLayout() {
@@ -305,12 +276,4 @@ public class PitDTO {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-
-	public PitAuto[] getAuto() {
-		return auto;
-	}
-
-	public void setAuto(PitAuto[] auto) {
-		this.auto = auto;
-	}
 }
